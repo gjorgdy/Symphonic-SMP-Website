@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-family: 'HackerNoon';
+    src: url('$lib/assets/fonts/HackerNoonV1-Regular.otf') format("opentype");
+}
+
+.pixel {
+    font-family: 'HackerNoon', serif;
+}
