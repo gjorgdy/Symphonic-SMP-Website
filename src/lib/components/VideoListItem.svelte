@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {YouTube} from "$lib/apis/youtube.ts";
+    import {YouTube} from "$lib/apis/youtube";
 
     type VideoProps = {
         video: Video;

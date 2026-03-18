@@ -117,6 +117,14 @@ export type Channel = {
 
 export class YouTube {
 
+    static channelUrlFromId(id: string): string {
+        return `https://www.youtube.com/channel/${id}`;
+    }
+
+    static channelUrlFromHandle(handle: string): string {
+        return `https://www.youtube.com/@${handle.replace(/^@/, '')}`;
+    }
+
     static formatDuration(isoDuration: string) {
         const match = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
         if (!match) return '00:00:00';
@@ -161,49 +169,30 @@ export class YouTube {
         }
     }
 
-    static async fetchChannelDetails(key: string, channelIds: string[] = [], handles: string[]): Promise<Channel[]> {
-        let channels: Channel[] = [];
-        if (channelIds.length > 0) {
-            const url = `https://www.googleapis.com/youtube/v3/channels?key=${key}&id=${channelIds.join(",")}&part=snippet`;
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error(await response.json());
-                // return [];
-            }
-            const data = await response.json();
-            channels = channels.concat(data.items as Channel[]);
+    static async fetchChannelId(key: string, handle: string): Promise<string | undefined> {
+        const url = `https://www.googleapis.com/youtube/v3/channels?key=${key}&forHandle=${handle}&part=snippet`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error(await response.json());
+            // return [];
         }
-        if (handles.length > 0) {
-            const url = `https://www.googleapis.com/youtube/v3/channels?key=${key}&forHandle=${handles.join(",")}&part=snippet`;
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error(await response.json());
-                // return [];
-            }
-            const data = await response.json();
-            channels = channels.concat(data.items as Channel[]);
-        }
-        return channels;
+        const data = await response.json();
+        return (data.items as Channel[]).map(c => c.id).find(id => id !== undefined) || undefined;
     }
 
-    static async fetchLatestVideos(key: string, channelIds: string[], filter: boolean = false): Promise<VideoSearchResult[]> {
-        let videos: VideoSearchResult[] = []
-        for (const channelId of channelIds) {
-            console.log(`Fetching videos for channel ${channelId} with filter ${filter}`);
-            let url = `https://www.googleapis.com/youtube/v3/search?key=${key}&channelId=${channelId}&part=id&order=date&maxResults=10&type=video`;
-            if (filter) {
-                url += `&q=symphonic`;
-            }
-
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error(await response.json());
-                return [];
-            }
-            const data = await response.json();
-            videos = videos.concat(data.items as VideoSearchResult[]);
+    static async fetchLatestVideos(key: string, channelId: string, filter: boolean = false): Promise<VideoSearchResult[]> {
+        let url = `https://www.googleapis.com/youtube/v3/search?key=${key}&channelId=${channelId}&part=id&order=date&maxResults=10&type=video`;
+        if (filter) {
+            url += `&q=symphonic`;
         }
-        return videos;
+
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error(await response.json());
+            return [];
+        }
+        const data = await response.json();
+        return data.items as VideoSearchResult[];
     }
 
     static async fetchVideoDetails(key: string, videoIds: string[]): Promise<ResponseVideo[]> {

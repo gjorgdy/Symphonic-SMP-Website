@@ -1,21 +1,23 @@
 import type {PageServerLoad} from './$types';
 import { GOOGLE_KEY } from '$env/static/private';
-import { YouTube } from "$lib/apis/youtube";
+import {type VideoSearchResult, YouTube} from "$lib/apis/youtube";
+import {getClientPlayers, players} from "$lib/data/players";
+import type {HandlePlatform, IdPlatform} from "$lib/models/player";
 
 export const load: PageServerLoad = async () => {
 
-    const channelIds = [
-        "UCkOmLeTO15bd62b0lGpotPw", // mang0
-        "UCcVXBFM1JNvmCDai6ggbx1w"  // pig
-    ]
+    const youtubeChannels: (HandlePlatform | IdPlatform)[] = players.filter(p => p.youtube).map(p => p.youtube!);
 
-    const channels = await YouTube.fetchChannelDetails(GOOGLE_KEY, channelIds, ["@itsnd20"]);
-    const latestVideos = await YouTube.fetchLatestVideos(GOOGLE_KEY, channels.map(channel => channel.id), true);
+    let latestVideos: VideoSearchResult[] = []
+    for (const channel of youtubeChannels) {
+        const id = channel?.id ?? await YouTube.fetchChannelId(GOOGLE_KEY, channel.handle!);
+        if (id == undefined) continue;
+        latestVideos = latestVideos.concat(await YouTube.fetchLatestVideos(GOOGLE_KEY, id, true));
+    }
     const videoStats = await YouTube.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
 
     const videos: Video[] = []
     for (const data of videoStats) {
-        console.log(data.snippet.thumbnails)
         try {
             videos.push({
                 name: data.snippet.title,
@@ -38,43 +40,8 @@ export const load: PageServerLoad = async () => {
         }
     }
 
-    const players: Player[] = [
-        {
-          name: "nd",
-          minecraft_name: "nd?",
-          youtube: "https://www.youtube.com/@itsnd20"
-        },
-        {
-            name: "Mang0Sorbet",
-            minecraft_name: "Mang0Sorbet",
-            twitch: "https://www.twitch.tv/mang0sorbet",
-            youtube: "https://www.youtube.com/channel/UCkOmLeTO15bd62b0lGpotPw",
-            live: "youtube"
-        },
-        {
-            name: "Potato",
-            minecraft_name: "potato_aim_seven",
-            twitch: "https://www.twitch.tv/potato_aim_seven",
-            youtube: "",
-            live: "twitch"
-        },
-        {
-            name: "spaarmot",
-            minecraft_name: "spaarmot"
-        }
-    ]
-
-    for (let i: number = 0; i < 20; i++) {
-        players.push(
-            {
-                name: "test",
-                minecraft_name: "mc_test"
-            }
-        );
-    }
-
     return {
-        players: players,
+        players: getClientPlayers(),
         videos: videos
     };
 };
