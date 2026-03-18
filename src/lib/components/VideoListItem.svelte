@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {YouTube} from "$lib/apis/youtube.ts";
+
     type VideoProps = {
         video: Video;
     }
@@ -19,7 +21,7 @@
         </a>
         <div class="mb-1 w-full overflow-hidden">
             <span class="flex flex-row flex-wrap gap-4 text-xs md:text-sm text-center text-gray-200">
-                <span class="flex flex-row items-center gap-2"><i class="hn hn-clock"></i> {video.timestamp}</span>
+                <span class="flex flex-row items-center gap-2"><i class="hn hn-clock"></i> {YouTube.getRelativeTime(video.timestamp)}</span>
                 <span class="flex flex-row items-center gap-2"><i class="hn hn-eye"></i> {video.views}</span>
                 <span class="flex flex-row items-center gap-2"><i class="hn hn-thumbsup"></i> {video.likes}</span>
                 <span class="flex flex-row items-center gap-2"><i class="hn hn-comment"></i> {video.comments}</span>

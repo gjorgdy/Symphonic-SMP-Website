@@ -136,6 +136,31 @@ export class YouTube {
         }
     }
 
+    static getRelativeTime(dateString: string): string {
+        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+
+        const time = new Date(dateString).getTime();
+        const now = new Date().getTime();
+        const diffInSeconds = (time - now) / 1000;
+
+        const absDiff = Math.abs(diffInSeconds);
+        if (absDiff < 60) {
+            return rtf.format(Math.round(diffInSeconds), 'second');
+        } else if (absDiff < 3600) {
+            return rtf.format(Math.round(diffInSeconds / 60), 'minute');
+        } else if (absDiff < 86400) {
+            return rtf.format(Math.round(diffInSeconds / 3600), 'hour');
+        } else if (absDiff < 2592000) {
+            // Approx 30 days
+            return rtf.format(Math.round(diffInSeconds / 86400), 'day');
+        } else if (absDiff < 31536000) {
+            // Approx 365 days
+            return rtf.format(Math.round(diffInSeconds / 2592000), 'month');
+        } else {
+            return rtf.format(Math.round(diffInSeconds / 31536000), 'year');
+        }
+    }
+
     static async fetchChannelDetails(key: string, channelIds: string[] = [], handles: string[]): Promise<Channel[]> {
         let channels: Channel[] = [];
         if (channelIds.length > 0) {
@@ -188,7 +213,10 @@ export class YouTube {
             console.error(await response.json());
             return [];
         }
-        const data = await response.json();
-        return data.items as ResponseVideo[];
+        let videos = (await response.json()).items as ResponseVideo[];
+        videos = [...videos].sort((a, b) => {
+            return (new Date(b.snippet.publishedAt).getTime() - new Date(a.snippet.publishedAt).getTime());
+        });
+        return videos;
     }
 }
