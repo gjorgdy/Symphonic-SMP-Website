@@ -1,6 +1,6 @@
 import type {ClientPlayer, Player} from "$lib/models/player";
 
-export const players: Player[] = [
+export const registeredPlayers: Player[] = [
     {
         minecraft: {
             username: "nd?"
@@ -31,7 +31,7 @@ export const players: Player[] = [
 ]
 
 export function getClientPlayers(): ClientPlayer[] {
-    return players.map(
+    return registeredPlayers.map(
         player => {
             return {
                 display_name: player.minecraft?.username ?? "unknown",

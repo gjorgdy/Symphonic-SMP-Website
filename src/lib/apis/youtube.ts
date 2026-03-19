@@ -179,8 +179,7 @@ export class YouTube {
         const url = `https://www.googleapis.com/youtube/v3/channels?key=${key}&forHandle=${handle}&part=snippet`;
         const response = await fetch(url);
         if (!response.ok) {
-            console.error(await response.json());
-            // return [];
+            throw new Error(await response.json());
         }
         const data = await response.json();
         return (data.items as Channel[]).map(c => c.id).find(id => id !== undefined) || undefined;
@@ -194,8 +193,7 @@ export class YouTube {
 
         const response = await fetch(url);
         if (!response.ok) {
-            console.error(await response.json());
-            return [];
+            throw new Error(await response.json());
         }
         const data = await response.json();
         return data.items as VideoSearchResult[];
@@ -205,8 +203,7 @@ export class YouTube {
         const url = `https://www.googleapis.com/youtube/v3/videos?key=${key}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails`;
         const response = await fetch(url);
         if (!response.ok) {
-            console.error(await response.json());
-            return [];
+            throw new Error(await response.json());
         }
         let videos = (await response.json()).items as ResponseVideo[];
         videos = [...videos].sort((a, b) => {

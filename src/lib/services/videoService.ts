@@ -1,6 +1,6 @@
 import type {HandlePlatform, IdPlatform} from "$lib/models/player";
-import {type VideoSearchResult, YouTube} from "$lib/apis/youtube";
-import { players } from "$lib/data/players";
+import {type ResponseVideo, type VideoSearchResult, YouTube} from "$lib/apis/youtube";
+import { registeredPlayers } from "$lib/data/registeredPlayers";
 import { GOOGLE_KEY } from '$env/static/private';
 
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes in ms
@@ -25,20 +25,25 @@ export class VideoService {
     }
 
     public async fetch(): Promise<void> {
-        const youtubeChannels: (HandlePlatform | IdPlatform)[] = players.filter(p => p.youtube).map(p => p.youtube!);
+        const youtubeChannels: (HandlePlatform | IdPlatform)[] = registeredPlayers.filter(p => p.youtube).map(p => p.youtube!);
 
-        let latestVideos: VideoSearchResult[] = []
-        for (const channel of youtubeChannels) {
-            const id = channel?.id ?? await YouTube.fetchChannelId(GOOGLE_KEY, channel.handle!);
-            if (id == undefined) continue;
-            latestVideos = latestVideos.concat(await YouTube.fetchLatestVideos(GOOGLE_KEY, id, true));
+        let videoStats: ResponseVideo[] = [];
+        try {
+            let latestVideos: VideoSearchResult[] = []
+            for (const channel of youtubeChannels) {
+                const id = channel?.id ?? await YouTube.fetchChannelId(GOOGLE_KEY, channel.handle!);
+                if (id == undefined) continue;
+                latestVideos = latestVideos.concat(await YouTube.fetchLatestVideos(GOOGLE_KEY, id, true));
+            }
+            videoStats = await YouTube.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
+        } catch (e) {
+            throw new Error(`Error fetching video data: ${e}`);
         }
-        const videoStats = await YouTube.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
 
-        this.recentVideos = [];
+        const videos = [];
         for (const data of videoStats) {
             try {
-                this.recentVideos.push({
+                videos.push({
                     name: data.snippet.title,
                     url: "https://www.youtube.com/watch?v=" + data.id,
                     creator: {
@@ -56,16 +61,21 @@ export class VideoService {
                 })
             } catch (e) {
                 console.error(`Error processing video data: ${e}`);
-                console.error(data);
             }
         }
 
-        this.lastFetch = Date.now();
+        if (videos.length > 0) {
+            this.recentVideos = videos;
+            this.lastFetch = Date.now();
+        }
     }
 
     public async getRecentVideos(): Promise<Video[]> {
         if (this.recentVideos.length === 0 || Date.now() - this.lastFetch < CACHE_DURATION) {
             await this.fetch();
+        }
+        if (this.recentVideos.length === 0) {
+            throw new Error("Could not fetch recent videos");
         }
         return this.recentVideos;
     }

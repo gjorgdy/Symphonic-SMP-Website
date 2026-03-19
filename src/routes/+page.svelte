@@ -54,9 +54,17 @@
     <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
         <h2 class="text-xl pixel p-4 not-md:hidden">Symphonists</h2>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0 overflow-y-auto">
-            {#each data.players as player}
-                <PlayerListItem {player}/>
-            {/each}
+            {#await data.players}
+                {#each {length: 5} as _}
+                    <PlayerListItem/>
+                {/each}
+            {:then players}
+                {#each players as player}
+                    <PlayerListItem {player}/>
+                {/each}
+            {:catch _}
+                <p class="italic">Could not find any recent videos :(</p>
+            {/await}
         </div>
     </div>
     <!--    Players     -->
@@ -66,13 +74,15 @@
         <h2 class="text-xl pixel not-md:hidden ml-4">Videos</h2>
         <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
             {#await data.videos}
-                    <h3 class="italic animate-pulse">Loading...</h3>
+                {#each {length: 5} as _}
+                    <VideoListItem/>
+                {/each}
             {:then videos}
                 {#each videos as video}
                     <VideoListItem {video}/>
                 {/each}
-            {:catch error}
-                <p>error loading comments: {error.message}</p>
+            {:catch _}
+                <p class="italic">Could not find any recent videos :(</p>
             {/await}
         </div>
     </div>
