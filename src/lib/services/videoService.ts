@@ -1,5 +1,5 @@
 import type {HandlePlatform, IdPlatform} from "$lib/models/player";
-import {type ResponseVideo, type VideoSearchResult, YouTube} from "$lib/apis/youtube";
+import {type ResponseVideo, type VideoSearchResult, YouTubeAPI} from "$lib/apis/youtube";
 import { registeredPlayers } from "$lib/data/registeredPlayers";
 import { GOOGLE_KEY } from '$env/static/private';
 
@@ -31,11 +31,11 @@ export class VideoService {
         try {
             let latestVideos: VideoSearchResult[] = []
             for (const channel of youtubeChannels) {
-                const id = channel?.id ?? await YouTube.fetchChannelId(GOOGLE_KEY, channel.handle!);
+                const id = channel?.id ?? await YouTubeAPI.fetchChannelId(GOOGLE_KEY, channel.handle!);
                 if (id == undefined) continue;
-                latestVideos = latestVideos.concat(await YouTube.fetchLatestVideos(GOOGLE_KEY, id, true));
+                latestVideos = latestVideos.concat(await YouTubeAPI.fetchLatestVideos(GOOGLE_KEY, id, true));
             }
-            videoStats = await YouTube.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
+            videoStats = await YouTubeAPI.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
         } catch (e) {
             throw new Error(`Error fetching video data: ${e}`);
         }
@@ -53,7 +53,7 @@ export class VideoService {
                     thumbnail: {
                         url: data.snippet.thumbnails.maxres?.url ?? data.snippet.thumbnails.high?.url ?? ""
                     },
-                    duration: YouTube.formatDuration(data.contentDetails.duration),
+                    duration: YouTubeAPI.formatDuration(data.contentDetails.duration),
                     views: data.statistics.viewCount,
                     likes: data.statistics.likeCount,
                     comments: data.statistics.commentCount,

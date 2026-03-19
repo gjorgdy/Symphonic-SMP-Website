@@ -121,7 +121,7 @@ export type Channel = {
     }>,
 }
 
-export class YouTube {
+export class YouTubeAPI {
 
     static channelUrlFromId(id: string): string {
         return `https://www.youtube.com/channel/${id}`;
@@ -179,7 +179,7 @@ export class YouTube {
         const url = `https://www.googleapis.com/youtube/v3/channels?key=${key}&forHandle=${handle}&part=snippet`;
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(await response.json());
+            throw new Error(response.statusText);
         }
         const data = await response.json();
         return (data.items as Channel[]).map(c => c.id).find(id => id !== undefined) || undefined;
@@ -193,7 +193,7 @@ export class YouTube {
 
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(await response.json());
+            throw new Error(response.statusText);
         }
         const data = await response.json();
         return data.items as VideoSearchResult[];
@@ -203,7 +203,7 @@ export class YouTube {
         const url = `https://www.googleapis.com/youtube/v3/videos?key=${key}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails`;
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(await response.json());
+            throw new Error(response.statusText);
         }
         let videos = (await response.json()).items as ResponseVideo[];
         videos = [...videos].sort((a, b) => {
