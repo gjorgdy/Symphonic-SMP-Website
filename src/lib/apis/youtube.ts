@@ -15,7 +15,13 @@ export type ResponseVideo = {
         title: string,
         description: string,
         thumbnails: {
-            maxres: {
+            standard?: {
+                url: string,
+            }
+            high?: {
+                url: string,
+            }
+            maxres?: {
                 url: string,
             }
         },

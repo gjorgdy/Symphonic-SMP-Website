@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type {PageProps} from "../../.svelte-kit/types/src/routes/$types";
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import VideoListItem from "$lib/components/VideoListItem.svelte";
+    import type {IndexServerLoadProps} from "./+page.server";
 
-    const { data }: PageProps = $props();
+    const { data } = $props();
 
     let page: string = $state("videos");
 </script>
@@ -64,10 +64,16 @@
     <!--    Videos     -->
     <div class={"md:row-span-2 h-full rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "videos" ? "" : "not-md:hidden")}>
         <h2 class="text-xl pixel not-md:hidden ml-4">Videos</h2>
-        <div class="h-full flex flex-col p-4 gap-8 overflow-auto">
-            {#each data.videos as video}
-                <VideoListItem {video}/>
-            {/each}
+        <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
+            {#await data.videos}
+                    <h3 class="italic animate-pulse">Loading...</h3>
+            {:then videos}
+                {#each videos as video}
+                    <VideoListItem {video}/>
+                {/each}
+            {:catch error}
+                <p>error loading comments: {error.message}</p>
+            {/await}
         </div>
     </div>
     <!--    videos     -->
