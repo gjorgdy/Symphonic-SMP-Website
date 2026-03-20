@@ -34,10 +34,10 @@
     > Links </button>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] grid-rows-1 md:grid-rows-[1fr_5fr] gap-4 overflow-hidden">
+<div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] grid-rows-1 md:grid-rows-[auto_1fr] gap-4 overflow-hidden">
 
     <!--    About     -->
-    <div class={"rounded-xl bg-[#1e1e1e] flex flex-col p-4 gap-4 " + (page === "links" ? "" : "not-md:hidden")}>
+    <div class={"rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4 " + (page === "links" ? "" : "not-md:hidden")}>
         <h2 class="text-xl pixel not-md:hidden">Links</h2>
         <a aria-label="Discord link" href="https://discord.gg/T4GvyhRs52"
            class="text-gray-100 hover:text-gray-300 transition-colors gap-2 flex items-center">
@@ -58,7 +58,7 @@
     <!--    About     -->
 
     <!--    Players     -->
-    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] grid grid-rows-[auto_auto] min-h-0 overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
         <h2 class="text-xl pixel p-4 not-md:hidden">Symphonists</h2>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0 overflow-y-auto">
             {#await data.players}
@@ -69,7 +69,6 @@
                 {#each players as player}
                     <PlayerListItem {player}/>
                 {/each}
-                <PlayerListItem/>
             {:catch _}
                 <p class="italic">Could not find any recent videos :(</p>
             {/await}
@@ -78,7 +77,7 @@
     <!--    Players     -->
 
     <!--    Content     -->
-    <div class={"md:row-span-2 h-full rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "content" ? "" : "not-md:hidden")}>
+    <div class={"md:row-span-2 grid grid-rows-[auto_auto] rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "content" ? "" : "not-md:hidden")}>
         <div class="flex flex-row px-4 pb-4 w-full float-end">
             <h2 class="text-xl pixel not-md:hidden grow">Content</h2>
             <span class="flex items-center float-end gap-2 not-md:w-full">
@@ -90,7 +89,7 @@
                 <label class="text-gray-400 text-sm not-md:grow" for="shorts">Shorts</label>
             </span>
         </div>
-        <div class="h-full flex flex-col p-4 pt-0 pb-8 gap-8 overflow-auto">
+        <div class="h-full flex flex-col px-4 gap-8 overflow-auto">
             {#await data.content}
                 {#each {length: 20} as _}
                     <ContentListItem/>
