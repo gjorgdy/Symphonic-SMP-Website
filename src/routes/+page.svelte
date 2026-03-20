@@ -19,7 +19,7 @@
 <div class="flex flex-row h-10 p-2 mb-2 rounded-md md:rounded-xl bg-[#1e1e1e] divide-[#444444] divide-x-2 md:hidden">
     <button
             type="button"
-            class={"flex flex-1 items-center justify-center " + (page === "videos" ? "underline" : "")}
+            class={"flex flex-1 items-center justify-center " + (page === "content" ? "underline" : "")}
             onclick={(() => page = "content")}
     >Content</button>
     <button
