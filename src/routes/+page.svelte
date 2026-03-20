@@ -2,6 +2,7 @@
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import ContentListItem from "$lib/components/contentListItem.svelte";
     import { ContentUtils } from "$lib/utils/contentUtils";
+    import {onMount} from "svelte";
 
     const { data } = $props();
 
@@ -48,7 +49,7 @@
             <i class="hn hn-youtube text-xl"></i>
             Announcement video
         </a>
-        <a aria-label="Announcement video" href="https://hexasis.eu/"
+        <a aria-label="Announcement video" href="https://github.com/gjorgdy"
            class="group text-gray-100 hover:text-gray-300 transition-colors gap-2 flex items-center">
             <i class="hn hn-code text-xl"></i>
             Website developer <span class="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">Gjorgdy</span>
@@ -61,13 +62,14 @@
         <h2 class="text-xl pixel p-4 not-md:hidden">Symphonists</h2>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0 overflow-y-auto">
             {#await data.players}
-                {#each {length: 5} as _}
+                {#each {length: 20} as _}
                     <PlayerListItem/>
                 {/each}
             {:then players}
                 {#each players as player}
                     <PlayerListItem {player}/>
                 {/each}
+                <PlayerListItem/>
             {:catch _}
                 <p class="italic">Could not find any recent videos :(</p>
             {/await}
@@ -90,7 +92,7 @@
         </div>
         <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
             {#await data.content}
-                {#each {length: 5} as _}
+                {#each {length: 20} as _}
                     <ContentListItem/>
                 {/each}
             {:then content}

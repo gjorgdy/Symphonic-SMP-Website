@@ -20,6 +20,7 @@ export const registeredPlayers: Record<string, Player> = {
         nickname: "Pig(step)",
         minecraft_uuid: "c574ca17-ed27-4cb6-a7fa-841b47dc1fa7",
         youtube_user_id: "UCcVXBFM1JNvmCDai6ggbx1w",
+        twitch_user_id: "430489413",
     },
     // 4
     "11": {
@@ -95,7 +96,7 @@ export const registeredPlayers: Record<string, Player> = {
         youtube_user_id: "UCmjsZbCwmhyLN9HYT57K-gQ",
     },
     // 15
-    "none": {
+    "mellohi": {
         nickname: "Laynii Bugg",
         minecraft_uuid: "ca4441ab-176b-4a83-a2f0-2902f795a7dc",
         youtube_user_id: "UCVwS0uWcjTmiDrftGOmxPZw",
@@ -121,7 +122,7 @@ export const registeredPlayers: Record<string, Player> = {
         twitch_user_id: "838789208",
     },
     // 19
-    "creator (music box)": {
+    "creator_music_box": {
         nickname: "Whimzy",
         minecraft_uuid: "afbc60d8-5238-4dd4-87e3-86212e5a572f",
         youtube_user_id: "UClplO1SnXir3cJ6gqgx4DnA",

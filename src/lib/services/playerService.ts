@@ -41,8 +41,9 @@ export class PlayerService {
 
     public async getClientPlayers(): Promise<PlayerDisplay[]> {
         if (this.players.length === 0 || (Date.now() - this.lastFetch) < PLAYER_CACHE_DURATION) {
-            return this.fetch();
+            await this.fetch();
         }
+        console.log(this.players);
         return this.players;
     }
 
