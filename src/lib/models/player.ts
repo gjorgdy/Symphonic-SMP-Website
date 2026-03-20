@@ -7,9 +7,13 @@ export type Player = {
 export type ClientPlayer = Player & {
     display_name: string,
     profile_picture: ProfilePicture,
-    live?: {
-        url: string
-    }
+    live?: Livestream
+}
+
+export type Livestream = {
+    url: string,
+    title?: string,
+    thumbnail_url?: string,
 }
 
 export type IdPlatform = {

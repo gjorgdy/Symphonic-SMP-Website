@@ -1,4 +1,4 @@
-import type {ClientPlayer, Player} from "$lib/models/player";
+import type { Player } from "$lib/models/player";
 
 export const registeredPlayers: Player[] = [
     {
@@ -29,17 +29,3 @@ export const registeredPlayers: Player[] = [
         }
     }
 ]
-
-export function getClientPlayers(): ClientPlayer[] {
-    return registeredPlayers.map(
-        player => {
-            return {
-                display_name: player.minecraft?.username ?? "unknown",
-                live: player.minecraft?.username == "Mang0Sorbet" ? {
-                  url: ""
-                } : null,
-                ...player
-            } as ClientPlayer
-        }
-    );
-}

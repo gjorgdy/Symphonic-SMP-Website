@@ -84,6 +84,19 @@
             {:catch _}
                 <p class="italic">Could not find any recent videos :(</p>
             {/await}
+            {#await data.players}
+                {#each {length: 1} as _}
+                    <VideoListItem/>
+                {/each}
+            {:then players}
+                {#each players as player}
+                    {#if player.live != null}
+                        <VideoListItem livestream={player.live}/>
+                    {/if}
+                {/each}
+            {:catch _}
+                <p class="italic">Could not find any recent videos :(</p>
+            {/await}
         </div>
     </div>
     <!--    videos     -->

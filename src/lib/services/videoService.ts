@@ -72,7 +72,7 @@ export class VideoService {
 
     public async getRecentVideos(): Promise<Video[]> {
         if (this.recentVideos.length === 0 || Date.now() - this.lastFetch < CACHE_DURATION) {
-            await this.fetch();
+            // await this.fetch();
         }
         if (this.recentVideos.length === 0) {
             throw new Error("Could not fetch recent videos");

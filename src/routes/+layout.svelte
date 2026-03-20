@@ -5,6 +5,12 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import type {LayoutProps} from "../../.svelte-kit/types/src/routes/$types";
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
+	import { initFlowbite } from 'flowbite'
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		initFlowbite();
+	})
 
 	let { data, children }: LayoutProps = $props();
 </script>
