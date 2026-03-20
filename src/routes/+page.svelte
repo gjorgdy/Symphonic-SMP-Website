@@ -38,7 +38,7 @@
     <!--    About     -->
     <div class={"rounded-xl bg-[#1e1e1e] flex flex-col p-4 gap-4 " + (page === "links" ? "" : "not-md:hidden")}>
         <h2 class="text-xl pixel not-md:hidden">Links</h2>
-        <a aria-label="Discord link" href="https://hexasis.eu/dc/hexasis"
+        <a aria-label="Discord link" href="https://discord.gg/T4GvyhRs52"
            class="text-gray-100 hover:text-gray-300 transition-colors gap-2 flex items-center">
             <i class="hn hn-discord text-xl"></i>
             Symphonic SMP Discord
