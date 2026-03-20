@@ -43,7 +43,6 @@ export class PlayerService {
         if (this.players.length === 0 || (Date.now() - this.lastFetch) < PLAYER_CACHE_DURATION) {
             await this.fetch();
         }
-        console.log(this.players);
         return this.players;
     }
 

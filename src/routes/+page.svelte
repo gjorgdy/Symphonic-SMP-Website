@@ -79,7 +79,7 @@
 
     <!--    Content     -->
     <div class={"md:row-span-2 h-full rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "content" ? "" : "not-md:hidden")}>
-        <div class="flex flex-row px-4 w-full float-end">
+        <div class="flex flex-row px-4 pb-4 w-full float-end">
             <h2 class="text-xl pixel not-md:hidden grow">Content</h2>
             <span class="flex items-center float-end gap-2 not-md:w-full">
                 <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="filter" type="checkbox" bind:checked={settings.onlySymphonic}>
@@ -90,7 +90,7 @@
                 <label class="text-gray-400 text-sm not-md:grow" for="shorts">Shorts</label>
             </span>
         </div>
-        <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
+        <div class="h-full flex flex-col p-4 pt-0 pb-8 gap-8 overflow-auto">
             {#await data.content}
                 {#each {length: 20} as _}
                     <ContentListItem/>
