@@ -26,6 +26,7 @@ export class PlayerService {
         this.players = Object.entries(registeredPlayers).map(([disc, player]) => {
             return {
                 displayName: player.nickname,
+                disc: disc,
                 profile_picture_url: "/assets/discs/" + disc + ".png",
                 ...player
             } as PlayerDisplay;

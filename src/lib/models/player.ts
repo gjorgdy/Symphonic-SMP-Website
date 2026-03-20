@@ -9,5 +9,6 @@ export type Player = {
 
 export type PlayerDisplay = Player & {
     displayName: string,
+    disc: string,
     profile_picture_url?: string,
 }
