@@ -23,6 +23,12 @@ export const registeredPlayers: Record<string, Player> = {
         nickname: "Vek",
         youtube_user_id: "UCbRx4MmSYesmkOdS2GPC1Iw",
         twitch_user_id: "776781616",
+    },
+    "blocks": {
+        nickname: "spaarmot",
+        minecraft_uuid: "1cbc7aa6-0943-4917-afbc-fb208354fdcc",
+        youtube_user_id: "UCYMsMDZDL5KaiGlzZH4J3FA",
+        twitch_user_id: "1283217012",
     }
 }
 

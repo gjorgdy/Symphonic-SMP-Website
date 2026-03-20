@@ -31,6 +31,7 @@ export class PlayerService {
                 ...player
             } as PlayerDisplay;
         })
+        this.players.sort((a, b) => a.displayName.localeCompare(b.displayName));
     }
 
     public async getClientPlayers(): Promise<PlayerDisplay[]> {
