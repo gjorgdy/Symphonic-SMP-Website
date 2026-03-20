@@ -89,7 +89,7 @@
                 <label class="text-gray-400 text-sm not-md:grow" for="shorts">Shorts</label>
             </span>
         </div>
-        <div class="h-full flex flex-col px-4 gap-8 overflow-auto">
+        <div class="h-full flex flex-col px-4 gap-4 overflow-auto">
             {#await data.content}
                 {#each {length: 20} as _}
                     <ContentListItem/>
