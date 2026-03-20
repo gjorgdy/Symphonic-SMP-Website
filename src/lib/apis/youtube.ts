@@ -1,6 +1,8 @@
+import {GOOGLE_KEY} from '$env/static/private';
+import type {Livestream} from "$lib/models/livestream";
 
-export type ResponseVideo = {
-    kind: string,
+export type VideoListResponse = {
+    kind: "youtube#videoListResponse",
     etag: string,
     id: string,
     statistics: {
@@ -14,122 +16,34 @@ export type ResponseVideo = {
         channelId: string,
         title: string,
         description: string,
-        thumbnails: {
-            standard?: {
-                url: string,
-            }
-            high?: {
-                url: string,
-            }
-            maxres?: {
-                url: string,
-            }
-        },
+        thumbnails: Record<string, {url: string}>,
         channelTitle: string,
-        liveBroadcastContent: string,
+        liveBroadcastContent: "live" | "none" | "upcoming",
         publishTime: string
     },
     contentDetails: {
         duration: string,
+    },
+    liveStreamingDetails?: {
+        actualStartTime: string,
+        actualEndTime?: string,
+        scheduledStartTime: string,
+        scheduledEndTime?: string
     }
 }
 
-export type VideoSearchResult = {
-    kind: string,
-    etag: string,
-    id: {
-        kind: string,
-        videoId: string
-    }
-}
-
-export type Channel = {
-    kind: "youtube#channel",
+export type YoutubePlaylistItem = {
+    kind: "youtube#playlistItem",
     etag: string,
     id: string,
-    snippet: {
-        title: string,
-        description: string,
-        customUrl: string,
-        publishedAt: string,
-        thumbnails: Record<string, {
-            url: string,
-            width: number,
-            height: number,
-        }>,
-        defaultLanguage: string,
-        localized: {
-            title: string,
-            description: string,
-        },
-        country: string,
-    },
     contentDetails: {
-        relatedPlaylists: {
-            likes: string,
-            favorites: string,
-            uploads: string,
-        },
+        videoId: string,
+        note: string,
+        videoPublishedAt: string,
     },
-    statistics: {
-        viewCount: string,
-        // YouTube may round this value to three significant figures.
-        subscriberCount: string,
-        hiddenSubscriberCount: boolean,
-        videoCount: string,
-    },
-    topicDetails: {
-        topicIds: string[],
-        topicCategories: string[],
-    },
-    status: {
-        privacyStatus: string,
-        isLinked: boolean,
-        longUploadsStatus: string,
-        madeForKids: boolean,
-        selfDeclaredMadeForKids: boolean,
-    },
-    brandingSettings: {
-        channel: {
-            title: string,
-            description: string,
-            keywords: string,
-            trackingAnalyticsAccountId: string,
-            unsubscribedTrailer: string,
-            defaultLanguage: string,
-            country: string,
-        },
-        watch: {
-            textColor: string,
-            backgroundColor: string,
-            featuredPlaylistId: string,
-        },
-    },
-    auditDetails: {
-        overallGoodStanding: boolean,
-        communityGuidelinesGoodStanding: boolean,
-        copyrightStrikesGoodStanding: boolean,
-        contentIdClaimsGoodStanding: boolean,
-    },
-    contentOwnerDetails: {
-        contentOwner: string,
-        timeLinked: string,
-    },
-    localizations: Record<string, {
-        title: string,
-        description: string,
-    }>,
 }
 
 export class YouTubeAPI {
-
-    static channelUrlFromId(id: string): string {
-        return `https://www.youtube.com/channel/${id}`;
-    }
-
-    static channelUrlFromHandle(handle: string): string {
-        return `https://www.youtube.com/@${handle.replace(/^@/, '')}`;
-    }
 
     static formatDuration(isoDuration: string) {
         const match = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
@@ -150,40 +64,38 @@ export class YouTubeAPI {
         }
     }
 
-    static async fetchChannelId(key: string, handle: string): Promise<string | undefined> {
-        const url = `https://www.googleapis.com/youtube/v3/channels?key=${key}&forHandle=${handle}&part=snippet`;
+    static isShort(isoDuration: string) {
+        const match = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+        if (!match) return '00:00:00';
+
+        const hours = parseInt(match[1] || '0', 10);
+        const minutes = parseInt(match[2] || '0', 10);
+        return hours == 0 && minutes == 0;
+    }
+
+    static async fetchLivestreams(): Promise<Livestream[]> {
+
+        return [];
+    }
+
+    static async fetchLatestVideos(channelId: string): Promise<VideoListResponse[]> {
+        let url = `https://youtube.googleapis.com/youtube/v3/playlistItems?key=${GOOGLE_KEY}&part=contentDetails&maxResults=25&playlistId=${channelId.replace('UC', 'UU')}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(response.statusText);
         }
         const data = await response.json();
-        return (data.items as Channel[]).map(c => c.id).find(id => id !== undefined) || undefined;
+        const playlistItems = data.items as YoutubePlaylistItem[];
+        return await this.fetchVideoDetails(playlistItems.map(item => item.contentDetails.videoId));
     }
 
-    static async fetchLatestVideos(key: string, channelId: string, filter: boolean = false): Promise<VideoSearchResult[]> {
-        let url = `https://www.googleapis.com/youtube/v3/search?key=${key}&channelId=${channelId}&part=id&order=date&maxResults=10&type=video`;
-        if (filter) {
-            url += `&q=symphonic`;
-        }
-
+    private static async fetchVideoDetails(videoIds: string[]): Promise<VideoListResponse[]> {
+        // console.log(videoIds);
+        const url = `https://www.googleapis.com/youtube/v3/videos?key=${GOOGLE_KEY}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails,liveStreamingDetails&maxResults=25`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(response.statusText);
         }
-        const data = await response.json();
-        return data.items as VideoSearchResult[];
-    }
-
-    static async fetchVideoDetails(key: string, videoIds: string[]): Promise<ResponseVideo[]> {
-        const url = `https://www.googleapis.com/youtube/v3/videos?key=${key}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails`;
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        let videos = (await response.json()).items as ResponseVideo[];
-        videos = [...videos].sort((a, b) => {
-            return (new Date(b.snippet.publishedAt).getTime() - new Date(a.snippet.publishedAt).getTime());
-        });
-        return videos;
+        return (await response.json()).items as VideoListResponse[];
     }
 }

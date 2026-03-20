@@ -1,6 +1,5 @@
 import { TwitchAPI } from "$lib/apis/twitch";
 import type {Livestream} from "$lib/models/livestream";
-import {PlayerService} from "$lib/services/playerService";
 import {getRegisteredPlayers} from "$lib/data/registeredPlayers";
 
 const TWITCH_CACHE_DURATION = 60 * 1000; // 1 minute in ms
@@ -30,7 +29,6 @@ export class LivestreamService {
                 .filter(p => p.twitch_user_id != null)
                 .map(p => p.twitch_user_id!)
         )
-        console.log(this.twitchStreams);
         this.lastTwitchFetch = Date.now();
     }
 

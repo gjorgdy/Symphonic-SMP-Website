@@ -8,6 +8,9 @@ export type Video = {
     views: number,
     likes: number,
     comments: number,
+    live: boolean,
+    symphonic: boolean,
+    short: boolean,
 }
 
 type Thumbnail = {

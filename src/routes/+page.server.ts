@@ -2,11 +2,11 @@ import type {Video} from "$lib/models/video";
 import {VideoService} from "$lib/services/videoService";
 import type {Livestream} from "$lib/models/livestream";
 import {LivestreamService} from "$lib/services/livestreamService";
-import type {ClientPlayer} from "$lib/models/player";
 import {PlayerService} from "$lib/services/playerService";
+import type {PlayerDisplay} from "$lib/models/player";
 
 export type IndexServerLoadProps = {
-    players: Promise<ClientPlayer[]>,
+    players: Promise<PlayerDisplay[]>,
     content: Promise<Content>
 }
 

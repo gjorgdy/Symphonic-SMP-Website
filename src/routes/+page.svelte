@@ -1,10 +1,17 @@
 <script lang="ts">
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import ContentListItem from "$lib/components/contentListItem.svelte";
+    import { ContentUtils } from "$lib/utils/contentUtils";
 
     const { data } = $props();
 
     let page: string = $state("content");
+
+    let settings = $state({
+        onlySymphonic: true,
+        livestreams: true,
+        shorts: true
+    });
 </script>
 
 <div class="flex flex-col h-full w-full">
@@ -69,18 +76,30 @@
     <!--    Players     -->
 
     <!--    Content     -->
-    <div class={"md:row-span-2 h-full rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "videos" ? "" : "not-md:hidden")}>
-        <h2 class="text-xl pixel not-md:hidden ml-4">Content</h2>
+    <div class={"md:row-span-2 h-full rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "content" ? "" : "not-md:hidden")}>
+        <div class="flex flex-row px-4 w-full float-end">
+            <h2 class="text-xl pixel not-md:hidden grow">Content</h2>
+            <span class="flex items-center float-end gap-2 not-md:w-full">
+                <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="filter" type="checkbox" bind:checked={settings.onlySymphonic}>
+                <label class="text-gray-400 text-sm not-md:grow" for="filter">SMP only</label>
+                <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="live" type="checkbox" bind:checked={settings.livestreams}>
+                <label class="text-gray-400 text-sm not-md:grow" for="live">Livestreams</label>
+                <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="shorts" type="checkbox" bind:checked={settings.shorts}>
+                <label class="text-gray-400 text-sm not-md:grow" for="shorts">Shorts</label>
+            </span>
+        </div>
         <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
             {#await data.content}
                 {#each {length: 5} as _}
                     <ContentListItem/>
                 {/each}
             {:then content}
-                {#each content.livestreams as livestream}
-                    <ContentListItem {livestream}/>
-                {/each}
-                {#each content.videos as video}
+                {#if settings.livestreams}
+                    {#each content.livestreams as livestream}
+                        <ContentListItem {livestream}/>
+                    {/each}
+                {/if}
+                {#each ContentUtils.filterVideos(content.videos, settings) as video}
                     <ContentListItem {video}/>
                 {/each}
             {:catch _}

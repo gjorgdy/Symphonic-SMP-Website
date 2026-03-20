@@ -1,6 +1,5 @@
-import {type ResponseVideo, type VideoSearchResult, YouTubeAPI} from "$lib/apis/youtube";
-import {getRegisteredPlayers, registeredPlayers} from "$lib/data/registeredPlayers";
-import { GOOGLE_KEY } from '$env/static/private';
+import {type VideoListResponse, YouTubeAPI} from "$lib/apis/youtube";
+import {getRegisteredPlayers} from "$lib/data/registeredPlayers";
 import type {Video} from "$lib/models/video";
 
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes in ms
@@ -25,21 +24,22 @@ export class VideoService {
     }
 
     public async fetch(): Promise<void> {
-        let videoStats: ResponseVideo[] = [];
+        console.log("Fetching video data...");
+
+        let responseVideos: VideoListResponse[] = [];
         try {
-            let latestVideos: VideoSearchResult[] = []
             for (const player of getRegisteredPlayers()) {
                 if (player.youtube_user_id === undefined) continue;
-                latestVideos = latestVideos.concat(await YouTubeAPI.fetchLatestVideos(GOOGLE_KEY, player.youtube_user_id, true));
+                responseVideos = responseVideos.concat(await YouTubeAPI.fetchLatestVideos(player.youtube_user_id));
             }
-            videoStats = await YouTubeAPI.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
         } catch (e) {
             throw new Error(`Error fetching video data: ${e}`);
         }
 
-        const videos = [];
-        for (const data of videoStats) {
+        let videos = [];
+        for (const data of responseVideos) {
             try {
+                if (data.contentDetails.duration === 'P0D') continue;
                 videos.push({
                     name: data.snippet.title,
                     url: "https://www.youtube.com/watch?v=" + data.id,
@@ -54,12 +54,20 @@ export class VideoService {
                     views: data.statistics.viewCount,
                     likes: data.statistics.likeCount,
                     comments: data.statistics.commentCount,
-                    timestamp: new Date(data.snippet.publishedAt)
+                    timestamp: new Date(data.snippet.publishedAt),
+                    live: data.snippet.liveBroadcastContent != "none" || data.liveStreamingDetails !== undefined,
+                    symphonic: data.snippet.title.toLowerCase().includes('symphonic')
+                        || data.snippet.description.toLowerCase().includes('symphonic'),
+                    short: YouTubeAPI.isShort(data.contentDetails.duration)
                 } as Video)
             } catch (e) {
                 console.error(`Error processing video data: ${e}`);
             }
         }
+
+        videos = [...videos].sort((a, b) => {
+            return (new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+        });
 
         if (videos.length > 0) {
             this.recentVideos = videos;
@@ -68,8 +76,12 @@ export class VideoService {
     }
 
     public async getRecentVideos(): Promise<Video[]> {
-        if (this.recentVideos.length === 0 || Date.now() - this.lastFetch < CACHE_DURATION) {
-            // await this.fetch();
+        try {
+            if (this.recentVideos.length === 0 || Date.now() - this.lastFetch > CACHE_DURATION) {
+                await this.fetch();
+            }
+        } catch (e) {
+            console.error(`Error fetching video data: ${e}`);
         }
         return this.recentVideos;
     }
