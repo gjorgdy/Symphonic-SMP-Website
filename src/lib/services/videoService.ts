@@ -26,21 +26,14 @@ export class VideoService {
     public async fetch(): Promise<void> {
         console.log("Fetching video data...");
 
-        let responseVideos: VideoListResponse[] = [];
-        try {
-            for (const player of getRegisteredPlayers()) {
-                if (player.youtube_user_id === undefined) continue;
-                responseVideos = responseVideos.concat(await YouTubeAPI.fetchLatestVideos(player.youtube_user_id));
-            }
-        } catch (e) {
-            throw new Error(`Error fetching video data: ${e}`);
-        }
-
-        let videos = [];
-        for (const data of responseVideos) {
-            try {
-                if (data.contentDetails.duration === 'P0D') continue;
-                videos.push({
+        let promisedVideos = getRegisteredPlayers()
+            .filter(player => player.youtube_user_id !== undefined)
+            .map(async (player) =>
+        {
+            return (await YouTubeAPI.fetchLatestVideos(player.youtube_user_id!))
+                .filter(video => video.contentDetails.duration !== "P0D")
+                .map(data => {
+                return {
                     name: data.snippet.title,
                     url: "https://www.youtube.com/watch?v=" + data.id,
                     creator: {
@@ -59,15 +52,14 @@ export class VideoService {
                     symphonic: data.snippet.title.toLowerCase().includes('symphonic')
                         || data.snippet.description.toLowerCase().includes('symphonic'),
                     short: YouTubeAPI.isShort(data.contentDetails.duration)
-                } as Video)
-            } catch (e) {
-                console.error(`Error processing video data: ${e}`);
-            }
-        }
-
-        videos = [...videos].sort((a, b) => {
-            return (new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+                } as Video
+            })
         });
+
+        let videos = (await Promise.all(promisedVideos))
+            .flat().sort((a, b) => {
+                return (new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+            });
 
         if (videos.length > 0) {
             this.recentVideos = videos;
