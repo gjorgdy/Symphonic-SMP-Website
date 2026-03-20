@@ -2,7 +2,6 @@
 	import { page } from '$app/state';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
 	import type {LayoutProps} from "../../.svelte-kit/types/src/routes/$types";
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
 	import { initFlowbite } from 'flowbite'
@@ -15,7 +14,10 @@
 	let { data, children }: LayoutProps = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<link rel="icon" href={"/assets/discs/" + data.favicon + ".png"} />
+	<title>Symphonic SMP</title>
+</svelte:head>
 
 <div style="display:none">
 	{#each locales as locale}

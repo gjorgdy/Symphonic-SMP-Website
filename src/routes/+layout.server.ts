@@ -8,10 +8,13 @@ export const load: LayoutServerLoad = ({url }) => {
 		"5", "relic", "creator", "creator_music_box", "precipice", "tears", "lava chicken"
 	];
 
+	let favicon;
 	let disc = url.searchParams.get('disc');
 	if (disc) {
+		favicon = disc;
 		discs = Array.from({ length: 2 * discs.length }, () => disc);
 	} else {
+		favicon = discs[Math.floor(Math.random() * discs.length)];
 		discs = discs.concat(discs);
 	}
 
@@ -19,6 +22,7 @@ export const load: LayoutServerLoad = ({url }) => {
 
     return {
 		discs: discs,
-		logo: logo
+		logo: logo,
+		favicon: favicon
 	};
 };
