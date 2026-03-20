@@ -1,39 +1,31 @@
 import type { Player } from "$lib/models/player";
 
-export const registeredPlayers: Player[] = [
-    {
-        minecraft: {
-            username: "nd?"
-        },
-        youtube: {
-            handle: "itsnd20"
-        }
+export const registeredPlayers: Record<string, Player> = {
+    "relic": {
+        nickname: "Mango",
+        minecraft_uuid: "76cdf038-192c-40b6-9bda-1ebd2cf2b76e",
+        youtube_user_id: "UCkOmLeTO15bd62b0lGpotPw",
+        twitch_user_id: "1009008037",
     },
-    {
-        minecraft: {
-            username: "mypigisawesome"
-        },
-        youtube: {
-            id: "UCcVXBFM1JNvmCDai6ggbx1w"
-        }
+    "mall": {
+        nickname: "Queen",
+        twitch_user_id: "533754051",
     },
-    {
-        minecraft: {
-            username: "Mang0Sorbet"
-        },
-        youtube: {
-            id: "UCkOmLeTO15bd62b0lGpotPw"
-        },
-        twitch: {
-            handle: "mang0sorbet"
-        }
+    "pigstep": {
+        nickname: "Pig(step)",
+        youtube_user_id: "UCcVXBFM1JNvmCDai6ggbx1w",
     },
-    {
-        minecraft: {
-            username: "queendragonberry"
-        },
-        twitch: {
-            handle: "queendragonberry"
-        }
+    "11": {
+        nickname: "nd",
+        youtube_user_id: "UCiq_HhVKx3RZdhT1MCDyMWg",
+    },
+    "wait": {
+        nickname: "Vek",
+        youtube_user_id: "UCbRx4MmSYesmkOdS2GPC1Iw",
+        twitch_user_id: "776781616",
     }
-]
+}
+
+export function getRegisteredPlayers(): Player[] {
+    return Object.values(registeredPlayers);
+}

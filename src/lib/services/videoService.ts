@@ -1,6 +1,5 @@
-import type {HandlePlatform, IdPlatform} from "$lib/models/player";
 import {type ResponseVideo, type VideoSearchResult, YouTubeAPI} from "$lib/apis/youtube";
-import { registeredPlayers } from "$lib/data/registeredPlayers";
+import {getRegisteredPlayers, registeredPlayers} from "$lib/data/registeredPlayers";
 import { GOOGLE_KEY } from '$env/static/private';
 import type {Video} from "$lib/models/video";
 
@@ -26,15 +25,12 @@ export class VideoService {
     }
 
     public async fetch(): Promise<void> {
-        const youtubeChannels: (HandlePlatform | IdPlatform)[] = registeredPlayers.filter(p => p.youtube).map(p => p.youtube!);
-
         let videoStats: ResponseVideo[] = [];
         try {
             let latestVideos: VideoSearchResult[] = []
-            for (const channel of youtubeChannels) {
-                const id = channel?.id ?? await YouTubeAPI.fetchChannelId(GOOGLE_KEY, channel.handle!);
-                if (id == undefined) continue;
-                latestVideos = latestVideos.concat(await YouTubeAPI.fetchLatestVideos(GOOGLE_KEY, id, true));
+            for (const player of getRegisteredPlayers()) {
+                if (player.youtube_user_id === undefined) continue;
+                latestVideos = latestVideos.concat(await YouTubeAPI.fetchLatestVideos(GOOGLE_KEY, player.youtube_user_id, true));
             }
             videoStats = await YouTubeAPI.fetchVideoDetails(GOOGLE_KEY, latestVideos.map(item => item.id.videoId));
         } catch (e) {

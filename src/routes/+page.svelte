@@ -1,6 +1,6 @@
 <script lang="ts">
     import PlayerListItem from "$lib/components/playerListItem.svelte";
-    import VideoListItem from "$lib/components/VideoListItem.svelte";
+    import ContentListItem from "$lib/components/contentListItem.svelte";
 
     const { data } = $props();
 
@@ -74,14 +74,14 @@
         <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
             {#await data.content}
                 {#each {length: 5} as _}
-                    <VideoListItem/>
+                    <ContentListItem/>
                 {/each}
             {:then content}
                 {#each content.livestreams as livestream}
-                    <VideoListItem {livestream}/>
+                    <ContentListItem {livestream}/>
                 {/each}
                 {#each content.videos as video}
-                    <VideoListItem {video}/>
+                    <ContentListItem {video}/>
                 {/each}
             {:catch _}
                 <p class="italic">Could not find any content :(</p>

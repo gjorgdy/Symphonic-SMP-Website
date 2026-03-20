@@ -1,6 +1,7 @@
 <script lang="ts">
     import type {Livestream} from "$lib/models/livestream";
     import {TimeUtils} from "$lib/utils/timeUtils";
+    import type {Video} from "$lib/models/video";
 
     type VideoProps = {
         video?: Video;

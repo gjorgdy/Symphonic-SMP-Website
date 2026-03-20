@@ -1,29 +1,13 @@
+import type {UUID} from "node:crypto";
+
 export type Player = {
-    minecraft?: Minecraft,
-    twitch?: HandlePlatform,
-    youtube?: IdPlatform | HandlePlatform
+    nickname: string,
+    minecraft_uuid?: UUID,
+    twitch_user_id?: string,
+    youtube_user_id?: string,
 }
 
-export type ClientPlayer = Player & {
-    display_name: string,
-    profile_picture: ProfilePicture,
-    live?: Livestream
-}
-
-export type IdPlatform = {
-    id: string,
-    handle?: never,
-}
-
-export type HandlePlatform = {
-    id?: never,
-    handle: string
-}
-
-type ProfilePicture = {
-    url: string
-}
-
-type Minecraft = {
-    username: string,
+export type PlayerDisplay = Player & {
+    displayName: string,
+    profile_picture_url?: string,
 }

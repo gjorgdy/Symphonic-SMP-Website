@@ -53,7 +53,7 @@ export class TwitchAPI {
     }
 
     public static async fetchLiveStreams(channelIds: string[]): Promise<Map<String, Livestream>> {
-        const response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_login=`+id).join('&')}`, {
+        const response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_id=`+id).join('&')}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + (await this.getToken()).access_token,
@@ -61,6 +61,7 @@ export class TwitchAPI {
             }
         });
         const streams: TwitchStream[] = (await response.json()).data;
+        if (streams == undefined) return new Map();
         const streamMap: Map<String, Livestream> = new Map();
         for (const stream of streams) {
             streamMap.set(stream.user_login, {
