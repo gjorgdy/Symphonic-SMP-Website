@@ -54,6 +54,11 @@
             <i class="hn hn-code text-xl"></i>
             Website developer <span class="text-gray-600 group-hover:text-gray-700 transition-colors text-sm">Gjorgdy</span>
         </a>
+        <a aria-label="Announcement video" href="https://ko-fi.com/gjorgdy"
+           class="group text-gray-100 hover:text-gray-300 transition-colors gap-2 flex items-center">
+            <i class="hn hn-wallet text-xl"></i>
+            Fund the website
+        </a>
     </div>
     <!--    About     -->
 
