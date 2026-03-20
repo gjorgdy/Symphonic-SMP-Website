@@ -27,5 +27,13 @@ export const registeredPlayers: Player[] = [
         twitch: {
             handle: "mang0sorbet"
         }
+    },
+    {
+        minecraft: {
+            username: "queendragonberry"
+        },
+        twitch: {
+            handle: "queendragonberry"
+        }
     }
 ]

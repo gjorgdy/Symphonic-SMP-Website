@@ -1,10 +1,10 @@
-type Video = {
+export type Video = {
     name: string,
     creator: Creator,
     thumbnail: Thumbnail,
     url: string,
     duration: string,
-    timestamp: string,
+    timestamp: Date,
     views: number,
     likes: number,
     comments: number,

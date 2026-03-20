@@ -1,5 +1,5 @@
 import {TWITCH_CLIENT_ID, TWITCH_SECRET} from '$env/static/private'
-import type {Livestream} from "$lib/models/player";
+import type {Livestream} from "$lib/models/livestream";
 
 type TwitchToken = {
     access_token: string;
@@ -48,7 +48,6 @@ export class TwitchAPI {
             throw new Error(`Failed to get Twitch token: ${response.status} ${response.statusText}`);
         }
         const data = await response.json() as TwitchToken;
-        console.log(data);
         this.token = data;
         return data;
     }
@@ -66,8 +65,12 @@ export class TwitchAPI {
         for (const stream of streams) {
             streamMap.set(stream.user_login, {
                 url: "https://twitch.tv/" + stream.user_login,
+                creator_url: "https://twitch.tv/" + stream.user_login,
+                creator_name: stream.user_name,
                 title: stream.title,
-                thumbnail_url: stream.thumbnail_url.replace("{width}", "320").replace("{height}", "180")
+                thumbnail_url: stream.thumbnail_url.replace("{width}", "320").replace("{height}", "180"),
+                viewcount: stream.viewer_count,
+                started_at: new Date(stream.started_at),
             } as Livestream
             );
         }

@@ -2,6 +2,7 @@ import type {HandlePlatform, IdPlatform} from "$lib/models/player";
 import {type ResponseVideo, type VideoSearchResult, YouTubeAPI} from "$lib/apis/youtube";
 import { registeredPlayers } from "$lib/data/registeredPlayers";
 import { GOOGLE_KEY } from '$env/static/private';
+import type {Video} from "$lib/models/video";
 
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes in ms
 
@@ -57,8 +58,8 @@ export class VideoService {
                     views: data.statistics.viewCount,
                     likes: data.statistics.likeCount,
                     comments: data.statistics.commentCount,
-                    timestamp: data.snippet.publishedAt
-                })
+                    timestamp: new Date(data.snippet.publishedAt)
+                } as Video)
             } catch (e) {
                 console.error(`Error processing video data: ${e}`);
             }
@@ -73,9 +74,6 @@ export class VideoService {
     public async getRecentVideos(): Promise<Video[]> {
         if (this.recentVideos.length === 0 || Date.now() - this.lastFetch < CACHE_DURATION) {
             // await this.fetch();
-        }
-        if (this.recentVideos.length === 0) {
-            throw new Error("Could not fetch recent videos");
         }
         return this.recentVideos;
     }

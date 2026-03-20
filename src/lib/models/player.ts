@@ -10,12 +10,6 @@ export type ClientPlayer = Player & {
     live?: Livestream
 }
 
-export type Livestream = {
-    url: string,
-    title?: string,
-    thumbnail_url?: string,
-}
-
 export type IdPlatform = {
     id: string,
     handle?: never,

@@ -1,11 +1,10 @@
 <script lang="ts">
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import VideoListItem from "$lib/components/VideoListItem.svelte";
-    import type {IndexServerLoadProps} from "./+page.server";
 
     const { data } = $props();
 
-    let page: string = $state("videos");
+    let page: string = $state("content");
 </script>
 
 <div class="flex flex-col h-full w-full">
@@ -13,8 +12,8 @@
     <button
             type="button"
             class={"flex flex-1 items-center justify-center " + (page === "videos" ? "underline" : "")}
-            onclick={(() => page = "videos")}
-    >Videos</button>
+            onclick={(() => page = "content")}
+    >Content</button>
     <button
         type="button"
         class={"flex flex-2 items-center justify-center " + (page === "players" ? "underline" : "")}
@@ -69,36 +68,26 @@
     </div>
     <!--    Players     -->
 
-    <!--    Videos     -->
+    <!--    Content     -->
     <div class={"md:row-span-2 h-full rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "videos" ? "" : "not-md:hidden")}>
-        <h2 class="text-xl pixel not-md:hidden ml-4">Videos</h2>
+        <h2 class="text-xl pixel not-md:hidden ml-4">Content</h2>
         <div class="h-full flex flex-col p-4 pb-8 gap-8 overflow-auto">
-            {#await data.videos}
+            {#await data.content}
                 {#each {length: 5} as _}
                     <VideoListItem/>
                 {/each}
-            {:then videos}
-                {#each videos as video}
+            {:then content}
+                {#each content.livestreams as livestream}
+                    <VideoListItem {livestream}/>
+                {/each}
+                {#each content.videos as video}
                     <VideoListItem {video}/>
                 {/each}
             {:catch _}
-                <p class="italic">Could not find any recent videos :(</p>
-            {/await}
-            {#await data.players}
-                {#each {length: 1} as _}
-                    <VideoListItem/>
-                {/each}
-            {:then players}
-                {#each players as player}
-                    {#if player.live != null}
-                        <VideoListItem livestream={player.live}/>
-                    {/if}
-                {/each}
-            {:catch _}
-                <p class="italic">Could not find any recent videos :(</p>
+                <p class="italic">Could not find any content :(</p>
             {/await}
         </div>
     </div>
-    <!--    videos     -->
+    <!--    Content     -->
 </div>
 </div>
