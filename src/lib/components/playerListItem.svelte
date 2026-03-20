@@ -32,8 +32,8 @@
         <div class="rounded-[100%] h-10 w-10 aspect-square bg-white"></div>
     {/if}
     <div class="flex flex-col gap-1">
-        <span>{player?.displayName}</span>
-        <span class="text-xs text-gray-600">{player?.nickname ?? " "}</span>
+        <span>{player?.nickname}</span>
+        <span class="text-xs text-gray-600">{player?.minecraft_name ?? " "}</span>
     </div>
 
     <div class="flex gap-8 px-4 grow h-full text-xl flex-row-reverse">

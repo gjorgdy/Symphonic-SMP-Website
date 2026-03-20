@@ -8,7 +8,7 @@ export type Player = {
 }
 
 export type PlayerDisplay = Player & {
-    displayName: string,
+    minecraft_name: string,
     disc: string,
     profile_picture_url?: string,
 }
