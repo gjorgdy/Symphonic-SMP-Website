@@ -27,12 +27,14 @@ type TwitchStream = {
 
 export class TwitchAPI {
 
-    private static token?: TwitchToken; // TODO : refresh token
+    private static expiresAt: number = 0;
+    private static token?: TwitchToken;
 
     private static async getToken(): Promise<TwitchToken> {
-        if (this.token) {
+        if (this.token && this.expiresAt > Date.now()) {
             return this.token;
         }
+        console.log("Fetching Twitch token...");
         const response = await fetch("https://id.twitch.tv/oauth2/token", {
             method: "POST",
             headers: {
@@ -49,6 +51,7 @@ export class TwitchAPI {
         }
         const data = await response.json() as TwitchToken;
         this.token = data;
+        this.expiresAt = Date.now() + data.expires_in;
         return data;
     }
 

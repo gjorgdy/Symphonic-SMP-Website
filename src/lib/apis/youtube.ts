@@ -90,7 +90,6 @@ export class YouTubeAPI {
     }
 
     private static async fetchVideoDetails(videoIds: string[]): Promise<VideoListResponse[]> {
-        // console.log(videoIds);
         const url = `https://www.googleapis.com/youtube/v3/videos?key=${env.GOOGLE_KEY}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails,liveStreamingDetails&maxResults=25`;
         const response = await fetch(url);
         if (!response.ok) {
