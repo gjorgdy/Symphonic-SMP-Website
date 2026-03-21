@@ -1,4 +1,4 @@
-import {GOOGLE_KEY} from '$env/static/private';
+import {env} from '$env/dynamic/private';
 import type {Livestream} from "$lib/models/livestream";
 
 export type VideoListResponse = {
@@ -79,7 +79,7 @@ export class YouTubeAPI {
     }
 
     static async fetchLatestVideos(channelId: string): Promise<VideoListResponse[]> {
-        let url = `https://youtube.googleapis.com/youtube/v3/playlistItems?key=${GOOGLE_KEY}&part=contentDetails&maxResults=25&playlistId=${channelId.replace('UC', 'UU')}`;
+        let url = `https://youtube.googleapis.com/youtube/v3/playlistItems?key=${env.GOOGLE_KEY}&part=contentDetails&maxResults=25&playlistId=${channelId.replace('UC', 'UU')}`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(response.statusText);
@@ -91,7 +91,7 @@ export class YouTubeAPI {
 
     private static async fetchVideoDetails(videoIds: string[]): Promise<VideoListResponse[]> {
         // console.log(videoIds);
-        const url = `https://www.googleapis.com/youtube/v3/videos?key=${GOOGLE_KEY}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails,liveStreamingDetails&maxResults=25`;
+        const url = `https://www.googleapis.com/youtube/v3/videos?key=${env.GOOGLE_KEY}&id=${videoIds.join(",")}&part=id,snippet,statistics,contentDetails,liveStreamingDetails&maxResults=25`;
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error(response.statusText);

@@ -5,7 +5,6 @@ node_modules
 .vercel
 .netlify
 .wrangler
-/.svelte-kit
 /build
 
 # OS
@@ -21,8 +20,5 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-# Paraglide
-src/lib/paraglide
-project.inlang/cache/
-# SQLite
-*.db
+/.idea/copilot.data.migration.agent.xml
+/.idea/copilot.data.migration.edit.xml

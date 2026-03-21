@@ -2,7 +2,6 @@
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import ContentListItem from "$lib/components/contentListItem.svelte";
     import { ContentUtils } from "$lib/utils/contentUtils";
-    import {onMount} from "svelte";
 
     const { data } = $props();
 

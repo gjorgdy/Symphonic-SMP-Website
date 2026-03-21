@@ -1,4 +1,4 @@
-import {TWITCH_CLIENT_ID, TWITCH_SECRET} from '$env/static/private'
+import {env} from '$env/dynamic/private'
 import type {Livestream} from "$lib/models/livestream";
 
 type TwitchToken = {
@@ -39,8 +39,8 @@ export class TwitchAPI {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: new URLSearchParams({
-                client_id: TWITCH_CLIENT_ID,
-                client_secret: TWITCH_SECRET,
+                client_id: env.TWITCH_CLIENT_ID,
+                client_secret: env.TWITCH_SECRET,
                 grant_type: "client_credentials",
             }),
         });
@@ -57,7 +57,7 @@ export class TwitchAPI {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + (await this.getToken()).access_token,
-                "Client-Id": TWITCH_CLIENT_ID
+                "Client-Id": env.TWITCH_CLIENT_ID
             }
         });
         const streams: TwitchStream[] = (await response.json()).data;

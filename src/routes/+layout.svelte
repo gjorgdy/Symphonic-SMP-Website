@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
 	import './layout.css';
 	import type {LayoutProps} from "../../.svelte-kit/types/src/routes/$types";
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
@@ -18,12 +16,6 @@
 	<link rel="icon" href={"/assets/discs/" + data.favicon + ".png"} />
 	<title>Symphonic SMP</title>
 </svelte:head>
-
-<div style="display:none">
-	{#each locales as locale}
-		<a href={localizeHref(page.url.pathname, { locale })}>{locale}</a>
-	{/each}
-</div>
 
 <div class="static">
 	<div id="background" class="absolute z-[-1] h-screen w-screen bg-[url(/assets/background.png)] bg-cover bg-center blur-sm"></div>
