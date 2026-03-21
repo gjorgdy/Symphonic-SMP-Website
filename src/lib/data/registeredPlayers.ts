@@ -17,7 +17,7 @@ export const registeredPlayers: Record<string, Player> = {
     },
     // 3
     "pigstep": {
-        nickname: "Pig(step)",
+        nickname: "Pigs(tep)",
         minecraft_uuid: "c574ca17-ed27-4cb6-a7fa-841b47dc1fa7",
         youtube_user_id: "UCcVXBFM1JNvmCDai6ggbx1w",
         twitch_user_id: "430489413",
@@ -128,17 +128,17 @@ export const registeredPlayers: Record<string, Player> = {
         youtube_user_id: "UClplO1SnXir3cJ6gqgx4DnA",
         twitch_user_id: "1230168736",
     },
-    // // 20
-    // "lava chicken": {
-    //     nickname: "Chicken",
-    // },
-    // 21
+    // 20
     "precipice": {
         nickname: "Sky",
         minecraft_uuid: "0ae2a0d9-2e5a-4139-bfa2-b12978e90fa2",
         youtube_user_id: "UC8D7amKVwviDtMPYjficUUA",
         twitch_user_id: "646087429",
-    }
+    },
+    // // 21
+    // "lava chicken": {
+    //     nickname: "Chicken",
+    // }
 }
 
 export function getRegisteredPlayers(): Player[] {
