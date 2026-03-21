@@ -1,42 +1,49 @@
-# sv
+# Symphonic SMP Website
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators created by [Mypigisawesome](https://www.youtube.com/channel/UCcVXBFM1JNvmCDai6ggbx1w) and [SkyLimit](https://www.youtube.com/@SkyLimit17).
+I started watching it after getting contacted by one of the members regarding a Minecraft mod I made.
 
-## Creating a project
+Looking for a side project to do after working on Minecraft mods for weeks, I decided to make a website for the server.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## The website itself
 
-```sh
-# create a new project
-npx sv create my-app
+The website is built primarily using [Svelte](https://svelte.dev/) and [Tailwind CSS](https://tailwindcss.com/) running on [Bun](https://bun.sh/).
+
+To get videos and livestream (content) it calls the YouTube Data API and Twitch API respectively.
+Some simple caching logic is implemented to avoid hitting the API limits. When a user visits the website, 
+it checks if the content is cached and if it's not too old. If it is, it fetches new content from the APIs and updates the cache.
+
+## Hosting
+
+The website is currently hosted on a personal [Hetzner](https://www.hetzner.com/) VPS using Docker.
+With a domain provided by Mypigisawesome, the website is accessible at [symphonicsmp.net](https://symphonicsmp.net/).
+
+## Development and Contribution
+
+In case you want to contribute or run the website locally, you can do so by following the instructions below.
+
+Make sure you have Bun installed on your machine, and know how to use Git.
+
+To start of clone the repository and install the dependencies using Bun:
+
+```bash
+bun install
 ```
 
-To recreate this project with the same configuration:
+Before running the website, you need to set up the environment variables for the YouTube Data API and Twitch API.
+You can copy the `.env.example` file, rename it `.env` and fill in the required values.
 
-```sh
-# recreate this project
-bun x sv@0.12.7 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:none" better-auth="demo:password" paraglide="languageTags:en, de, nl+demo:yes" drizzle="database:sqlite+sqlite:better-sqlite3" --install bun SymphonicSMP
+To start the development server, run the following command:
+
+```bash
+bun run dev
 ```
 
-## Developing
+## License
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+This project is licensed under the CC0 1.0 Universal License - see the [LICENSE](LICENSE) file for details.
 
-```sh
-npm run dev
+This basically means that you can do whatever you want with the code, without any restrictions. 
+You can use it for personal or commercial projects, modify it, distribute it, etc.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+It's just a hobby project after all, and I want to make it as accessible as possible for anyone who might find it useful or interesting.
