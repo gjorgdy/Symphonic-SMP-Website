@@ -1,6 +1,6 @@
 services:
   svelte-app:
-    container_name: symphonic-hexasis-eu
+    container_name: symphonicsmp-net
     build: .
     ports:
       - "3000:3000"
