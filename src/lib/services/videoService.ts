@@ -1,4 +1,4 @@
-import {type VideoListResponse, YouTubeAPI} from "$lib/apis/youtube";
+import {YouTubeAPI} from "$lib/apis/youtube";
 import {getRegisteredPlayers} from "$lib/data/registeredPlayers";
 import type {Video} from "$lib/models/video";
 
