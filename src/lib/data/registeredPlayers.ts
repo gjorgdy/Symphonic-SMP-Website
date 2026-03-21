@@ -74,7 +74,7 @@ export const registeredPlayers: Record<string, Player> = {
         nickname: "Novaphain",
         minecraft_uuid: "b6bb5fe9-fc9c-40ff-a35b-45bead1c1b0b",
         youtube_user_id: "UCvrRc--0d_KKyO0Qtl7OuFg",
-        twitch_user_id: "novaphain",
+        twitch_user_id: "824430416",
     },
     // 12
     "far": {

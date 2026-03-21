@@ -44,8 +44,8 @@
                     <i class="hn hn-youtube"></i>
                 </a>
             {/if}
-            {#if player?.twitch_user_id != null}
-                <a aria-label="Twitch link" href="https://twitch.tv/{player?.twitch_user_id}"
+            {#if player?.twitch_url != null}
+                <a aria-label="Twitch link" href="{player?.twitch_url}"
                    class={"flex items-center justify-center text-gray-100 hover:text-purple-300 transition-colors float-end"}>
                     <i class="hn hn-twitch"></i>
                 </a>

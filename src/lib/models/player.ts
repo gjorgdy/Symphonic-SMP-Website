@@ -11,4 +11,5 @@ export type PlayerDisplay = Player & {
     minecraft_name: string,
     disc: string,
     profile_picture_url?: string,
+    twitch_url?: string,
 }

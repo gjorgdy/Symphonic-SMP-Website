@@ -25,6 +25,12 @@ type TwitchStream = {
     is_mature: boolean
 }
 
+type TwitchChannel = {
+    broadcaster_id: string,
+    broadcaster_login: string,
+    broadcaster_name: string,
+}
+
 export class TwitchAPI {
 
     private static expiresAt: number = 0;
@@ -53,6 +59,28 @@ export class TwitchAPI {
         this.token = data;
         this.expiresAt = Date.now() + data.expires_in;
         return data;
+    }
+
+    public static async fetchChannels(channelIds: string[]): Promise<Map<String, String>> {
+        const url = `https://api.twitch.tv/helix/channels?${channelIds.map(id  => `broadcaster_id=`+id).join('&')}`;
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + (await this.getToken()).access_token,
+                "Client-Id": env.TWITCH_CLIENT_ID
+            }
+        });
+        if (!response.ok) {
+            console.error(`Failed to fetch Twitch channels: ${response.status} ${response.statusText}`);
+            return new Map<String, String>();
+        }
+        const channels: TwitchChannel[] = (await response.json()).data;
+        if (channels == undefined) return new Map();
+        const channelMap: Map<String, String> = new Map();
+        for (const channel of channels) {
+            channelMap.set(channel.broadcaster_id, channel.broadcaster_login);
+        }
+        return channelMap;
     }
 
     public static async fetchLiveStreams(channelIds: string[]): Promise<Map<String, Livestream>> {

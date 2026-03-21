@@ -1,6 +1,7 @@
 import type {PlayerDisplay} from "$lib/models/player";
-import {registeredPlayers} from "$lib/data/registeredPlayers";
+import {getRegisteredPlayers, registeredPlayers} from "$lib/data/registeredPlayers";
 import {MinecraftAPI} from "$lib/apis/minecraft";
+import {TwitchAPI} from "$lib/apis/twitch";
 
 const PLAYER_CACHE_DURATION = 60 * 60 * 1000; // 60 minutes in ms
 
@@ -26,11 +27,17 @@ export class PlayerService {
     public async fetch(): Promise<PlayerDisplay[]> {
         console.log("Fetching player data...");
 
+        const twitchIds = getRegisteredPlayers()
+            .filter(p => p.twitch_user_id !== undefined)
+            .map(p => p.twitch_user_id!) as string[];
+        const twitchNames = await TwitchAPI.fetchChannels(twitchIds);
+
         const promisedPlayers = Object.entries(registeredPlayers).map(async ([disc, player]) => {
             return {
                 minecraft_name: player.minecraft_uuid !== undefined ? await MinecraftAPI.fetchName(player.minecraft_uuid) : "",
                 disc: disc,
                 profile_picture_url: "/assets/discs/" + disc + ".png",
+                twitch_url: player.twitch_user_id ? "https://twitch.tv/" + twitchNames.get(player.twitch_user_id) : undefined,
                 ...player
             } as PlayerDisplay;
         })
