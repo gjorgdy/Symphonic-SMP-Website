@@ -14,6 +14,13 @@
 
 <svelte:head>
 	<link rel="icon" href={"/assets/discs/" + data.favicon + ".png"} />
+	<meta name="darkreader-lock" content="true" />
+	<meta property="og:title" content="Symphonic SMP" />
+	<meta name="keywords" content="Minecraft, Survival, SMP, Community, Music" />
+	<meta name="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators">
+	<meta property="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators" />
+	<meta property="og:description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators" />
+	<meta property="og:image" content={data.logo} />
 	<title>Symphonic SMP</title>
 </svelte:head>
 
