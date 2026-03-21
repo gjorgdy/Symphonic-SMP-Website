@@ -73,20 +73,20 @@ export class YouTubeAPI {
         return hours == 0 && minutes == 0;
     }
 
-    static async fetchLivestreams(): Promise<Livestream[]> {
-
-        return [];
-    }
-
     static async fetchLatestVideos(channelId: string): Promise<VideoListResponse[]> {
         let url = `https://youtube.googleapis.com/youtube/v3/playlistItems?key=${env.GOOGLE_KEY}&part=contentDetails&maxResults=25&playlistId=${channelId.replace('UC', 'UU')}`;
         const response = await fetch(url);
+        if (response.status === 404) return [];
         if (!response.ok) {
-            throw new Error(response.statusText);
+            throw new Error(response.statusText + " | channel id : " + channelId);
         }
         const data = await response.json();
         const playlistItems = data.items as YoutubePlaylistItem[];
-        return await this.fetchVideoDetails(playlistItems.map(item => item.contentDetails.videoId));
+        try {
+            return await this.fetchVideoDetails(playlistItems.map(item => item.contentDetails.videoId));
+        } catch (error) {
+            throw new Error(error + " | channel id : " + channelId);
+        }
     }
 
     private static async fetchVideoDetails(videoIds: string[]): Promise<VideoListResponse[]> {

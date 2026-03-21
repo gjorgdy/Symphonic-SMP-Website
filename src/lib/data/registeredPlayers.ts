@@ -92,7 +92,7 @@ export const registeredPlayers: Record<string, Player> = {
     // 14
     "creator": {
         nickname: "Creepycrawlykeeper",
-        // minecraft_uuid: "",
+        minecraft_uuid: "c1ffa8e7-4c32-4129-9614-45c3d68a2499",
         youtube_user_id: "UCmjsZbCwmhyLN9HYT57K-gQ",
     },
     // 15
@@ -116,7 +116,7 @@ export const registeredPlayers: Record<string, Player> = {
     },
     // 18
     "5": {
-        nickname: "Sky5",
+        nickname: "SkyButter",
         minecraft_uuid: "ec14aae8-e955-44da-ae5a-202b264613bc",
         youtube_user_id: "UCyMbvrIlPfXEE1nSt0YcECQ",
         twitch_user_id: "838789208",
@@ -132,14 +132,13 @@ export const registeredPlayers: Record<string, Player> = {
     // "lava chicken": {
     //     nickname: "Chicken",
     // },
-    // // 21
-    // "mellohi": {
-    //     nickname: "Mellohi",
-    // },
-    // // 21
-    // "precipice": {
-    //     nickname: "Precipice",
-    // }
+    // 21
+    "precipice": {
+        nickname: "Sky",
+        minecraft_uuid: "0ae2a0d9-2e5a-4139-bfa2-b12978e90fa2",
+        youtube_user_id: "UC8D7amKVwviDtMPYjficUUA",
+        twitch_user_id: "646087429",
+    }
 }
 
 export function getRegisteredPlayers(): Player[] {
