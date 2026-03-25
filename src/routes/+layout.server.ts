@@ -21,6 +21,7 @@ export const load: LayoutServerLoad = ({url }) => {
 	const logo = "/assets/logo_text.png";
 
     return {
+		disc: disc,
 		discs: discs,
 		logo: logo,
 		favicon: favicon

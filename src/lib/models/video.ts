@@ -19,5 +19,6 @@ type Thumbnail = {
 
 type Creator = {
     name: string,
+    youtube_user_id: string,
     url: string
 }

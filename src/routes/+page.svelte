@@ -2,6 +2,8 @@
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import ContentListItem from "$lib/components/contentListItem.svelte";
     import { ContentUtils } from "$lib/utils/contentUtils";
+    import Skinview3d from "svelte-skinview3d";
+    import { IdleAnimation } from "skinview3d";
 
     const { data } = $props();
 
@@ -12,6 +14,9 @@
         livestreams: true,
         shorts: true
     });
+
+    let w: number|undefined = $state();
+    let h: number|undefined = $state();
 </script>
 
 <div class="flex flex-col h-full w-full">
@@ -25,7 +30,7 @@
         type="button"
         class={"flex flex-2 items-center justify-center " + (page === "players" ? "underline" : "")}
         onclick={(() => page = "players")}
-    > Symphonists </button>
+    > {data.disc === null ? "Symphonists" : "Symphonist"} </button>
     <button
             type="button"
             class={"flex flex-1 items-center justify-center " + (page === "links" ? "underline" : "")}
@@ -62,8 +67,9 @@
     <!--    About     -->
 
     <!--    Players     -->
-    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] grid grid-rows-[auto_auto] min-h-0 overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
-        <h2 class="text-xl pixel p-4 not-md:hidden">Symphonists</h2>
+    {#if data.disc == null}
+    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+        <h2 class="text-xl pixel p-4 not-md:hidden">{data.disc == null ? "Symphonists" : "Symphonist"}</h2>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0 overflow-y-auto">
             {#await data.players}
                 {#each {length: 20} as _}
@@ -73,17 +79,40 @@
                 {#each players as player}
                     <PlayerListItem {player}/>
                 {/each}
-            {:catch _}
-                <p class="italic">Could not find any recent videos :(</p>
             {/await}
         </div>
     </div>
+    {:else}
+    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+        <div class="flex flex-row gap-2 p-4 not-md:pb-0 justify-between">
+            <h2 class="text-xl pixel">Symphonist</h2>
+            <a href="/" class="hover:underline text-gray-400 italic h-min mt-auto">show all</a>
+        </div>
+        <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0">
+        {#await data.players}
+            Loading...
+        {:then players}
+            {@const player = players.find(p => (p.disc === data.disc))}
+            <div class="w-full aspect-square" bind:clientWidth={w} bind:clientHeight={h}>
+                <Skinview3d
+                        class="border-white/5 bg-white/1 border rounded-sm"
+                        options={{animation: new IdleAnimation(), zoom: 0.75}}
+                        width={(w ?? 100)} height={(h ?? 100)}
+                        skinUrl="https://mc-heads.net/skin/{player?.minecraft_uuid}"
+                        capeUrl="/textures/cape.png"
+                />
+            </div>
+            <PlayerListItem {player} selected={data.disc != null}/>
+        {/await}
+        </div>
+    </div>
+    {/if}
     <!--    Players     -->
 
     <!--    Content     -->
-    <div class={"md:row-span-2 grid grid-rows-[auto_auto] rounded-xl bg-[#1e1e1e] py-4 overflow-hidden " + (page === "content" ? "" : "not-md:hidden")}>
-        <div class="flex flex-row px-4 pb-4 w-full float-end">
-            <h2 class="text-xl pixel not-md:hidden grow">Content</h2>
+    <div class={"md:row-span-2 rounded-xl bg-[#1e1e1e] py-4 overflow-hidden min-h-0 flex flex-col " + (page === "content" ? "" : "not-md:hidden")}>
+        <div class="flex flex-row px-4 pb-4 w-full justify-between">
+            <h2 class="text-xl pixel not-md:hidden">Content</h2>
             <span class="flex items-center float-end gap-2 not-md:w-full">
                 <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="filter" type="checkbox" bind:checked={settings.onlySymphonic}>
                 <label class="text-gray-400 text-sm not-md:grow" for="filter">SMP only</label>
@@ -93,20 +122,23 @@
                 <label class="text-gray-400 text-sm not-md:grow" for="shorts">Shorts</label>
             </span>
         </div>
-        <div class="h-full flex flex-col px-4 gap-4 overflow-auto">
+        <div class="grow w-full flex flex-col px-4 gap-4 overflow-auto">
             {#await data.content}
                 {#each {length: 20} as _}
                     <ContentListItem/>
                 {/each}
             {:then content}
-                {#if settings.livestreams}
-                    {#each content.livestreams as livestream}
-                        <ContentListItem {livestream}/>
-                    {/each}
-                {/if}
-                {#each ContentUtils.filterVideos(content.videos, settings) as video}
+                {@const filteredLivestreams = ContentUtils.filterLivestreams(content.livestreams, settings, data.disc)}
+                {@const filteredVideos = ContentUtils.filterVideos(content.videos, settings, data.disc)}
+                {#each filteredLivestreams as livestream}
+                    <ContentListItem {livestream}/>
+                {/each}
+                {#each filteredVideos as video}
                     <ContentListItem {video}/>
                 {/each}
+                {#if filteredLivestreams.length === 0 && filteredVideos.length === 0}
+                    <p class="italic">Could not find any content :(</p>
+                {/if}
             {:catch _}
                 <p class="italic">Could not find any content :(</p>
             {/await}

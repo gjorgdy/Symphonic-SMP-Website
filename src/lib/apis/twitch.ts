@@ -98,6 +98,7 @@ export class TwitchAPI {
             streamMap.set(stream.user_login, {
                 url: "https://twitch.tv/" + stream.user_login,
                 creator_url: "https://twitch.tv/" + stream.user_login,
+                creator_twitch_user_id: stream.user_id,
                 creator_name: stream.user_name,
                 title: stream.title,
                 thumbnail_url: stream.thumbnail_url.replace("{width}", "320").replace("{height}", "180"),

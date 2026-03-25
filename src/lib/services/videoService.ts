@@ -38,6 +38,7 @@ export class VideoService {
                     url: "https://www.youtube.com/watch?v=" + data.id,
                     creator: {
                         name: data.snippet.channelTitle,
+                        youtube_user_id: data.snippet.channelId,
                         url: "https://www.youtube.com/channel/" + data.snippet.channelId
                     },
                     thumbnail: {

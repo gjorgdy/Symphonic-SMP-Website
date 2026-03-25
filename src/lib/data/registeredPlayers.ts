@@ -141,6 +141,10 @@ export const registeredPlayers: Record<string, Player> = {
     // }
 }
 
+export function getRegisteredPlayer(disc: string): Player | undefined {
+    return registeredPlayers[disc];
+}
+
 export function getRegisteredPlayers(): Player[] {
     return Object.values(registeredPlayers);
 }
