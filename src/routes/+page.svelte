@@ -1,11 +1,14 @@
 <script lang="ts">
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import ContentListItem from "$lib/components/contentListItem.svelte";
+    import PanelTitle from "\$lib/components/panelTitle.svelte";
     import { ContentUtils } from "$lib/utils/contentUtils";
     import Skinview3d from "svelte-skinview3d";
     import { IdleAnimation } from "skinview3d";
 
     const { data } = $props();
+
+    let menu: boolean = $state(false);
 
     let page: string = $state("content");
 
@@ -20,29 +23,41 @@
 </script>
 
 <div class="flex flex-col h-full w-full">
-<div class="flex flex-row h-10 p-2 mb-2 rounded-md md:rounded-xl bg-[#1e1e1e] divide-[#444444] divide-x-2 md:hidden">
+
+{#if menu}
+<div class="rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4">
+    <PanelTitle onclick={() => menu = !menu}/>
     <button
             type="button"
-            class={"flex flex-1 items-center justify-center " + (page === "content" ? "underline" : "")}
-            onclick={(() => page = "content")}
+            class={"flex flex-1 items-center justify-center pixel text-xl " + (page === "content" ? "underline text-gray-400" : "")}
+            onclick={(() => {
+                page = "content"
+                menu = false;
+            })}
     >Content</button>
     <button
         type="button"
-        class={"flex flex-2 items-center justify-center " + (page === "players" ? "underline" : "")}
-        onclick={(() => page = "players")}
+        class={"flex flex-2 items-center justify-center pixel text-xl " + (page === "players" ? "underline text-gray-400" : "")}
+        onclick={(() => {
+            page = "players";
+            menu = false;
+        })}
     > {data.disc === null ? "Symphonists" : "Symphonist"} </button>
     <button
             type="button"
-            class={"flex flex-1 items-center justify-center " + (page === "links" ? "underline" : "")}
-            onclick={(() => page = "links")}
+            class={"flex flex-1 items-center justify-center pixel text-xl " + (page === "links" ? "underline text-gray-400" : "")}
+            onclick={(() => {
+                page = "links";
+                menu = false;
+            })}
     > Links </button>
 </div>
-
-<div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] grid-rows-1 md:grid-rows-[auto_1fr] gap-4 overflow-hidden">
+{:else}
+<div class="md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr] not-md:pb-4 gap-4 md:overflow-hidden">
 
     <!--    About     -->
     <div class={"rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4 " + (page === "links" ? "" : "not-md:hidden")}>
-        <h2 class="text-xl pixel not-md:hidden">Links</h2>
+        <PanelTitle title="Links" onclick={() => menu = !menu}/>
         <a aria-label="Discord link" href="https://discord.gg/T4GvyhRs52"
            class="text-gray-100 hover:text-gray-300 transition-colors gap-2 flex items-center">
             <i class="hn hn-discord text-xl"></i>
@@ -68,9 +83,9 @@
 
     <!--    Players     -->
     {#if data.disc == null}
-    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
-        <h2 class="text-xl pixel p-4 not-md:hidden">{data.disc == null ? "Symphonists" : "Symphonist"}</h2>
-        <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0 overflow-y-auto">
+    <div class={"md:row-start-2 rounded-xl p-4 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+        <PanelTitle title={data.disc == null ? "Symphonists" : "Symphonist"} onclick={() => menu = !menu}/>
+        <div class="flex flex-col gap-4 h-full min-h-0 md:overflow-y-auto">
             {#await data.players}
                 {#each {length: 20} as _}
                     <PlayerListItem/>
@@ -83,9 +98,9 @@
         </div>
     </div>
     {:else}
-    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit md:overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
         <div class="flex flex-row gap-2 p-4 not-md:pb-0 justify-between">
-            <h2 class="text-xl pixel">Symphonist</h2>
+            <PanelTitle title="Symphonist" onclick={() => menu = !menu}/>
             <a href="/" class="hover:underline text-gray-400 italic h-min mt-auto">show all</a>
         </div>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0">
@@ -111,8 +126,8 @@
 
     <!--    Content     -->
     <div class={"md:row-span-2 rounded-xl bg-[#1e1e1e] py-4 overflow-hidden min-h-0 flex flex-col " + (page === "content" ? "" : "not-md:hidden")}>
-        <div class="flex flex-row px-4 pb-4 w-full justify-between">
-            <h2 class="text-xl pixel not-md:hidden">Content</h2>
+        <div class="flex flex-col md:flex-row not-md:gap-4 px-4 pb-4 w-full justify-between">
+            <PanelTitle title="Content" onclick={() => menu = !menu}/>
             <span class="flex items-center float-end gap-2 not-md:w-full">
                 <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="filter" type="checkbox" bind:checked={settings.onlySymphonic}>
                 <label class="text-gray-400 text-sm not-md:grow" for="filter">SMP only</label>
@@ -146,4 +161,5 @@
     </div>
     <!--    Content     -->
 </div>
+{/if}
 </div>

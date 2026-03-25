@@ -24,14 +24,15 @@
 	<title>Symphonic SMP</title>
 </svelte:head>
 
-<div class="static">
-	<div id="background" class="absolute z-[-1] h-screen w-screen bg-[url(/assets/background.png)] bg-cover bg-center blur-sm"></div>
-</div>
+<div
+	id="background"
+	class="fixed inset-0 -z-10 bg-[url('/assets/background.png')] bg-cover bg-center blur-sm pointer-events-none"
+></div>
 
-<div id="app" class="h-screen max-h-screen w-screen max-w-screen overflow-hidden">
+<div id="app" class="h-screen max-h-screen w-screen max-w-screen md:overflow-hidden">
 	<div class="h-full p-2 md:py-5 flex flex-col items-center gap-2 text-white">
 	<!--	Header		-->
-	<div class="relative h-16 md:my-4 w-300 max-w-[98%] flex items-center justify-center">
+	<div class="static h-16 md:my-4 w-300 max-w-[98%] flex items-center justify-center">
 		<div class="h-full rounded-lg bg-[#1e1e1e] overflow-hidden">
 			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
 				{#each data.discs as disc}
