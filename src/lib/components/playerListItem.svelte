@@ -21,14 +21,14 @@
 
 </script>
 
-<div class="flex flex-row items-center justify-between gap-4 md:px-2 w-full">
+<div class="flex flex-row items-center justify-between gap-4 md:px-1 w-full">
     <button
             type="submit"
             onclick={() => setDisc(player?.disc)}
-            class="flex flex-row gap-4 group cursor-pointer"
+            class="flex flex-row grow items-center gap-2 group cursor-pointer"
     >
         <!--    Profile Picture    -->
-        <div class="grow relative rounded-sm h-10 w-10 aspect-square bg-[#444444] overflow-hidden">
+        <div class="relative rounded-sm h-10 w-10 aspect-square bg-[#444444] overflow-hidden">
             {#if player == null}
                 <div class="rounded-[100%] h-10 w-10 aspect-square bg-[#444444] animate-pulse"></div>
             {:else if player.profile_picture_url != null}
@@ -44,8 +44,8 @@
         </div>
         <!--    Name    -->
         <span class="flex flex-col items-start gap-1">
-            <span>{player?.nickname}</span>
-            <span class="text-xs text-gray-600">{player?.minecraft_name ?? " "}</span>
+            <span class="group-hover:text-gray-400 transition-colors">{player?.nickname}</span>
+            <span class="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">{player?.minecraft_name ?? " "}</span>
         </span>
     </button>
     <div class="flex gap-8 h-full text-xl flex-row-reverse">
