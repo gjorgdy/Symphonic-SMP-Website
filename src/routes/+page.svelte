@@ -113,7 +113,10 @@
         </div>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0">
         {#await selectedPlayer}
-            loading...
+            <div class="w-full min-h-0 aspect-square">
+                <div class="h-full border-white/5 bg-white/1 border rounded-sm"></div>
+            </div>
+            <PlayerListItem/>
         {:then player}
             <div class="w-full aspect-square" bind:clientWidth={w} bind:clientHeight={h}>
                 <Skinview3d

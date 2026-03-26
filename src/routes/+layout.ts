@@ -1,6 +1,6 @@
-import type { LayoutServerLoad } from './$types';
+import type { LayoutLoad } from './$types';
 
-export const load: LayoutServerLoad = ({url }) => {
+export const load: LayoutLoad = ({url }) => {
 
 	let discs = [
 		"13", "cat", "blocks", "chirp", "far", "mall", "mellohi",

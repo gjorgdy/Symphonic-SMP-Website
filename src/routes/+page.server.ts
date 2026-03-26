@@ -1,6 +1,5 @@
-import type {Video} from "$lib/models/video";
 import {VideoService} from "$lib/services/videoService";
-import type {Livestream} from "$lib/models/livestream";
+import type {Video, Livestream} from "$lib/models/content";
 import {LivestreamService} from "$lib/services/livestreamService";
 import {PlayerService} from "$lib/services/playerService";
 import type {PlayerDisplay} from "$lib/models/player";
@@ -15,12 +14,14 @@ export type Content = {
     videos: Video[]
 }
 
-export const load = async (): Promise<IndexServerLoadProps> => {
+export const load = (): IndexServerLoadProps => {
+    const livestreamsPromise = LivestreamService.getInstance().getLivestreams();
+    const videosPromise = VideoService.getInstance().getRecentVideos();
+
     return {
         players: PlayerService.getInstance().getClientPlayers(),
-        content: Promise.resolve({
-            livestreams: await LivestreamService.getInstance().getLivestreams(),
-            videos: await VideoService.getInstance().getRecentVideos()
-        } as Content)
+        content: Promise.all([livestreamsPromise, videosPromise]).then(
+            ([livestreams, videos]) => ({ livestreams, videos })
+        )
     };
-}
+};

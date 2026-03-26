@@ -14,7 +14,7 @@
         {#if content == null}
             <div class="w-full md:min-w-64 aspect-video bg-[#444444] animate-pulse rounded-sm"></div>
         {:else}
-            <img class="w-full md:min-w-64 aspect-video rounded-sm" src="{content?.thumbnail_url}" alt="thumbnail for {content?.title}">
+            <img class="w-full md:min-w-64 aspect-video rounded-sm border-white/5 border" src="{content?.thumbnail_url}" alt="thumbnail for {content?.title}">
             <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs bg-black/50 p-0.5 rounded-xs">
                 {#if isVideo(content) }
                     {content?.duration ?? "00:00"}
