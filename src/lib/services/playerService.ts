@@ -30,6 +30,7 @@ export class PlayerService {
         const twitchIds = getRegisteredPlayers()
             .filter(p => p.twitch_user_id !== undefined)
             .map(p => p.twitch_user_id!) as string[];
+        await TwitchAPI.init();
         const twitchNames = await TwitchAPI.fetchChannels(twitchIds);
 
         const promisedPlayers = Object.entries(registeredPlayers).map(async ([disc, player]) => {

@@ -1,6 +1,7 @@
 import {YouTubeAPI} from "$lib/apis/youtube";
 import {getRegisteredPlayers} from "$lib/data/registeredPlayers";
 import type {Video} from "$lib/models/content";
+import {TwitchAPI} from "$lib/apis/twitch";
 
 const CACHE_DURATION = 15 * 60 * 1000; // 15 minutes in ms
 
@@ -31,7 +32,13 @@ export class VideoService {
             .map(player => player.youtube_user_id!)
             .map(YouTubeAPI.fetchLatestVideos);
 
-        let videos = (await Promise.all(promisedVideos))
+        await TwitchAPI.init();
+        let promisedVods = getRegisteredPlayers()
+            .filter(player => player.twitch_user_id !== undefined)
+            .map(player => player.twitch_user_id!)
+            .map(TwitchAPI.fetchVods);
+
+        let videos = (await Promise.all(promisedVideos.concat(promisedVods)))
             .flat().sort((a, b) => {
                 return (new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
             });

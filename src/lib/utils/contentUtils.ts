@@ -13,9 +13,10 @@ export class ContentUtils {
     static filterVideos(videos: Video[], settings: Settings, disc: string|null = null): Video[] {
         if (disc != null) {
             const player = getRegisteredPlayer(disc);
-            videos = videos.filter(video => {
-                return video.creator.youtube_user_id === player?.youtube_user_id
-            })
+            videos = videos.filter(video =>
+                (video.creator.youtube_user_id !== undefined && video.creator.youtube_user_id === player?.youtube_user_id)
+                || (video.creator.twitch_user_id !== undefined && video.creator.twitch_user_id === player?.twitch_user_id)
+            )
         }
         if (settings.onlySymphonic) {
             videos = videos.filter(video => video.symphonic);

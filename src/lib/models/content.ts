@@ -28,8 +28,8 @@ export type Video = Content & {
     published_at: Date,
     duration: string,
     views: number,
-    likes: number,
-    comments: number,
+    likes?: number,
+    comments?: number,
     type: "vod" | "short" | "video",
 }
 
