@@ -1,5 +1,5 @@
 import {env} from '$env/dynamic/private'
-import type {Livestream} from "$lib/models/livestream";
+import type {Livestream} from "$lib/models/content";
 
 type TwitchToken = {
     access_token: string;
@@ -96,14 +96,17 @@ export class TwitchAPI {
         const streamMap: Map<String, Livestream> = new Map();
         for (const stream of streams) {
             streamMap.set(stream.user_login, {
-                url: "https://twitch.tv/" + stream.user_login,
-                creator_url: "https://twitch.tv/" + stream.user_login,
-                creator_twitch_user_id: stream.user_id,
-                creator_name: stream.user_name,
                 title: stream.title,
                 thumbnail_url: stream.thumbnail_url.replace("{width}", "320").replace("{height}", "180"),
-                viewcount: stream.viewer_count,
+                url: "https://twitch.tv/" + stream.user_login,
+                creator: {
+                    name: stream.user_name,
+                    url: "https://twitch.tv/" + stream.user_login,
+                    twitch_user_id: stream.user_id,
+                },
+                viewers: stream.viewer_count,
                 started_at: new Date(stream.started_at),
+                symphonic: stream.title?.toLowerCase().includes("symphonic")
             } as Livestream
             );
         }

@@ -2,7 +2,7 @@
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import ContentListItem from "$lib/components/contentListItem.svelte";
     import PanelTitle from "$lib/components/panelTitle.svelte";
-    import { ContentUtils } from "$lib/utils/contentUtils";
+    import {ContentUtils, type Settings} from "$lib/utils/contentUtils";
     import Skinview3d from "svelte-skinview3d";
     import { IdleAnimation } from "skinview3d";
     import type {PlayerDisplay} from "$lib/models/player";
@@ -16,8 +16,9 @@
     let settings = $state({
         onlySymphonic: true,
         livestreams: true,
-        shorts: true
-    });
+        shorts: true,
+        vods: false
+    } as Settings);
 
     let w: number|undefined = $state();
     let h: number|undefined = $state();
@@ -151,6 +152,8 @@
                 <label class="text-gray-400 text-sm not-md:grow" for="live">Livestreams</label>
                 <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="shorts" type="checkbox" bind:checked={settings.shorts}>
                 <label class="text-gray-400 text-sm not-md:grow" for="shorts">Shorts</label>
+                <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="vods" type="checkbox" bind:checked={settings.vods}>
+                <label class="text-gray-400 text-sm not-md:grow" for="vods">VODs</label>
             </span>
         </div>
         <div class="grow w-full flex flex-col px-4 gap-4 overflow-auto">
@@ -162,10 +165,10 @@
                 {@const filteredLivestreams = ContentUtils.filterLivestreams(content.livestreams, settings, data.disc)}
                 {@const filteredVideos = ContentUtils.filterVideos(content.videos, settings, data.disc)}
                 {#each filteredLivestreams as livestream}
-                    <ContentListItem {livestream}/>
+                    <ContentListItem content={livestream}/>
                 {/each}
                 {#each filteredVideos as video}
-                    <ContentListItem {video}/>
+                    <ContentListItem content={video}/>
                 {/each}
                 {#if filteredLivestreams.length === 0 && filteredVideos.length === 0}
                     <p class="italic">Could not find any content :(</p>
