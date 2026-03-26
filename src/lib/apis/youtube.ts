@@ -1,5 +1,6 @@
 import {env} from '$env/dynamic/private';
 import type {Video} from "$lib/models/content";
+import {TimeUtils} from "$lib/utils/timeUtils";
 
 export type VideoListResponse = {
     kind: "youtube#videoListResponse",
@@ -46,22 +47,7 @@ export type YoutubePlaylistItem = {
 export class YouTubeAPI {
 
     static formatDuration(isoDuration: string) {
-        const match = isoDuration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-        if (!match) return '00:00:00';
-
-        const hours = parseInt(match[1] || '0', 10);
-        const minutes = parseInt(match[2] || '0', 10);
-        const seconds = parseInt(match[3] || '0', 10);
-
-        const paddedHours = String(hours).padStart(2, '0');
-        const paddedMinutes = String(minutes).padStart(2, '0');
-        const paddedSeconds = String(seconds).padStart(2, '0');
-
-        if (hours > 0) {
-            return `${paddedHours}:${paddedMinutes}:${paddedSeconds}`;
-        } else {
-            return `${paddedMinutes}:${paddedSeconds}`;
-        }
+        return TimeUtils.formatDuration(isoDuration, /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     }
 
     private static getVideoType(data: VideoListResponse): string {

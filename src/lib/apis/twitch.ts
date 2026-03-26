@@ -1,5 +1,6 @@
 import {env} from '$env/dynamic/private'
 import type {Livestream, VOD} from "$lib/models/content";
+import {TimeUtils} from "$lib/utils/timeUtils";
 
 type TwitchToken = {
     access_token: string;
@@ -47,6 +48,10 @@ type TwitchChannel = {
 }
 
 export class TwitchAPI {
+
+    static formatDuration(isoDuration: string) {
+        return TimeUtils.formatDuration(isoDuration, /(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
+    }
 
     private static expiresAt: number = 0;
     private static token?: TwitchToken;
@@ -154,7 +159,7 @@ export class TwitchAPI {
                     twitch_user_id: vod.user_id,
                 },
                 published_at: new Date(vod.published_at),
-                duration: vod.duration,
+                duration: TwitchAPI.formatDuration(vod.duration),
                 symphonic: vod.title?.toLowerCase().includes("symphonic"),
                 views: vod.view_count,
                 type: "vod"
