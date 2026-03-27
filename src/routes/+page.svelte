@@ -11,7 +11,7 @@
 
     let menu: boolean = $state(false);
 
-    let page: string = $state("content");
+    let selectedPage: string = $state("content");
 
     let settings = $state({
         onlySymphonic: true,
@@ -35,25 +35,25 @@
     <PanelTitle onclick={() => menu = !menu}/>
     <button
             type="button"
-            class={"flex flex-1 items-center justify-center pixel text-xl " + (page === "content" ? "underline text-gray-400" : "")}
+            class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "content" ? "underline text-gray-400" : "")}
             onclick={(() => {
-                page = "content"
+                selectedPage = "content"
                 menu = false;
             })}
     >Content</button>
     <button
         type="button"
-        class={"flex flex-2 items-center justify-center pixel text-xl " + (page === "players" ? "underline text-gray-400" : "")}
+        class={"flex flex-2 items-center justify-center pixel text-xl " + (selectedPage === "players" ? "underline text-gray-400" : "")}
         onclick={(() => {
-            page = "players";
+            selectedPage = "players";
             menu = false;
         })}
     > {data.disc === null ? "Symphonists" : "Symphonist"} </button>
     <button
             type="button"
-            class={"flex flex-1 items-center justify-center pixel text-xl " + (page === "links" ? "underline text-gray-400" : "")}
+            class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "links" ? "underline text-gray-400" : "")}
             onclick={(() => {
-                page = "links";
+                selectedPage = "links";
                 menu = false;
             })}
     > Links </button>
@@ -62,7 +62,7 @@
 <div class="md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr] not-md:pb-4 gap-4 md:overflow-hidden">
 
     <!--    About     -->
-    <div class={"rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4 " + (page === "links" ? "" : "not-md:hidden")}>
+    <div class={"rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4 " + (selectedPage === "links" ? "" : "not-md:hidden")}>
         <PanelTitle title="Links" onclick={() => menu = !menu}/>
         <a aria-label="Discord link" href="https://discord.gg/T4GvyhRs52"
            target="_blank"
@@ -93,7 +93,7 @@
 
     <!--    Players     -->
     {#if data.disc == null}
-    <div class={"md:row-start-2 rounded-xl py-4 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+    <div class={"md:row-start-2 rounded-xl py-4 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden " + (selectedPage === "players" ? "" : "not-md:hidden")}>
         <div class="px-4">
             <PanelTitle title={data.disc == null ? "Symphonists" : "Symphonist"} onclick={() => menu = !menu}/>
         </div>
@@ -110,7 +110,7 @@
         </div>
     </div>
     {:else}
-    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit md:overflow-hidden " + (page === "players" ? "" : "not-md:hidden")}>
+    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit md:overflow-hidden " + (selectedPage === "players" ? "" : "not-md:hidden")}>
         <div class="flex flex-row gap-2 p-4 not-md:pb-0 justify-between">
             <PanelTitle title="Symphonist" onclick={() => menu = !menu}/>
             <a href="/" class="hover:underline text-gray-400 italic h-min mt-auto">deselect</a>
@@ -138,7 +138,7 @@
     <!--    Players     -->
 
     <!--    Content     -->
-    <div class={"md:row-span-2 rounded-xl bg-[#1e1e1e] py-4 overflow-hidden min-h-0 flex flex-col " + (page === "content" ? "" : "not-md:hidden")}>
+    <div class={"md:row-span-2 rounded-xl bg-[#1e1e1e] py-4 overflow-hidden min-h-0 flex flex-col " + (selectedPage === "content" ? "" : "not-md:hidden")}>
         <div class="flex flex-col md:flex-row not-md:gap-4 px-4 pb-4 w-full justify-between">
             {#await selectedPlayer}
                 <PanelTitle

@@ -1,19 +1,17 @@
 import type { LayoutLoad } from './$types';
+import { getRegisteredDiscs } from "$lib/data/registeredPlayers";
 
-export const load: LayoutLoad = ({url }) => {
+export const load: LayoutLoad = ({url}) => {
 
-	let discs = [
-		"13", "cat", "blocks", "chirp", "far", "mall", "mellohi",
-		"stal", "strad", "ward", "11", "pigstep", "otherside",
-		"5", "relic", "creator", "creator_music_box", "precipice", "tears", "lava chicken"
-	];
-
+	let discs: string[];
 	let favicon;
 	let disc = url.searchParams.get('disc');
+
 	if (disc) {
 		favicon = disc;
-		discs = Array.from({ length: 2 * discs.length }, () => disc);
+		discs = Array.from({ length: 40 }, () => disc);
 	} else {
+		discs = getRegisteredDiscs();
 		favicon = discs[Math.floor(Math.random() * discs.length)];
 		discs = discs.concat(discs);
 	}

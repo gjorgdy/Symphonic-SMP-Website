@@ -91,7 +91,7 @@ export const registeredPlayers: Record<string, Player> = {
     },
     // 14
     "creator": {
-        nickname: "Creepycrawlykeeper",
+        nickname: "Luke",
         minecraft_uuid: "c1ffa8e7-4c32-4129-9614-45c3d68a2499",
         youtube_user_id: "UCmjsZbCwmhyLN9HYT57K-gQ",
     },
@@ -147,4 +147,9 @@ export function getRegisteredPlayer(disc: string): Player | undefined {
 
 export function getRegisteredPlayers(): Player[] {
     return Object.values(registeredPlayers);
+}
+export function getRegisteredDiscs(): string[] {
+    return Object.keys(registeredPlayers).sort(function (a, b) {
+        return Math.random() - 0.5;
+    });
 }

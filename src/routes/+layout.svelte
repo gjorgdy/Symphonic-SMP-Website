@@ -4,12 +4,24 @@
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
 	import { initFlowbite } from 'flowbite'
 	import { onMount } from "svelte";
+	import {page} from "$app/state";
+	import {goto} from "$app/navigation";
 
 	onMount(() => {
 		initFlowbite();
 	})
 
 	let { data, children }: LayoutProps = $props();
+
+	function setDisc(disc?: string): void {
+		let query = new URLSearchParams(page.url.searchParams.toString());
+		if (disc) {
+			query.set('disc', disc);
+			goto(`?${query.toString()}`);
+		} else {
+			goto('/');
+		}
+	}
 </script>
 
 <svelte:head>
@@ -34,15 +46,15 @@
 	<!--	Header		-->
 	<div class="static h-16 md:my-4 w-300 max-w-[98%] flex items-center justify-center">
 		<div class="h-full rounded-lg bg-[#1e1e1e] overflow-hidden">
-			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
+			<div class="flex flex-row gap-10 items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
 				{#each data.discs as disc}
-					<div class="flex grow justify-center">
+					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={() => setDisc(disc)}>
 						<img class="h-8 md:h-10 m-2" src={"/assets/discs/" + disc + ".png"} alt="Disc {disc}"/>
-					</div>
+					</button>
 				{/each}
 			</div>
 		</div>
-		<div class="absolute h-16 backdrop-blur-xs min-w-full mask-x-from-50%"></div>
+		<div class="absolute h-16 backdrop-blur-xs min-w-full mask-x-from-50% pointer-events-none"></div>
 		<a href="/" class="absolute h-16 justify-center items-center md:py-0 md:px-20 group">
 			<img class="h-full z-50 scale-70 md:scale-140 group-hover:scale-75 md:group-hover:scale-150 transition-transform " src={data.logo} alt=""/>
 		</a>
