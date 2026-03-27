@@ -34,10 +34,10 @@
                 <div class="absolute h-full w-full bg-[#444444] animate-pulse"></div>
             {:else}
                 {#if showSkin}
-                    <img class="absolute top-0 h-full w-full rotate-y-0 group-hover:-rotate-y-90 transition-transform" src="https://mc-heads.net/avatar/{player.minecraft_uuid}" alt="">
-                    <img class="absolute top-0 h-full w-full ml-px transition-transform rotate-y-90 group-hover:rotate-y-0" src={"/assets/discs/" + player.disc + ".png"} alt="">
+                    <img loading="lazy" class="absolute top-0 h-full w-full rotate-y-0 group-hover:-rotate-y-90 transition-transform" src="https://mc-heads.net/avatar/{player.minecraft_uuid}" alt="">
+                    <img loading="lazy" class="absolute top-0 h-full w-full ml-px transition-transform rotate-y-90 group-hover:rotate-y-0" src={"/assets/discs/" + player.disc + ".png"} alt="">
                 {:else}
-                    <img class="absolute top-0 h-full w-full ml-px" src={"/assets/discs/" + player.disc + ".png"} alt="">
+                    <img loading="lazy" class="absolute top-0 h-full w-full ml-px" src={"/assets/discs/" + player.disc + ".png"} alt="">
                 {/if}
             {/if}
         </div>

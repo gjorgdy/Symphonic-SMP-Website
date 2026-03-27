@@ -152,7 +152,7 @@
                     onclick={() => menu = !menu}
                 />
             {/await}
-            <span class="grid grid-cols-2 md:flex items-center float-end gap-4 not-md:w-full flex-wrap">
+            <span class="grid grid-cols-2 lg:flex items-center float-end gap-4 not-md:w-full flex-wrap">
                 <span class="flex flex-row gap-2 items-center">
                     <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="filter" type="checkbox" bind:checked={settings.onlySymphonic}>
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1" for="filter">
