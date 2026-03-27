@@ -14,7 +14,7 @@ export class TimeUtils {
         } else if (absDiff < 3600) {
             return rtf.format(Math.round(diffInSeconds / 60), 'minute');
         } else if (absDiff < 86400) {
-            return rtf.format(Math.round(diffInSeconds / 3600), 'hour');
+            return rtf.format(Math.round(diffInSeconds / 1800) / 2, 'hour');
         } else if (absDiff < 2592000) {
             // Approx 30 days
             return rtf.format(Math.round(diffInSeconds / 86400), 'day');
@@ -45,7 +45,7 @@ export class TimeUtils {
             value = Math.round(absDiff / 60);
             unit = 'minute';
         } else if (absDiff < 86400) {
-            value = Math.round(absDiff / 3600);
+            value = Math.round(absDiff / 1800) / 2;
             unit = 'hour';
         } else if (absDiff < 2592000) {
             // Approx 30 days
