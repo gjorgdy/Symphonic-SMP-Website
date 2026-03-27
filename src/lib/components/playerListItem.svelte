@@ -54,13 +54,17 @@
             </span>
         {/if}
         {#if player?.youtube_user_id != null}
-            <a aria-label="YouTube link" href="https://www.youtube.com/channel/{player?.youtube_user_id}"
+            <a aria-label="YouTube link"
+               href="https://www.youtube.com/channel/{player?.youtube_user_id}"
+               target="_blank"
                class={"flex items-center justify-center text-gray-100 hover:text-red-300 transition-colors float-end"}>
                 <i class="hn hn-youtube"></i>
             </a>
         {/if}
         {#if player?.twitch_url != null}
-            <a aria-label="Twitch link" href="{player?.twitch_url}"
+            <a aria-label="Twitch link"
+               href="{player?.twitch_url}"
+               target="_blank"
                class={"flex items-center justify-center text-gray-100 hover:text-purple-300 transition-colors float-end"}>
                 <i class="hn hn-twitch"></i>
             </a>

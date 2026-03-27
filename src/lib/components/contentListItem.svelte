@@ -9,7 +9,7 @@
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full">
-    <a class="relative group" href="{content?.url}">
+    <a class="relative group" href="{content?.url}" target="_blank">
         <div class="absolute h-full w-full opacity-0 group-hover:opacity-30 transition-opacity bg-black rounded-sm"></div>
         {#if content == null}
             <div class="w-full md:min-w-64 aspect-video bg-[#444444] animate-pulse rounded-sm"></div>
@@ -32,10 +32,18 @@
     </a>
     <div class="relative flex flex-col gap-2 justify-between">
         <div class="flex flex-col gap-2">
-            <a class="w-fit" href="{content?.url}">
+            <a
+                class="w-fit"
+                href="{content?.url}"
+                target="_blank"
+            >
                 <h3 class="md:text-lg hover:text-gray-300 transition-colors">{content?.title}</h3>
             </a>
-            <a href="{content?.creator.url}" class="w-fit not-md:text-sm underline hover:text-gray-400 transition-colors">
+            <a
+                href="{content?.creator.url}"
+                target="_blank"
+                class="w-fit not-md:text-sm underline hover:text-gray-400 transition-colors"
+            >
                 {content?.creator.name}
             </a>
         </div>
