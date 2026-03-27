@@ -32,7 +32,7 @@
 
 {#if menu}
 <div class="rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4">
-    <PanelTitle onclick={() => menu = !menu}/>
+    <PanelTitle title="Menu" onclick={() => menu = !menu}/>
     <button
             type="button"
             class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "content" ? "underline text-gray-400" : "")}
@@ -59,7 +59,7 @@
     > Links </button>
 </div>
 {:else}
-<div class="md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr] not-md:pb-4 gap-4 md:overflow-hidden">
+<div class="md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr] not-md:pb-[2dvw] gap-4 md:overflow-hidden">
 
     <!--    About     -->
     <div class={"rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4 " + (selectedPage === "links" ? "" : "not-md:hidden")}>

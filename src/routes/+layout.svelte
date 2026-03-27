@@ -42,27 +42,27 @@
 ></div>
 
 <div id="app" class="h-screen max-h-screen w-screen max-w-screen md:overflow-hidden">
-	<div class="h-full p-2 md:py-5 flex flex-col items-center gap-2 text-white">
+	<div class="h-dvh p-2 md:py-5 flex flex-col items-center gap-2 text-white">
 	<!--	Header		-->
-	<div class="static h-16 md:my-4 w-300 max-w-[98%] flex items-center justify-center">
-		<div class="h-full rounded-lg bg-[#1e1e1e] overflow-hidden">
-			<div class="flex flex-row gap-10 items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
+	<div class="not-md:fixed z-40 h-16 md:my-2 w-300 not-md:max-w-[98dvw] max-w-[96dvw] flex items-center justify-center">
+		<div class="h-full rounded-lg bg-[#1e1e1e] not-md:drop-shadow-xl/30 overflow-hidden">
+			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
 				{#each data.discs as disc}
 					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={() => setDisc(disc)}>
-						<img class="h-8 md:h-10 m-2" src={"/assets/discs/" + disc + ".png"} alt="Disc {disc}"/>
+						<img class="h-10 m-8 aspect-square grow" src={"/assets/discs/" + disc + ".png"} alt="Disc {disc}"/>
 					</button>
 				{/each}
 			</div>
 		</div>
 		<div class="absolute h-16 backdrop-blur-xs min-w-full mask-x-from-50% pointer-events-none"></div>
 		<a href="/" class="absolute h-16 justify-center items-center md:py-0 md:px-20 group">
-			<img class="h-full z-50 scale-70 md:scale-140 group-hover:scale-75 md:group-hover:scale-150 transition-transform " src={data.logo} alt=""/>
+			<img class="h-full z-50 not-md:drop-shadow-xl/30 scale-110 md:scale-130 group-hover:scale-115 md:group-hover:scale-140 transition-transform " src={data.logo} alt=""/>
 		</a>
 	</div>
 	<!--	Header		-->
 
 	<!--	Body		-->
-	<div class="w-300 max-w-[98%] flex-1 min-h-0">
+	<div class="w-300 max-w-[96dvw] flex-1 min-h-0 not-md:mt-18">
 		{@render children()}
 	</div>
 	<!--	Body		-->
