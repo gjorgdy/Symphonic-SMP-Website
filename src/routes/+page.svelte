@@ -16,7 +16,7 @@
     let settings = $state({
         onlySymphonic: true,
         livestreams: true,
-        shorts: true,
+        shorts: false,
         vods: false
     } as Settings);
 
