@@ -132,7 +132,7 @@ export class TwitchAPI {
                 symphonic: stream.title?.toLowerCase().includes("symphonic"),
                 type: "livestream"
             }
-        });
+        }).toSorted((a, b) => b.started_at.getTime() - a.started_at.getTime());
     }
 
     public static async fetchVods(channelId: string): Promise<VOD[]> {
