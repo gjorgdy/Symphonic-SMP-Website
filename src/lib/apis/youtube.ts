@@ -51,20 +51,6 @@ export class YouTubeAPI {
         return TimeUtils.formatDuration(isoDuration, /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     }
 
-    private static isShort(videoResponse: VideoListResponse) {
-        const match = videoResponse.contentDetails.duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-        if (!match) return '00:00:00';
-
-        const hours = parseInt(match[1] || '0', 10);
-        const minutes = parseInt(match[2] || '0', 10);
-        const width = videoResponse.snippet.thumbnails.medium?.width ?? 1;
-        const height = videoResponse.snippet.thumbnails.medium?.height ?? 1;
-        // if (hours == 0 && minutes <= 3) {
-        //     console.log(videoResponse.snippet.title + " : " + videoResponse.contentDetails.relatedPlaylists);
-        // }
-        return hours == 0 && minutes <= 3 && (width / height) <= 0.5625;
-    }
-
     static async fetchLatestVideos(channelId: string): Promise<Video[]> {
         const videoIds = await YouTubeAPI.fetchVideoIds(channelId.replace('UC', 'UU'));
         if (videoIds.length == 0) return [];

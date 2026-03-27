@@ -149,7 +149,7 @@ export function getRegisteredPlayers(): Player[] {
     return Object.values(registeredPlayers);
 }
 export function getRegisteredDiscs(): string[] {
-    return Object.keys(registeredPlayers).sort(function (a, b) {
+    return Object.keys(registeredPlayers).sort(function (_, __) {
         return Math.random() - 0.5;
     });
 }
