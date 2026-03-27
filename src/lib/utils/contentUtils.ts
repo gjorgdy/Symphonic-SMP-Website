@@ -2,7 +2,7 @@ import {getRegisteredPlayer} from "$lib/data/registeredPlayers";
 import {isShort, isVOD, type Livestream, type Video} from "$lib/models/content";
 
 export type Settings = {
-    onlySymphonic: boolean,
+    notSymphonic: boolean,
     livestreams: boolean,
     vods: boolean,
     shorts: boolean,
@@ -18,7 +18,7 @@ export class ContentUtils {
                 || (video.creator.twitch_user_id !== undefined && video.creator.twitch_user_id === player?.twitch_user_id)
             )
         }
-        if (settings.onlySymphonic) {
+        if (!settings.notSymphonic) {
             videos = videos.filter(video => video.symphonic);
         }
         if (!settings.vods) {
@@ -32,7 +32,7 @@ export class ContentUtils {
 
     static filterLivestreams(streams: Livestream[], settings: Settings, disc: string|null = null): Livestream[] {
         if (!settings.livestreams) return [];
-        if (settings.onlySymphonic) {
+        if (settings.notSymphonic) {
             streams = streams.filter(s => s.symphonic);
         }
         if (disc != null) {

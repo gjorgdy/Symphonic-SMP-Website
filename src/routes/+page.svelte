@@ -14,10 +14,10 @@
     let selectedPage: string = $state("content");
 
     let settings = $state({
-        onlySymphonic: true,
         livestreams: true,
         shorts: false,
-        vods: false
+        vods: false,
+        notSymphonic: false,
     } as Settings);
 
     let w: number|undefined = $state();
@@ -153,34 +153,34 @@
                 />
             {/await}
             <span class="grid grid-cols-2 lg:flex items-center float-end gap-4 not-md:w-full flex-wrap">
-                <span class="flex flex-row gap-2 items-center">
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="filter" type="checkbox" bind:checked={settings.onlySymphonic}>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1" for="filter">
-                        <i class="hn hn-music-solid text-xs"></i>
-                        SMP only
-                    </label>
-                </span>
-                <span class="flex flex-row gap-2 items-center">
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="live" type="checkbox" bind:checked={settings.livestreams}>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1" for="live">
+                <button class="flex flex-row gap-2 items-center" aria-label="livestreams-filter" onclick={() => settings.livestreams = !settings.livestreams}>
+                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="live" type="checkbox" bind:checked={settings.livestreams}>
+                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="live">
                         <div class="bg-gray-400 rounded-2xl h-2.25 w-2.25 aspect-square"></div>
                         Livestreams
                     </label>
-                </span>
-                <span class="flex flex-row gap-2 items-center">
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="shorts" type="checkbox" bind:checked={settings.shorts}>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1" for="shorts">
+                </button>
+                <button class="flex flex-row gap-2 items-center" aria-label="shorts-filter" onclick={() => settings.shorts = !settings.shorts}>
+                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="shorts" type="checkbox" bind:checked={settings.shorts}>
+                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="shorts">
                         <i class="hn hn-bolt-solid text-xs"></i>
                         Shorts
                     </label>
-                </span>
-                <span class="flex flex-row gap-2 items-center">
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25" name="vods" type="checkbox" bind:checked={settings.vods}>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1" for="vods">
+                </button>
+                <button class="flex flex-row gap-2 items-center" aria-label="vods-filter" onclick={() => settings.vods = !settings.vods}>
+                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="vods" type="checkbox" bind:checked={settings.vods}>
+                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="vods">
                         <i class="hn hn-tag-solid text-xs"></i>
                         VODs
                     </label>
-                </span>
+                </button>
+                <button class="flex flex-row gap-2 items-center" aria-label="notSymphonic-filter" onclick={() => settings.notSymphonic = !settings.notSymphonic}>
+                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.notSymphonic}>
+                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="filter">
+                        <i class="hn hn-sparkles-solid text-xs"></i>
+                        Not Symphonic
+                    </label>
+                </button>
             </span>
         </div>
         <div class="grow w-full flex flex-col px-4 gap-4 overflow-auto">

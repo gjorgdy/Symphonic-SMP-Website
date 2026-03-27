@@ -33,12 +33,17 @@
             <div class="w-full md:min-w-64 bg-[#444444] animate-pulse rounded-sm"></div>
         {:else}
             <img loading="lazy" class="w-full md:min-w-64 aspect-video rounded-sm border-white/5 border" src="{content?.thumbnail_url}" alt="thumbnail for {content?.title}">
-            <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs text-bold bg-black/50 p-0.5 px-1 rounded-xs">
+            <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs text-bold text-gray-100 bg-black/50 p-0.5 px-1 rounded-xs">
+                {#if !content.symphonic}
+                    <i class="hn hn-sparkles-solid"></i>
+                {/if}
                 {#if isVideo(content) }
                     {#if isVOD(content)}
                         <i class="hn hn-tag-solid"></i>
                     {:else if isShort(content)}
                         <i class="hn hn-bolt-solid"></i>
+                    {:else}
+                        <i class="hn hn-play-solid text-2xs"></i>
                     {/if}
                     {content?.duration ?? "00:00"}
                 {:else if isLivestream(content)}

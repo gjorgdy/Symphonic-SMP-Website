@@ -129,7 +129,7 @@ export class TwitchAPI {
                 },
                 viewers: stream.viewer_count,
                 started_at: new Date(stream.started_at),
-                symphonic: stream.title?.toLowerCase().includes("symphonic"),
+                symphonic: stream.title?.toLowerCase().includes("symphonic") ?? false,
                 type: "livestream"
             }
         }).toSorted((a, b) => b.started_at.getTime() - a.started_at.getTime());
@@ -157,7 +157,7 @@ export class TwitchAPI {
                 },
                 published_at: new Date(vod.published_at),
                 duration: TwitchAPI.formatDuration(vod.duration),
-                symphonic: vod.title?.toLowerCase().includes("symphonic"),
+                symphonic: vod.title?.toLowerCase().includes("symphonic") ?? false,
                 views: vod.view_count,
                 type: "vod"
             } as VOD;
