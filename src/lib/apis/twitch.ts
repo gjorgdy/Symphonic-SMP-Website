@@ -57,7 +57,7 @@ export class TwitchAPI {
     private static token?: TwitchToken;
 
     public static async init() {
-        const _ = await this.getToken();
+        await this.getToken();
     }
 
     private static async getToken(): Promise<TwitchToken> {
