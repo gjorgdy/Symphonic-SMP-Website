@@ -108,7 +108,7 @@ export class TwitchAPI {
         return channelMap;
     }
 
-    public static async fetchLiveStreams(channelIds: string[]): Promise<Map<String, Livestream>> {
+    public static async fetchLiveStreams(channelIds: string[]): Promise<Livestream[]> {
         const response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_id=`+id).join('&')}`, {
             method: "GET",
             headers: {
@@ -117,10 +117,8 @@ export class TwitchAPI {
             }
         });
         const streams: TwitchStream[] = (await response.json()).data;
-        if (streams == undefined) return new Map();
-        const streamMap: Map<String, Livestream> = new Map();
-        for (const stream of streams) {
-            streamMap.set(stream.user_login, {
+        return streams.map((stream): Livestream => {
+            return {
                 title: stream.title,
                 thumbnail_url: stream.thumbnail_url.replace("{width}", "320").replace("{height}", "180"),
                 url: "https://twitch.tv/" + stream.user_login,
@@ -131,11 +129,10 @@ export class TwitchAPI {
                 },
                 viewers: stream.viewer_count,
                 started_at: new Date(stream.started_at),
-                symphonic: stream.title?.toLowerCase().includes("symphonic")
-            } as Livestream
-            );
-        }
-        return streamMap;
+                symphonic: stream.title?.toLowerCase().includes("symphonic"),
+                type: "livestream"
+            }
+        });
     }
 
     public static async fetchVods(channelId: string): Promise<VOD[]> {

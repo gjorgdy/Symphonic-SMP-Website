@@ -1,6 +1,6 @@
 export class TimeUtils {
 
-    static getRelativeTime(date?: Date): string {
+    static getRelativeTimeAgo(date?: Date): string {
         if (!date) return '-';
         const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
 
@@ -24,6 +24,43 @@ export class TimeUtils {
         } else {
             return rtf.format(Math.round(diffInSeconds / 31536000), 'year');
         }
+    }
+
+    static getRelativeTime(date?: Date): string {
+        if (!date) return '-';
+
+        const time = date.getTime();
+        const now = new Date().getTime();
+        const diffInSeconds = (time - now) / 1000;
+
+        const absDiff = Math.abs(diffInSeconds);
+
+        let value: number;
+        let unit: string;
+
+        if (absDiff < 60) {
+            value = Math.round(absDiff);
+            unit = 'second';
+        } else if (absDiff < 3600) {
+            value = Math.round(absDiff / 60);
+            unit = 'minute';
+        } else if (absDiff < 86400) {
+            value = Math.round(absDiff / 3600);
+            unit = 'hour';
+        } else if (absDiff < 2592000) {
+            // Approx 30 days
+            value = Math.round(absDiff / 86400);
+            unit = 'day';
+        } else if (absDiff < 31536000) {
+            // Approx 365 days
+            value = Math.round(absDiff / 2592000);
+            unit = 'month';
+        } else {
+            value = Math.round(absDiff / 31536000);
+            unit = 'year';
+        }
+
+        return `${value} ${unit}${value === 1 ? '' : 's'}`;
     }
 
     static formatDuration(isoDuration: string, timestampRegex: RegExp) {

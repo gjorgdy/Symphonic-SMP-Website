@@ -51,9 +51,9 @@
             <span class="flex flex-row flex-wrap gap-x-4 gap-y-1 text-xs md:text-sm text-center">
                 <span class="flex flex-row items-center gap-2"><i class="hn hn-clock"></i>
                     {#if isLivestream(content)}
-                        {content?.started_at}
+                        {TimeUtils.getRelativeTime(content?.started_at)}
                     {:else if isVideo(content)}
-                        {TimeUtils.getRelativeTime(content?.published_at)}
+                        {TimeUtils.getRelativeTimeAgo(content?.published_at)}
                     {:else}
                         -
                     {/if}
