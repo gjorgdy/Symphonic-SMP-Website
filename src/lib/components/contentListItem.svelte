@@ -1,6 +1,6 @@
 <script lang="ts">
     import {TimeUtils} from "$lib/utils/timeUtils";
-    import {type Content, isLivestream, isVideo} from "$lib/models/content";
+    import {type Content, isLivestream, isShort, isVideo, isVOD} from "$lib/models/content";
 
     type VideoProps = {
         content?: Content
@@ -15,8 +15,13 @@
             <div class="w-full md:min-w-64 aspect-video bg-[#444444] animate-pulse rounded-sm"></div>
         {:else}
             <img class="w-full md:min-w-64 aspect-video rounded-sm border-white/5 border" src="{content?.thumbnail_url}" alt="thumbnail for {content?.title}">
-            <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs bg-black/50 p-0.5 rounded-xs">
+            <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs text-bold bg-black/50 p-0.5 px-1 rounded-xs">
                 {#if isVideo(content) }
+                    {#if isVOD(content)}
+                        <i class="hn hn-tag-solid"></i>
+                    {:else if isShort(content)}
+                        <i class="hn hn-bolt-solid"></i>
+                    {/if}
                     {content?.duration ?? "00:00"}
                 {:else if isLivestream(content)}
                     <div class="bg-red-600 rounded-2xl h-2.5 w-2.5 aspect-square"></div>
