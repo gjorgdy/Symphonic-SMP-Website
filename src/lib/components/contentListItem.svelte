@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import {TimeUtils} from "$lib/utils/timeUtils";
     import {type Content, isLivestream, isShort, isVideo, isVOD} from "$lib/models/content";
 
@@ -6,6 +7,23 @@
         content?: Content
     }
     let { content }: VideoProps = $props();
+
+    // Trigger a re-render every minute so relative time text stays fresh.
+    let minuteTick = $state(Date.now());
+    onMount(() => {
+        const intervalId = setInterval(() => {
+            minuteTick = Date.now();
+        }, 60_000);
+        return () => clearInterval(intervalId);
+    });
+    const relativeTime = (date?: Date) => {
+        minuteTick;
+        return TimeUtils.getRelativeTime(date);
+    };
+    const relativeTimeAgo = (date?: Date) => {
+        minuteTick;
+        return TimeUtils.getRelativeTimeAgo(date);
+    };
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full h-fit">
@@ -51,9 +69,9 @@
             <span class="flex flex-row flex-wrap gap-x-4 gap-y-1 text-xs md:text-sm text-center">
                 <span class="flex flex-row items-center gap-2"><i class="hn hn-clock"></i>
                     {#if isLivestream(content)}
-                        {TimeUtils.getRelativeTime(content?.started_at)}
+                        {relativeTime(content?.started_at)}
                     {:else if isVideo(content)}
-                        {TimeUtils.getRelativeTimeAgo(content?.published_at)}
+                        {relativeTimeAgo(content?.published_at)}
                     {:else}
                         -
                     {/if}
