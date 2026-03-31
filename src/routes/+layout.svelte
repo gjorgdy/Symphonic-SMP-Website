@@ -19,7 +19,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={"/assets/discs/" + data.favicon + ".png"} />
+	<link rel="icon" href={"/assets/discs/" + data.favicon + ".webp"} />
 	<meta name="darkreader-lock" content="true" />
 	<meta property="og:title" content="Symphonic SMP" />
 	<meta name="keywords" content="Minecraft, Survival, SMP, Community, Music" />
@@ -32,7 +32,7 @@
 
 <div
 	id="background"
-	class="fixed inset-0 -z-10 bg-[url('/assets/background.png')] bg-cover bg-center lazyload blur-sm pointer-events-none"
+	class="fixed inset-0 -z-10 bg-[url('/assets/background.webp')] bg-cover bg-center lazyload blur-sm pointer-events-none"
 ></div>
 
 <div id="app" class="h-screen max-h-screen w-screen max-w-screen md:overflow-hidden">
@@ -43,7 +43,7 @@
 			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
 				{#each data.discs as disc}
 					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={() => setDisc(disc)}>
-						<img class="h-10 m-8 aspect-square grow text-white/0" src={"/assets/discs/" + disc + ".png"} alt="Disc {disc}"/>
+						<img class="h-10 m-8 aspect-square grow text-white/0" src={"/assets/discs/" + disc + ".webp"} alt="Disc {disc}"/>
 					</button>
 				{/each}
 			</div>
