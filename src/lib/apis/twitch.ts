@@ -136,7 +136,7 @@ export class TwitchAPI {
     }
 
     public static async fetchVods(channelId: string): Promise<VOD[]> {
-        const response = await fetch(`https://api.twitch.tv/helix/videos?user_id=${channelId}`, {
+        const response = await fetch(`https://api.twitch.tv/helix/videos?type=archive&user_id=${channelId}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + (await TwitchAPI.getToken()).access_token,
@@ -145,7 +145,7 @@ export class TwitchAPI {
         });
         const vods: TwitchVod[] = (await response.json()).data;
         if (vods == undefined) return [];
-        return vods.map(vod => {
+        return vods.filter(video => video.view_count > 0).map(vod => {
             return {
                 title: vod.title,
                 thumbnail_url: vod.thumbnail_url.replace("%{width}", "320").replace("%{height}", "180"),
