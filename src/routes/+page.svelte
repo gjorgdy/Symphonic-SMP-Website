@@ -154,30 +154,38 @@
             {/await}
             <span class="grid grid-cols-2 lg:flex items-center float-end gap-4 not-md:w-full flex-wrap">
                 <button class="flex flex-row gap-2 items-center" aria-label="livestreams-filter" onclick={() => settings.livestreams = !settings.livestreams}>
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="live" type="checkbox" bind:checked={settings.livestreams}>
+                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.livestreams}>
+                    {#if settings.livestreams}
+                        <div class="absolute mx-1 bg-white rounded-2xl h-2 w-2 aspect-square"></div>
+                    {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="live">
-                        <div class="bg-gray-400 rounded-2xl h-2.25 w-2.25 aspect-square"></div>
                         Livestreams
                     </label>
                 </button>
-                <button class="flex flex-row gap-2 items-center" aria-label="shorts-filter" onclick={() => settings.shorts = !settings.shorts}>
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="shorts" type="checkbox" bind:checked={settings.shorts}>
+                <button class="relative flex flex-row gap-2 items-center cursor-pointer" aria-label="shorts-filter" onclick={() => settings.shorts = !settings.shorts}>
+                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.shorts}>
+                    {#if settings.shorts}
+                    <i class="absolute mx-0.5 hn hn-bolt-solid text-xs"></i>
+                    {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="shorts">
-                        <i class="hn hn-bolt-solid text-xs"></i>
                         Shorts
                     </label>
                 </button>
-                <button class="flex flex-row gap-2 items-center" aria-label="vods-filter" onclick={() => settings.vods = !settings.vods}>
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="vods" type="checkbox" bind:checked={settings.vods}>
+                <button class="relative flex flex-row gap-2 items-center cursor-pointer" aria-label="vods-filter" onclick={() => settings.vods = !settings.vods}>
+                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.vods}>
+                    {#if settings.vods}
+                    <i class="absolute mx-0.5 hn hn-tag-solid text-xs"></i>
+                    {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="vods">
-                        <i class="hn hn-tag-solid text-xs"></i>
                         VODs
                     </label>
                 </button>
-                <button class="flex flex-row gap-2 items-center" aria-label="notSymphonic-filter" onclick={() => settings.notSymphonic = !settings.notSymphonic}>
-                    <input class="rounded-sm text-[#2e9200] bg-[#1e1e1e] border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.notSymphonic}>
+                <button class="relative flex flex-row gap-2 items-center cursor-pointer" aria-label="notSymphonic-filter" onclick={() => settings.notSymphonic = !settings.notSymphonic}>
+                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.notSymphonic}>
+                    {#if settings.notSymphonic}
+                    <i class="absolute mx-0.5 hn hn-sparkles-solid text-xs"></i>
+                    {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="filter">
-                        <i class="hn hn-sparkles-solid text-xs"></i>
                         Not Symphonic
                     </label>
                 </button>
