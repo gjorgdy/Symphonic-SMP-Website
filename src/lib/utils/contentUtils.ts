@@ -1,7 +1,7 @@
 import {getRegisteredPlayer} from "$lib/data/registeredPlayers";
 import {isLongFormVideo, isShort, isVOD, type Livestream, type Video} from "$lib/models/content";
 
-export type Settings = {
+export type Filters = {
     notSymphonic: boolean,
     livestreams: boolean,
     videos: boolean,
@@ -11,7 +11,7 @@ export type Settings = {
 
 export class ContentUtils {
 
-    static filterVideos(videos: Video[], settings: Settings, disc: string|null = null): Video[] {
+    static filterVideos(videos: Video[], settings: Filters, disc: string|null = null): Video[] {
         if (disc != null) {
             const player = getRegisteredPlayer(disc);
             videos = videos.filter(video =>
@@ -34,7 +34,7 @@ export class ContentUtils {
         return videos;
     }
 
-    static filterLivestreams(streams: Livestream[], settings: Settings, disc: string|null = null): Livestream[] {
+    static filterLivestreams(streams: Livestream[], settings: Filters, disc: string|null = null): Livestream[] {
         if (!settings.livestreams) return [];
         if (!settings.notSymphonic) {
             streams = streams.filter(s => s.symphonic);
