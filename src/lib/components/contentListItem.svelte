@@ -24,15 +24,23 @@
         minuteTick;
         return TimeUtils.getRelativeTimeAgo(date);
     };
+
+    let loadedImage = $state(false);
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full h-fit">
     <a class="relative group aspect-video" href="{content?.url}" target="_blank">
         <div class="absolute h-full w-full opacity-0 group-hover:opacity-30 transition-opacity bg-black rounded-sm"></div>
-        {#if content == null}
-            <div class="w-full md:min-w-64 bg-[#444444] animate-pulse rounded-sm"></div>
+        {#if content === undefined}
+            <div class="w-full md:min-w-64 aspect-video bg-[#444444] animate-pulse rounded-sm"></div>
         {:else}
-            <img loading="lazy" class="w-full md:min-w-64 aspect-video rounded-sm border-white/5 border" src="{content?.thumbnail_url}" alt="thumbnail for {content?.title}">
+            <img
+                loading="lazy"
+                class={"w-full h-full md:min-w-64 rounded-sm border-white/5 border text-white/0 " + (loadedImage ? "": "bg-[#444444] animate-pulse blur-xs")}
+                src="{content?.thumbnail_url}"
+                alt="thumbnail for {content?.title}"
+                onload={() => loadedImage = true}
+            >
             <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs text-bold text-gray-100 bg-black/50 p-0.5 px-1 rounded-xs">
                 {#if !content.symphonic}
                     <i class="hn hn-sparkles-solid"></i>
