@@ -2,14 +2,8 @@
 	import './layout.css';
 	import type {LayoutProps} from "../../.svelte-kit/types/src/routes/$types";
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
-	import { initFlowbite } from 'flowbite'
-	import { onMount } from "svelte";
 	import {page} from "$app/state";
 	import {goto} from "$app/navigation";
-
-	onMount(() => {
-		initFlowbite();
-	})
 
 	let { data, children }: LayoutProps = $props();
 
