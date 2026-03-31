@@ -15,6 +15,7 @@
 
     let settings = $state({
         livestreams: true,
+        videos: true,
         shorts: false,
         vods: false,
         notSymphonic: false,
@@ -152,8 +153,8 @@
                     onclick={() => menu = !menu}
                 />
             {/await}
-            <span class="grid grid-cols-2 lg:flex items-center float-end gap-4 not-md:w-full flex-wrap">
-                <button class="flex flex-row gap-2 items-center" aria-label="livestreams-filter" onclick={() => settings.livestreams = !settings.livestreams}>
+            <span class="flex items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
+                <button class="flex flex-row gap-1.5 items-center" aria-label="livestreams-filter" onclick={() => settings.livestreams = !settings.livestreams}>
                     <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.livestreams}>
                     {#if settings.livestreams}
                         <div class="absolute mx-1 bg-white rounded-2xl h-2 w-2 aspect-square"></div>
@@ -162,28 +163,37 @@
                         Livestreams
                     </label>
                 </button>
-                <button class="relative flex flex-row gap-2 items-center cursor-pointer" aria-label="shorts-filter" onclick={() => settings.shorts = !settings.shorts}>
+                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="shorts-filter" onclick={() => settings.videos = !settings.videos}>
+                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.videos}>
+                    {#if settings.videos}
+                    <i class="absolute mx-0.5 hn hn-play-solid text-xs scale-80"></i>
+                    {/if}
+                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="shorts">
+                        Videos
+                    </label>
+                </button>
+                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="shorts-filter" onclick={() => settings.shorts = !settings.shorts}>
                     <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.shorts}>
                     {#if settings.shorts}
-                    <i class="absolute mx-0.5 hn hn-bolt-solid text-xs"></i>
+                    <i class="absolute mx-0.5 hn hn-bolt-solid text-xs scale-90"></i>
                     {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="shorts">
                         Shorts
                     </label>
                 </button>
-                <button class="relative flex flex-row gap-2 items-center cursor-pointer" aria-label="vods-filter" onclick={() => settings.vods = !settings.vods}>
+                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="vods-filter" onclick={() => settings.vods = !settings.vods}>
                     <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.vods}>
                     {#if settings.vods}
-                    <i class="absolute mx-0.5 hn hn-tag-solid text-xs"></i>
+                    <i class="absolute mx-0.5 hn hn-tag-solid text-xs scale-90"></i>
                     {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="vods">
                         VODs
                     </label>
                 </button>
-                <button class="relative flex flex-row gap-2 items-center cursor-pointer" aria-label="notSymphonic-filter" onclick={() => settings.notSymphonic = !settings.notSymphonic}>
+                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="notSymphonic-filter" onclick={() => settings.notSymphonic = !settings.notSymphonic}>
                     <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={settings.notSymphonic}>
                     {#if settings.notSymphonic}
-                    <i class="absolute mx-0.5 hn hn-sparkles-solid text-xs"></i>
+                    <i class="absolute mx-px hn hn-sparkles-solid text-xs scale-90"></i>
                     {/if}
                     <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="filter">
                         Not Symphonic

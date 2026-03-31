@@ -1,9 +1,10 @@
 import {getRegisteredPlayer} from "$lib/data/registeredPlayers";
-import {isShort, isVOD, type Livestream, type Video} from "$lib/models/content";
+import {isLongFormVideo, isShort, isVOD, type Livestream, type Video} from "$lib/models/content";
 
 export type Settings = {
     notSymphonic: boolean,
     livestreams: boolean,
+    videos: boolean,
     vods: boolean,
     shorts: boolean,
 }
@@ -27,12 +28,15 @@ export class ContentUtils {
         if (!settings.shorts) {
             videos = videos.filter(video => !isShort(video));
         }
+        if (!settings.videos) {
+            videos = videos.filter(video => !isLongFormVideo(video));
+        }
         return videos;
     }
 
     static filterLivestreams(streams: Livestream[], settings: Settings, disc: string|null = null): Livestream[] {
         if (!settings.livestreams) return [];
-        if (settings.notSymphonic) {
+        if (!settings.notSymphonic) {
             streams = streams.filter(s => s.symphonic);
         }
         if (disc != null) {

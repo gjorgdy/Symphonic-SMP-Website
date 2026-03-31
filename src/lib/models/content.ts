@@ -37,6 +37,10 @@ export function isVideo(content?: Content): content is Video {
     return content?.type === "video" || isShort(content) || isVOD(content);
 }
 
+export function isLongFormVideo(content?: Content): content is Video {
+    return content?.type === "video";
+}
+
 export type Content = {
     title: string,
     url: string,
