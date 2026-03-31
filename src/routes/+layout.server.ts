@@ -1,7 +1,7 @@
-import type { LayoutLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
 import { getRegisteredDiscs } from "$lib/data/registeredPlayers";
 
-export const load: LayoutLoad = ({url}) => {
+export const load: LayoutServerLoad = ({url}) => {
 
 	let discs: string[];
 	let favicon;
