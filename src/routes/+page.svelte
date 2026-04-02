@@ -1,22 +1,15 @@
 <script lang="ts">
-    import PlayerListItem from "$lib/components/playerListItem.svelte";
     import Content from "$lib/components/index/content.svelte";
     import PanelHeader from "$lib/components/panelHeader.svelte";
-    import {ContentUtils, type Filters} from "$lib/utils/contentUtils";
-    import Skinview3d from "svelte-skinview3d";
-    import { IdleAnimation } from "skinview3d";
     import type {PlayerDisplay} from "$lib/models/player";
-    import {twMerge} from "tailwind-merge";
-    import {onMount} from "svelte";
+	import PlayerList from "$lib/components/index/playerList.svelte";
+    import PlayerProfile from "$lib/components/index/playerProfile.svelte";
 
     const { data } = $props();
 
     let menu: boolean = $state(false);
 
     let selectedPage: string = $state("content");
-
-    let w: number|undefined = $state();
-    let h: number|undefined = $state();
 
     const selectedPlayer = $derived.by(async () =>
         (await data.players).find((p: PlayerDisplay) => p.disc === data.disc)
@@ -88,47 +81,9 @@
 
     <!--    Players     -->
     {#if data.disc == null}
-    <div class={"md:row-start-2 rounded-xl py-4 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden " + (selectedPage === "players" ? "" : "not-md:hidden")}>
-        <div class="px-4">
-            <PanelHeader title={data.disc == null ? "Symphonists" : "Symphonist"} onclick={() => menu = !menu}/>
-        </div>
-        <div class="flex flex-col gap-4 px-4 h-full min-h-0 md:overflow-y-auto">
-            {#await data.players}
-                {#each {length: 20} as _}
-                    <PlayerListItem/>
-                {/each}
-            {:then players}
-                {#each players as player}
-                    <PlayerListItem {player}/>
-                {/each}
-            {/await}
-        </div>
-    </div>
+        <PlayerList class="md:row-start-2" players={data.players}/>
     {:else}
-    <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit md:overflow-hidden " + (selectedPage === "players" ? "" : "not-md:hidden")}>
-        <div class="flex flex-row gap-2 p-4 not-md:pb-0 justify-between">
-            <PanelHeader title="Symphonist" onclick={() => menu = !menu}/>
-            <a href="/" class="hover:underline text-gray-400 italic h-min mt-auto">deselect</a>
-        </div>
-        <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0">
-        {#await selectedPlayer}
-            <div class="w-full min-h-0 aspect-square">
-                <div class="h-full border-white/5 bg-white/1 border rounded-sm"></div>
-            </div>
-            <PlayerListItem/>
-        {:then player}
-            <div class="w-full aspect-square" bind:clientWidth={w} bind:clientHeight={h}>
-                <Skinview3d
-                    class="border-white/5 bg-white/1 border rounded-sm"
-                    options={{animation: new IdleAnimation(), zoom: 0.75}}
-                    width={(w ?? 100)} height={(h ?? 100)}
-                    skinUrl="https://mc-heads.net/skin/{player?.minecraft_uuid}"
-                />
-            </div>
-            <PlayerListItem {player} selected={data.disc != null}/>
-        {/await}
-        </div>
-    </div>
+        <PlayerProfile class="md:row-start-2" selectedPlayer={selectedPlayer}/>
     {/if}
     <!--    Players     -->
 
