@@ -6,6 +6,7 @@
     import {twMerge} from "tailwind-merge";
     import Skinview3d from "svelte-skinview3d";
     import {IdleAnimation} from "skinview3d";
+    import {page} from "$app/state";
 
     type PlayerListProps = {
         selectedPlayer?: Promise<PlayerDisplay | undefined>;
@@ -15,11 +16,18 @@
 
     let w: number|undefined = $state();
     let h: number|undefined = $state();
+
+    const deselectHref = $derived.by(() => {
+        const query = new URLSearchParams(page.url.searchParams.toString());
+        query.delete("disc");
+        const search = query.toString();
+        return search ? `${page.url.pathname}?${search}` : page.url.pathname;
+    });
 </script>
 
 <Panel class={twMerge("overflow-hidden flex flex-col h-fit", classes)}>
     <PanelHeader title="Symphonist">
-        <a href="/" class="hover:underline text-gray-400 italic h-min mt-auto">deselect</a>
+        <a href={deselectHref} class="hover:underline text-gray-400 italic h-min mt-auto">deselect</a>
     </PanelHeader>
     <div class="flex flex-col gap-4 md:pt-0 h-full min-h-0">
         {#await selectedPlayer}
