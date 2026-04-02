@@ -1,6 +1,6 @@
 <script lang="ts">
     import PlayerListItem from "$lib/components/playerListItem.svelte";
-    import ContentListItem from "$lib/components/contentListItem.svelte";
+    import Content from "$lib/components/index/content.svelte";
     import PanelTitle from "$lib/components/panelTitle.svelte";
     import {ContentUtils, type Filters} from "$lib/utils/contentUtils";
     import Skinview3d from "svelte-skinview3d";
@@ -14,38 +14,6 @@
     let menu: boolean = $state(false);
 
     let selectedPage: string = $state("content");
-
-    const DEFAULT_SETTINGS: Filters = {
-        livestreams: true,
-        videos: true,
-        shorts: false,
-        vods: false,
-        notSymphonic: false
-    };
-
-    let filters = $state({ ...DEFAULT_SETTINGS });
-
-    onMount(() => {
-        try {
-            const raw = localStorage.getItem("CONTENT_FILTERS");
-            if (raw) {
-                const parsed = JSON.parse(raw) as Partial<Filters>;
-                filters = { ...DEFAULT_SETTINGS, ...parsed };
-            }
-        } catch {
-            filters = { ...DEFAULT_SETTINGS };
-        }
-    });
-
-    $effect(() => {
-        filters.livestreams;
-        filters.videos;
-        filters.shorts;
-        filters.vods;
-        filters.notSymphonic;
-
-        localStorage.setItem("CONTENT_FILTERS", JSON.stringify(filters));
-    });
 
     let w: number|undefined = $state();
     let h: number|undefined = $state();
@@ -165,80 +133,11 @@
     <!--    Players     -->
 
     <!--    Content     -->
-    <div class={"md:row-span-2 rounded-xl bg-[#1e1e1e] py-4 overflow-hidden min-h-0 flex flex-col " + (selectedPage === "content" ? "" : "not-md:hidden")}>
-        <div class="flex flex-col md:flex-row not-md:gap-4 px-4 pb-4 w-full justify-between">
-            {#await selectedPlayer}
-                <PanelTitle
-                    title="Content"
-                    onclick={() => menu = !menu}
-                />
-            {:then player}
-                <PanelTitle
-                    title="Content"
-                    subtitle={player ? "by " + player?.nickname : undefined}
-                    onclick={() => menu = !menu}
-                />
-            {/await}
-            <span class="flex items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
-                <button class="flex flex-row gap-1.5 items-center" aria-label="livestreams-filter" onclick={() => filters.livestreams = !filters.livestreams}>
-                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={filters.livestreams}>
-                    <div class={twMerge("absolute mx-1 bg-white rounded-2xl h-2 w-2 aspect-square", filters.livestreams ? "opacity-100" : "opacity-0")}></div>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="live">
-                        Livestreams
-                    </label>
-                </button>
-                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="shorts-filter" onclick={() => filters.videos = !filters.videos}>
-                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={filters.videos}>
-                    <i class={twMerge("absolute mx-0.5 hn hn-play-solid text-xs scale-80 transition-opacity", filters.videos ? "opacity-100" : "opacity-0")}></i>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="shorts">
-                        Videos
-                    </label>
-                </button>
-                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="shorts-filter" onclick={() => filters.shorts = !filters.shorts}>
-                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={filters.shorts}>
-                    <i class={twMerge("absolute mx-0.5 hn hn-bolt-solid text-xs scale-80 transition-opacity", filters.shorts ? "opacity-100" : "opacity-0")}></i>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="shorts">
-                        Shorts
-                    </label>
-                </button>
-                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="vods-filter" onclick={() => filters.vods = !filters.vods}>
-                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={filters.vods}>
-                    <i class={twMerge("absolute mx-0.5 hn hn-tag-solid text-xs scale-80 transition-opacity", filters.vods ? "opacity-100" : "opacity-0")}></i>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="vods">
-                        VODs
-                    </label>
-                </button>
-                <button class="relative flex flex-row gap-1.5 items-center cursor-pointer" aria-label="notSymphonic-filter" onclick={() => filters.notSymphonic = !filters.notSymphonic}>
-                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name="filter" type="checkbox" bind:checked={filters.notSymphonic}>
-                    <i class={twMerge("absolute mx-0.5 hn hn-sparkles-solid text-xs scale-80 transition-opacity", filters.notSymphonic ? "opacity-100" : "opacity-0")}></i>
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for="filter">
-                        Not Symphonic
-                    </label>
-                </button>
-            </span>
-        </div>
-        <div class="grow w-full flex flex-col px-4 gap-4 overflow-auto">
-            {#await data.content}
-                {#each {length: 20} as _}
-                    <ContentListItem/>
-                {/each}
-            {:then content}
-                {@const filteredLivestreams = ContentUtils.filterLivestreams(content.livestreams, filters, data.disc)}
-                {@const filteredVideos = ContentUtils.filterVideos(content.videos, filters, data.disc)}
-                {#each filteredLivestreams as livestream}
-                    <ContentListItem content={livestream}/>
-                {/each}
-                {#each filteredVideos as video}
-                    <ContentListItem content={video}/>
-                {/each}
-                {#if filteredLivestreams.length === 0 && filteredVideos.length === 0}
-                    <p class="italic">Could not find any content :(</p>
-                {/if}
-            {:catch _}
-                <p class="italic">Could not find any content :(</p>
-            {/await}
-        </div>
-    </div>
+    <Content
+        class={"md:row-span-2 " + (selectedPage === "content" ? "" : "not-md:hidden")}
+        player={selectedPlayer}
+        content={data.content}
+    />
     <!--    Content     -->
 </div>
 {/if}

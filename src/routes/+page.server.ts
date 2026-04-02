@@ -6,10 +6,10 @@ import type {PlayerDisplay} from "$lib/models/player";
 
 export type IndexServerLoadProps = {
     players: Promise<PlayerDisplay[]>,
-    content: Promise<Content>
+    content: Promise<ContentCollection>
 }
 
-export type Content = {
+export type ContentCollection = {
     livestreams: Livestream[],
     videos: Video[]
 }

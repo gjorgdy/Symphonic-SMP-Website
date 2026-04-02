@@ -1,6 +1,14 @@
 import {getRegisteredPlayer} from "$lib/data/registeredPlayers";
 import {isLongFormVideo, isShort, isVOD, type Livestream, type Video} from "$lib/models/content";
 
+export const DEFAULT_FILTERS: Filters = {
+    livestreams: true,
+    videos: true,
+    shorts: false,
+    vods: false,
+    notSymphonic: false
+};
+
 export type Filters = {
     notSymphonic: boolean,
     livestreams: boolean,
