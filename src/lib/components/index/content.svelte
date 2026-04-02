@@ -51,7 +51,7 @@
     const formatLabel = (str: string) => str.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
 </script>
 
-<Panel class={twMerge(classes, "overflow-hidden min-h-0 flex flex-col")}>
+<Panel class={twMerge("min-h-0 flex flex-col h-fit md:self-start md:max-h-full", classes)}>
     {#await player then player}
         <PanelHeader title="Content" subtitle={player ? "by " + player?.nickname : undefined} >
             <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
@@ -71,7 +71,7 @@
             </span>
         </PanelHeader>
     {/await}
-    <div class="grow w-full flex flex-col gap-4 overflow-auto">
+    <div class="w-full min-h-0 max-h-full flex flex-col gap-4 overflow-y-auto">
         {#await content}
             {#each {length: 20} as _}
                 <ContentListItem/>

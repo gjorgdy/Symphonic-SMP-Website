@@ -17,58 +17,54 @@
     )
 </script>
 
-<div class="flex flex-col h-full w-full">
-
 {#if menu}
-<div class="rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4">
-    <PanelHeader title="Menu" onclick={() => menu = !menu}/>
-    <button
+    <div class="rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4">
+        <PanelHeader title="Menu" onclick={() => menu = !menu}/>
+        <button
+                type="button"
+                class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "content" ? "underline text-gray-400" : "")}
+                onclick={(() => {
+                    selectedPage = "content"
+                    menu = false;
+                })}
+        >Content</button>
+        <button
             type="button"
-            class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "content" ? "underline text-gray-400" : "")}
+            class={"flex flex-2 items-center justify-center pixel text-xl " + (selectedPage === "players" ? "underline text-gray-400" : "")}
             onclick={(() => {
-                selectedPage = "content"
+                selectedPage = "players";
                 menu = false;
             })}
-    >Content</button>
-    <button
-        type="button"
-        class={"flex flex-2 items-center justify-center pixel text-xl " + (selectedPage === "players" ? "underline text-gray-400" : "")}
-        onclick={(() => {
-            selectedPage = "players";
-            menu = false;
-        })}
-    > {data.disc === null ? "Symphonists" : "Symphonist"} </button>
-    <button
-            type="button"
-            class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "links" ? "underline text-gray-400" : "")}
-            onclick={(() => {
-                selectedPage = "links";
-                menu = false;
-            })}
-    > Links </button>
-</div>
+        > {data.disc === null ? "Symphonists" : "Symphonist"} </button>
+        <button
+                type="button"
+                class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "links" ? "underline text-gray-400" : "")}
+                onclick={(() => {
+                    selectedPage = "links";
+                    menu = false;
+                })}
+        > Links </button>
+    </div>
 {:else}
-<div class="md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr] not-md:pb-[2dvw] gap-4 md:overflow-hidden">
+    <div class="h-full md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr] not-md:pb-[2dvw] gap-4 md:overflow-hidden">
+        <Links/>
 
-    <!--    About     -->
-    <Links></Links>
-    <!--    About     -->
+        {#if data.disc == null}
+            <PlayerList
+                class="md:row-start-2"
+                players={data.players}
+            />
+        {:else}
+            <PlayerProfile
+                class="md:row-start-2"
+                selectedPlayer={selectedPlayer}
+            />
+        {/if}
 
-    <!--    Players     -->
-    {#if data.disc == null}
-        <PlayerList class="md:row-start-2" players={data.players}/>
-    {:else}
-        <PlayerProfile class="md:row-start-2" selectedPlayer={selectedPlayer}/>
-    {/if}
-    <!--    Players     -->
-
-    <!--    Content     -->
-    <Content
-        class={"md:row-span-2 " + (selectedPage === "content" ? "" : "not-md:hidden")}
-        player={selectedPlayer}
-        content={data.content}
-    />
-    <!--    Content     -->
-</div>
+        <Content
+            class="md:row-span-2"
+            player={selectedPlayer}
+            content={data.content}
+        />
+    </div>
 {/if}
-</div>
