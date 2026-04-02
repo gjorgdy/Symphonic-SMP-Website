@@ -1,5 +1,5 @@
 <script lang="ts">
-    import PanelTitle from "$lib/components/panelTitle.svelte";
+    import PanelHeader from "$lib/components/panelHeader.svelte";
     import {twMerge} from "tailwind-merge";
 
     type PanelProps = {
@@ -14,7 +14,7 @@
 
 <div class={twMerge("rounded-xl bg-[#1e1e1e] p-4", classes)}>
     {#if title}
-        <PanelTitle {title} {subtitle} {onclick}/>
+        <PanelHeader {title} {subtitle} {onclick}/>
     {/if}
     {@render children()}
 </div>

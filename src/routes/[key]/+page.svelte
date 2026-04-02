@@ -1,11 +1,11 @@
 <script lang="ts">
-    import PanelTitle from "$lib/components/panelTitle.svelte";
+    import PanelHeader from "$lib/components/panelHeader.svelte";
 
     let {data} = $props();
 </script>
 
 <div class="rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4">
-    <PanelTitle title="Very Secret Video page"/>
+    <PanelHeader title="Very Secret Video page"/>
     <iframe
         class="w-full aspect-video rounded-lg overflow-hidden"
         src="https://www.youtube.com/embed/yxUmLosaOQY"

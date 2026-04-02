@@ -3,7 +3,7 @@
     import {twMerge} from "tailwind-merge";
     import {ContentUtils, DEFAULT_FILTERS, type Filters} from "$lib/utils/contentUtils";
     import ContentListItem from "$lib/components/contentListItem.svelte";
-    import PanelTitle from "$lib/components/panelTitle.svelte";
+    import PanelHeader from "$lib/components/panelHeader.svelte";
     import type {ContentCollection} from "../../../routes/+page.server";
     import type {PlayerDisplay} from "$lib/models/player";
     import {onMount} from "svelte";
@@ -52,30 +52,25 @@
 </script>
 
 <Panel class={twMerge(classes, "overflow-hidden min-h-0 flex flex-col")}>
-    <div class="flex flex-col md:flex-row not-md:gap-4 pb-4 w-full justify-between">
-        {#await player}
-            <PanelTitle title="Content" />
-        {:then player}
-            <PanelTitle title="Content" subtitle={player ? "by " + player?.nickname : undefined} />
-        {:catch _}
-            <PanelTitle title="Content" />
-        {/await}
-        <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
-            {#each filterKeys as key}
-                <button class="flex flex-row gap-1.5 items-center cursor-pointer" aria-label="livestreams-filter" onclick={() => filters[key] = !filters[key]}>
-                    <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name={key} type="checkbox" bind:checked={filters[key]}>
-                    {#if icons[key]}
-                        <i class={twMerge("absolute mx-0.5 text-xs scale-80 transition-opacity", filters[key] ? "opacity-100" : "opacity-0", "hn hn-" + icons[key] + "-solid")}></i>
-                    {:else}
-                        <div class={twMerge("absolute mx-1 bg-white rounded-2xl h-2 w-2 aspect-square", filters[key] ? "opacity-100" : "opacity-0")}></div>
-                    {/if}
-                    <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for={key}>
-                    {formatLabel(key)}
-                    </label>
-                </button>
-            {/each}
-        </span>
-    </div>
+    {#await player then player}
+        <PanelHeader title="Content" subtitle={player ? "by " + player?.nickname : undefined} >
+            <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
+                {#each filterKeys as key}
+                    <button class="flex flex-row gap-1.5 items-center cursor-pointer" aria-label="livestreams-filter" onclick={() => filters[key] = !filters[key]}>
+                        <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name={key} type="checkbox" bind:checked={filters[key]}>
+                        {#if icons[key]}
+                            <i class={twMerge("absolute mx-0.5 text-xs scale-80 transition-opacity", filters[key] ? "opacity-100" : "opacity-0", "hn hn-" + icons[key] + "-solid")}></i>
+                        {:else}
+                            <div class={twMerge("absolute mx-1 bg-white rounded-2xl h-2 w-2 aspect-square", filters[key] ? "opacity-100" : "opacity-0")}></div>
+                        {/if}
+                        <label class="text-gray-400 text-sm not-md:grow flex items-center gap-1 cursor-pointer" for={key}>
+                        {formatLabel(key)}
+                        </label>
+                    </button>
+                {/each}
+            </span>
+        </PanelHeader>
+    {/await}
     <div class="grow w-full flex flex-col gap-4 overflow-auto">
         {#await content}
             {#each {length: 20} as _}

@@ -1,7 +1,7 @@
 <script lang="ts">
     import PlayerListItem from "$lib/components/playerListItem.svelte";
     import Content from "$lib/components/index/content.svelte";
-    import PanelTitle from "$lib/components/panelTitle.svelte";
+    import PanelHeader from "$lib/components/panelHeader.svelte";
     import {ContentUtils, type Filters} from "$lib/utils/contentUtils";
     import Skinview3d from "svelte-skinview3d";
     import { IdleAnimation } from "skinview3d";
@@ -27,7 +27,7 @@
 
 {#if menu}
 <div class="rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4">
-    <PanelTitle title="Menu" onclick={() => menu = !menu}/>
+    <PanelHeader title="Menu" onclick={() => menu = !menu}/>
     <button
             type="button"
             class={"flex flex-1 items-center justify-center pixel text-xl " + (selectedPage === "content" ? "underline text-gray-400" : "")}
@@ -58,7 +58,7 @@
 
     <!--    About     -->
     <div class={"rounded-xl bg-[#1e1e1e] h-fit flex flex-col p-4 gap-4 " + (selectedPage === "links" ? "" : "not-md:hidden")}>
-        <PanelTitle title="Links" onclick={() => menu = !menu}/>
+        <PanelHeader title="Links" onclick={() => menu = !menu}/>
         <a aria-label="Discord link" href="https://discord.gg/T4GvyhRs52"
            target="_blank"
            class="text-gray-100 hover:text-gray-300 transition-colors gap-2 flex items-center">
@@ -90,7 +90,7 @@
     {#if data.disc == null}
     <div class={"md:row-start-2 rounded-xl py-4 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden " + (selectedPage === "players" ? "" : "not-md:hidden")}>
         <div class="px-4">
-            <PanelTitle title={data.disc == null ? "Symphonists" : "Symphonist"} onclick={() => menu = !menu}/>
+            <PanelHeader title={data.disc == null ? "Symphonists" : "Symphonist"} onclick={() => menu = !menu}/>
         </div>
         <div class="flex flex-col gap-4 px-4 h-full min-h-0 md:overflow-y-auto">
             {#await data.players}
@@ -107,7 +107,7 @@
     {:else}
     <div class={"md:row-start-2 rounded-xl bg-[#1e1e1e] min-h-0 h-fit md:overflow-hidden " + (selectedPage === "players" ? "" : "not-md:hidden")}>
         <div class="flex flex-row gap-2 p-4 not-md:pb-0 justify-between">
-            <PanelTitle title="Symphonist" onclick={() => menu = !menu}/>
+            <PanelHeader title="Symphonist" onclick={() => menu = !menu}/>
             <a href="/" class="hover:underline text-gray-400 italic h-min mt-auto">deselect</a>
         </div>
         <div class="flex flex-col gap-4 p-4 md:pt-0 h-full min-h-0">
