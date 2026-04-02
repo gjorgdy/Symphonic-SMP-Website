@@ -1,11 +1,11 @@
 <script lang="ts">
-    type VideoProps = {
+    type PanelHeaderProps = {
         title?: string;
         subtitle?: string;
         onclick?: () => void;
         children?: any;
     }
-    let { title, subtitle, onclick, children }: VideoProps = $props();
+    let { title, subtitle, onclick, children }: PanelHeaderProps = $props();
 </script>
 
 <div class="flex flex-col md:flex-row not-md:gap-4 pb-4 w-full justify-between">
