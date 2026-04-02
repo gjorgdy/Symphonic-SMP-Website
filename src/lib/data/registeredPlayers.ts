@@ -17,7 +17,7 @@ export const registeredPlayers: Record<string, Player> = {
     },
     // 3
     "pigstep": {
-        nickname: "Pigs(tep)",
+        nickname: "Pigs",
         minecraft_uuid: "c574ca17-ed27-4cb6-a7fa-841b47dc1fa7",
         youtube_user_id: "UCcVXBFM1JNvmCDai6ggbx1w",
         twitch_user_id: "430489413",
