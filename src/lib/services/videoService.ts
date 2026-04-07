@@ -32,11 +32,11 @@ export class VideoService {
             .map(player => player.youtube_user_id!)
             .map(YouTubeAPI.fetchLatestVideos);
 
-        await TwitchAPI.init();
+        const twitchApi = await TwitchAPI.getInstance();
         let promisedVods = getRegisteredPlayers()
             .filter(player => player.twitch_user_id !== undefined)
             .map(player => player.twitch_user_id!)
-            .map(TwitchAPI.fetchVods);
+            .map(id => twitchApi.fetchVods(id));
 
         let videos = (await Promise.all(promisedVideos.concat(promisedVods)))
             .flat().sort((a, b) => {

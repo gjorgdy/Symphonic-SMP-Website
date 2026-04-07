@@ -53,19 +53,42 @@ export class TwitchAPI {
         return TimeUtils.formatDuration(isoDuration, /(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/);
     }
 
-    private static expiresAt: number = 0;
-    private static token?: TwitchToken;
+    private expiresAt: number = 0;
+    private token?: TwitchToken;
+    private tokenPromise?: Promise<TwitchToken>;
 
-    public static async init() {
-        await this.getToken();
+    private static _instance: TwitchAPI;
+
+    private constructor() {}
+
+    public static async getInstance(): Promise<TwitchAPI> {
+        if (!TwitchAPI._instance) {
+            TwitchAPI._instance = new TwitchAPI();
+            await TwitchAPI._instance.getToken();
+        }
+        return TwitchAPI._instance;
     }
 
-    private static async getToken(): Promise<TwitchToken> {
-        if (TwitchAPI.token && TwitchAPI.expiresAt > Date.now()) {
-            return TwitchAPI.token;
+    private async getToken(): Promise<TwitchToken> {
+        if (this.token && this.expiresAt > Date.now()) {
+            return this.token;
         }
-        TwitchAPI.expiresAt = Date.now() + (5000);
+        if (this.tokenPromise) {
+            return this.tokenPromise;
+        }
+
+        this.tokenPromise = this.fetchToken();
+
+        try {
+            return await this.tokenPromise;
+        } finally {
+            this.tokenPromise = undefined;
+        }
+    }
+
+    private async fetchToken(): Promise<TwitchToken> {
         console.log("Fetching Twitch token...");
+
         const response = await fetch("https://id.twitch.tv/oauth2/token", {
             method: "POST",
             headers: {
@@ -77,21 +100,23 @@ export class TwitchAPI {
                 grant_type: "client_credentials",
             }),
         });
+
         if (!response.ok) {
             throw new Error(`Failed to get Twitch token: ${response.status} ${response.statusText}`);
         }
-        const data = await response.json() as TwitchToken;
-        TwitchAPI.token = data;
-        TwitchAPI.expiresAt = Date.now() + data.expires_in;
-        return data;
+
+        const token = (await response.json()) as TwitchToken;
+        this.token = token;
+        this.expiresAt = Date.now() + (token.expires_in * 1000) - 5000;
+        return token;
     }
 
-    public static async fetchChannels(channelIds: string[]): Promise<Map<String, String>> {
+    public async fetchChannels(channelIds: string[]): Promise<Map<String, String>> {
         const url = `https://api.twitch.tv/helix/channels?${channelIds.map(id  => `broadcaster_id=`+id).join('&')}`;
         const response = await fetch(url, {
             method: "GET",
             headers: {
-                "Authorization": "Bearer " + (await TwitchAPI.getToken()).access_token,
+                "Authorization": "Bearer " + (await this.getToken()).access_token,
                 "Client-Id": env.TWITCH_CLIENT_ID
             }
         });
@@ -108,11 +133,11 @@ export class TwitchAPI {
         return channelMap;
     }
 
-    public static async fetchLiveStreams(channelIds: string[]): Promise<Livestream[]> {
+    public async fetchLiveStreams(channelIds: string[]): Promise<Livestream[]> {
         const response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_id=`+id).join('&')}`, {
             method: "GET",
             headers: {
-                "Authorization": "Bearer " + (await TwitchAPI.getToken()).access_token,
+                "Authorization": "Bearer " + (await this.getToken()).access_token,
                 "Client-Id": env.TWITCH_CLIENT_ID
             }
         });
@@ -135,11 +160,11 @@ export class TwitchAPI {
         }).toSorted((a, b) => b.started_at.getTime() - a.started_at.getTime());
     }
 
-    public static async fetchVods(channelId: string): Promise<VOD[]> {
+    public async fetchVods(channelId: string): Promise<VOD[]> {
         const response = await fetch(`https://api.twitch.tv/helix/videos?type=archive&user_id=${channelId}`, {
             method: "GET",
             headers: {
-                "Authorization": "Bearer " + (await TwitchAPI.getToken()).access_token,
+                "Authorization": "Bearer " + (await this.getToken()).access_token,
                 "Client-Id": env.TWITCH_CLIENT_ID
             }
         });

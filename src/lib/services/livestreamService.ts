@@ -24,7 +24,8 @@ export class LivestreamService {
     }
 
     public async fetchTwitch(): Promise<void> {
-        this.twitchStreams = await TwitchAPI.fetchLiveStreams(
+        const twitchApi = await TwitchAPI.getInstance();
+        this.twitchStreams = await twitchApi.fetchLiveStreams(
             getRegisteredPlayers()
                 .filter(p => p.twitch_user_id != null)
                 .map(p => p.twitch_user_id!)
