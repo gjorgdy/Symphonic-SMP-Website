@@ -4,23 +4,28 @@
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
 	import {twMerge} from "tailwind-merge";
 	import {setDisc, setPanel} from "$lib/utils/navigationUtils";
+	import {registeredPlayers} from "$lib/data/registeredPlayers";
 
 	let menu = $state(false);
 
 	let { data, children }: LayoutProps = $props();
 
+	const title = $derived.by(() =>
+		"Symphonic SMP" + (data.disc ? (" | " + registeredPlayers[data.disc].nickname) : "")
+	);
+	const discImage = $derived.by(() => "/assets/discs/" + data.favicon + ".webp");
 </script>
 
 <svelte:head>
-	<link rel="icon" href={"/assets/discs/" + data.favicon + ".webp"} />
+	<link rel="icon" href={discImage} />
 	<meta name="darkreader-lock" content="true" />
-	<meta property="og:title" content="Symphonic SMP" />
+	<meta property="og:title" content={title} />
 	<meta name="keywords" content="Minecraft, Survival, SMP, Community, Music" />
 	<meta name="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators">
 	<meta property="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators" />
 	<meta property="og:description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators" />
-	<meta property="og:image" content={data.logo} />
-	<title>Symphonic SMP</title>
+	<meta property="og:image" content={data.disc ? discImage : data.logo} />
+	<title>{title}</title>
 </svelte:head>
 
 <div
