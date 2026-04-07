@@ -5,6 +5,8 @@ import type {Livestream, Video} from "$lib/models/content";
 import {PlayerService} from "$lib/services/playerService";
 import {LivestreamService} from "$lib/services/livestreamService";
 import {VideoService} from "$lib/services/videoService";
+import {type Cookies, redirect} from "@sveltejs/kit";
+import {env} from '$env/dynamic/private';
 
 export type IndexServerLoadProps = {
 	players: Promise<PlayerDisplay[]>,
@@ -16,7 +18,22 @@ export type ContentCollection = {
 	videos: Video[]
 }
 
-export const load: LayoutServerLoad = ({url}) => {
+function handleCookies(cookies: Cookies, disc: string | null) {
+	const discHistoryCookie = cookies.get("discs");
+	const discHistory: string[] = discHistoryCookie?.split("-") ?? []
+	if (disc) discHistory.push(disc);
+	if (discHistory.length > 0) {
+		const l = discHistory.length;
+		const discHistoryCookie = discHistory.slice(-5, l).join("-");
+		cookies.set("discs", discHistoryCookie, {path: '/'});
+		if (discHistory.length == 5 && discHistoryCookie === env.DISC_CODE) {
+			cookies.delete("discs", {path: '/'});
+			redirect(302, `/c/` + discHistoryCookie);
+		}
+	}
+}
+
+export const load: LayoutServerLoad = ({ url, cookies }) => {
 
 	let discs: string[];
 	let favicon;
@@ -31,6 +48,8 @@ export const load: LayoutServerLoad = ({url}) => {
 		favicon = discs[Math.floor(Math.random() * discs.length)];
 		discs = discs.concat(discs);
 	}
+
+	handleCookies(cookies, disc);
 
 	const logo = "/assets/logo_text.png";
 
