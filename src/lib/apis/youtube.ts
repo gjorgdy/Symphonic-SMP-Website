@@ -52,6 +52,8 @@ export class YouTubeAPI {
     }
 
     static async fetchLatestVideos(channelId: string): Promise<Video[]> {
+        console.log("[VER] Fetching YouTube videos for " + channelId);
+
         const videoIds = await YouTubeAPI.fetchVideoIds(channelId.replace('UC', 'UU'));
         if (videoIds.length == 0) return [];
         const shortIds = await YouTubeAPI.fetchVideoIds(channelId.replace('UC', 'UUSH'));

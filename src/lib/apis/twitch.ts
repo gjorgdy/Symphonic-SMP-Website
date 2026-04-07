@@ -87,7 +87,7 @@ export class TwitchAPI {
     }
 
     private async fetchToken(): Promise<TwitchToken> {
-        console.log("Fetching Twitch token...");
+        console.log("[VER] Fetching Twitch token...");
 
         const response = await fetch("https://id.twitch.tv/oauth2/token", {
             method: "POST",
@@ -112,6 +112,8 @@ export class TwitchAPI {
     }
 
     public async fetchChannels(channelIds: string[]): Promise<Map<String, String>> {
+        console.log("[VER] Fetching Twitch channels");
+
         const url = `https://api.twitch.tv/helix/channels?${channelIds.map(id  => `broadcaster_id=`+id).join('&')}`;
         const response = await fetch(url, {
             method: "GET",
@@ -134,6 +136,8 @@ export class TwitchAPI {
     }
 
     public async fetchLiveStreams(channelIds: string[]): Promise<Livestream[]> {
+        console.log("[VER] Fetching Twitch livestreams");
+
         const response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_id=`+id).join('&')}`, {
             method: "GET",
             headers: {
@@ -161,6 +165,8 @@ export class TwitchAPI {
     }
 
     public async fetchVods(channelId: string): Promise<VOD[]> {
+        console.log("[VER] Fetching Twitch VODs for " + channelId);
+
         const response = await fetch(`https://api.twitch.tv/helix/videos?type=archive&user_id=${channelId}`, {
             method: "GET",
             headers: {

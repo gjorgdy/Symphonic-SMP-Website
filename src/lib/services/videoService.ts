@@ -14,7 +14,7 @@ export class VideoService {
 
     private constructor() {
         // Private constructor to prevent direct instantiation
-        console.log("VideoService initialized");
+        console.log("[INF] VideoService initialized");
     }
 
     public static getInstance(): VideoService {
@@ -25,8 +25,6 @@ export class VideoService {
     }
 
     public async fetch(): Promise<Video[]> {
-        console.log("Fetching video data...");
-
         let promisedVideos = getRegisteredPlayers()
             .filter(player => player.youtube_user_id !== undefined)
             .map(player => player.youtube_user_id!)

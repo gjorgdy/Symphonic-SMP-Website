@@ -14,7 +14,7 @@ export class PlayerService {
 
     private constructor() {
         // Private constructor to prevent direct instantiation
-        console.log("PlayerService initialized");
+        console.log("[INF] PlayerService initialized");
     }
 
     public static getInstance(): PlayerService {
@@ -25,8 +25,6 @@ export class PlayerService {
     }
 
     public async fetch(): Promise<PlayerDisplay[]> {
-        console.log("Fetching player data...");
-
         const twitchIds = getRegisteredPlayers()
             .filter(p => p.twitch_user_id !== undefined)
             .map(p => p.twitch_user_id!) as string[];
@@ -42,7 +40,7 @@ export class PlayerService {
                 twitch_url: player.twitch_user_id ? "https://twitch.tv/" + twitchNames.get(player.twitch_user_id) : undefined,
                 ...player
             } as PlayerDisplay;
-        })
+        });
         this.players = await Promise.all(promisedPlayers);
         this.players.sort((a, b) => a.nickname.localeCompare(b.nickname));
         return this.players;

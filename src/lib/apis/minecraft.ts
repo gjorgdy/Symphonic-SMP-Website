@@ -8,6 +8,8 @@ type MinecraftPlayer = {
 export class MinecraftAPI {
 
     public static async fetchName(minecraftUUID: UUID): Promise<string> {
+        console.log("[VER] Fetching Minecraft name for " + minecraftUUID);
+
         const response = await fetch(
             `https://api.minecraftservices.com/minecraft/profile/lookup/${minecraftUUID}`);
         if (!response.ok) {

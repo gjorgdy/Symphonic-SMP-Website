@@ -13,7 +13,7 @@ export class LivestreamService {
 
     private constructor() {
         // Private constructor to prevent direct instantiation
-        console.log("LivestreamService initialized");
+        console.log("[INF] LivestreamService initialized");
     }
 
     public static getInstance(): LivestreamService {
