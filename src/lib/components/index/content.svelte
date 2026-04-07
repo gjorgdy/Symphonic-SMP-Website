@@ -53,7 +53,7 @@
 
 <Panel class={twMerge("min-h-0 flex flex-col h-fit md:self-start md:max-h-full", classes)}>
     {#await player then player}
-        <PanelHeader title="Content" subtitle={player ? "by " + player?.nickname : undefined} >
+        <PanelHeader title="Content" subtitle={player ? "by " + player?.nickname : undefined} panelName="content" >
             <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
                 {#each filterKeys as key}
                     <button class="flex flex-row gap-1.5 items-center cursor-pointer" aria-label="livestreams-filter" onclick={() => filters[key] = !filters[key]}>

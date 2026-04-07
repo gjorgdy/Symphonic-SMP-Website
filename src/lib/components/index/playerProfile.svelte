@@ -26,7 +26,7 @@
 </script>
 
 <Panel class={twMerge("overflow-hidden flex flex-col h-fit", classes)}>
-    <PanelHeader title="Symphonist">
+    <PanelHeader title="Symphonist" panelName="symphonists">
         <a href={deselectHref} class="hover:underline text-gray-400 italic h-min mt-auto">deselect</a>
     </PanelHeader>
     <div class="flex flex-col gap-4 md:pt-0 h-full min-h-0">

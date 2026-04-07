@@ -41,7 +41,7 @@
 </script>
 
 <Panel class={twMerge("overflow-hidden flex flex-col h-fit", classes)}>
-    <PanelHeader title="Links"/>
+    <PanelHeader title="Links" panelName="links"/>
     <div class="flex flex-col gap-4">
         {#each links as link}
             <a aria-label={link.title} href={link.url}
