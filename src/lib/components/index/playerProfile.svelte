@@ -19,7 +19,7 @@
 </script>
 
 <Panel class={twMerge("overflow-hidden flex flex-col h-fit", classes)}>
-    <PanelHeader title="Symphonist" panelName="symphonists">
+    <PanelHeader title="Symphonist" panelName="symphonists" class="flex-row">
         <button
             class="hover:text-gray-500 text-gray-400 transition-colors italic h-min mt-auto cursor-pointer"
             onclick={() => setDisc(undefined)}
