@@ -4,9 +4,9 @@
     import {ContentUtils, DEFAULT_FILTERS, type Filters} from "$lib/utils/contentUtils";
     import ContentListItem from "$lib/components/contentListItem.svelte";
     import PanelHeader from "$lib/components/panelHeader.svelte";
-    import type {ContentCollection} from "../../../routes/+page.server";
     import type {PlayerDisplay} from "$lib/models/player";
     import {onMount} from "svelte";
+    import type {ContentCollection} from "../../../routes/+layout.server.ts";
 
     let filters = $state({ ...DEFAULT_FILTERS });
 
@@ -51,9 +51,14 @@
     const formatLabel = (str: string) => str.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
 </script>
 
-<Panel class={twMerge("min-h-0 flex flex-col h-fit md:self-start md:max-h-full", classes)}>
+<Panel class={twMerge("min-h-0 flex flex-col h-fit md:self-start md:max-h-full px-1", classes)}>
     {#await player then player}
-        <PanelHeader title="Content" subtitle={player ? "by " + player?.nickname : undefined} panelName="content" >
+        <PanelHeader
+            title="Content"
+            subtitle={player ? "by " + player?.nickname : undefined}
+            panelName="content"
+            class="px-3"
+        >
             <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
                 {#each filterKeys as key}
                     <button class="flex flex-row gap-1.5 items-center cursor-pointer" aria-label="livestreams-filter" onclick={() => filters[key] = !filters[key]}>
@@ -71,7 +76,7 @@
             </span>
         </PanelHeader>
     {/await}
-    <div class="w-full min-h-0 max-h-full flex flex-col gap-4 overflow-y-auto">
+    <div class="w-full min-h-0 max-h-full flex flex-col px-3 gap-4 overflow-y-auto">
         {#await content}
             {#each {length: 20} as _}
                 <ContentListItem/>

@@ -12,10 +12,10 @@
     let { players, class: classes }: PlayerListProps = $props();
 </script>
 
-<Panel class={twMerge("overflow-hidden flex flex-col", classes)}>
-    <PanelHeader title="Symphonists" panelName="symphonists" />
-    <div class="md:row-start-2 rounded-xl flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden">
-        <div class="flex flex-col gap-4 h-full min-h-0 md:overflow-y-auto">
+<Panel class={twMerge("overflow-hidden flex flex-col px-1", classes)}>
+    <PanelHeader title="Symphonists" panelName="symphonists" class="px-3"/>
+    <div class="md:row-start-2 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden">
+        <div class="flex flex-col gap-4 px-3 h-full min-h-0 md:overflow-y-auto">
             {#await players}
                 {#each {length: 20} as _}
                     <PlayerListItem/>

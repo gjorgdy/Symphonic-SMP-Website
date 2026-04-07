@@ -22,7 +22,7 @@
     const showSkin = $derived.by(() => selected === undefined && player?.profile_picture_url != null);
 </script>
 
-<div class="flex flex-row items-center justify-between gap-4 md:px-1 w-full">
+<div class="flex flex-row items-center justify-between gap-4 w-full">
     <button
             type="submit"
             onclick={() => setDisc(player?.disc)}
