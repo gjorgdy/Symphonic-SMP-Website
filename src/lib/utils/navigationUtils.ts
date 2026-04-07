@@ -13,7 +13,7 @@ export async function setDisc(disc?: string): Promise<void> {
     await goto(url.pathname + url.search);
 }
 
-export async function setPanel(panel: Panel): Promise<void> {
+export async function setPanel(panel?: Panel): Promise<void> {
     const url = new URL(page.url);
     if (panel) {
         url.searchParams.set('p', panel);
