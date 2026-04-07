@@ -2,20 +2,13 @@
 	import './layout.css';
 	import type {LayoutProps} from "../../.svelte-kit/types/src/routes/$types";
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
-	import {page} from "$app/state";
-	import {goto} from "$app/navigation";
+	import {twMerge} from "tailwind-merge";
+	import {setDisc, setPanel} from "$lib/utils/navigationUtils";
+
+	let menu = $state(false);
 
 	let { data, children }: LayoutProps = $props();
 
-	function setDisc(disc?: string): void {
-		let query = new URLSearchParams(page.url.searchParams.toString());
-		if (disc) {
-			query.set('disc', disc);
-			goto(`?${query.toString()}`);
-		} else {
-			goto('/');
-		}
-	}
 </script>
 
 <svelte:head>
@@ -39,13 +32,18 @@
 	<div class="h-dvh p-2 md:py-5 flex flex-col items-center gap-2 text-white">
 	<!--	Header		-->
 	<div class="not-md:fixed z-40 h-16 md:my-2 w-300 not-md:max-w-[98dvw] max-w-[96dvw] flex items-center justify-center">
-		<div class="h-full rounded-lg bg-[#1e1e1e] not-md:drop-shadow-xl/30 overflow-hidden">
+		<div class="relative h-full max-h-full rounded-lg bg-[#1e1e1e] not-md:drop-shadow-xl/30 overflow-hidden">
 			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
 				{#each data.discs as disc}
-					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={() => setDisc(disc)}>
+					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={async () => await setDisc(disc)}>
 						<img class="h-10 m-8 aspect-square grow text-white/0" src={"/assets/discs/" + disc + ".webp"} alt="Disc {disc}"/>
 					</button>
 				{/each}
+			</div>
+			<div class="md:hidden absolute flex flex-row justify-end items-center w-full h-full -translate-y-full">
+				<button class="z-50 float-right m-4 cursor-pointer" aria-label="menu" type="button" onclick={() => menu = !menu}>
+					<i class="hn hn-bars-solid text-2xl drop-shadow-xl/80"></i>
+				</button>
 			</div>
 		</div>
 		<div class="absolute h-16 backdrop-blur-xs min-w-full mask-x-from-50% pointer-events-none"></div>
@@ -54,6 +52,37 @@
 		</a>
 	</div>
 	<!--	Header		-->
+
+	{#if menu}
+		<div class="z-50 fixed mt-18 md:mt-20 w-300 not-md:max-w-[98dvw] max-w-[96dvw] drop-shadow-xl/30 h-fit flex justify-end">
+			<div class="bg-[#1e1e1e] rounded-xl h-full w-full md:w-fit flex flex-col p-4 gap-4">
+			<button
+					type="button"
+					class={twMerge("flex flex-1 items-center justify-center pixel text-xl", data.panel === "content" || !data.panel ? "underline" : "")}
+					onclick={async () => {
+						menu = false;
+						await setPanel("content");
+					}}
+			>Content</button>
+			<button
+					type="button"
+					class={twMerge("flex flex-1 items-center justify-center pixel text-xl", data.panel === "symphonists" ? "underline" : "")}
+					onclick={async () => {
+						menu = false;
+						await setPanel("symphonists");
+					}}
+			> {data.disc === null ? "Symphonists" : "Symphonist"} </button>
+			<button
+					type="button"
+					class={twMerge("flex flex-1 items-center justify-center pixel text-xl", data.panel === "links" ? "underline" : "")}
+					onclick={async () => {
+						menu = false;
+						await setPanel("links");
+					}}
+			> Links </button>
+			</div>
+		</div>
+	{/if}
 
 	<!--	Body		-->
 	<div class="w-300 max-w-[96dvw] flex-1 min-h-0 not-md:mt-18">
