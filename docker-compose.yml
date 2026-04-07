@@ -5,7 +5,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
       - GOOGLE_KEY=
       - TWITCH_CLIENT_ID=
       - TWITCH_SECRET=

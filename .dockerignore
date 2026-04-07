@@ -1,4 +1,8 @@
 node_modules
+.svelte-kit
+build
+.git
+*.md
 
 # Output
 .output
