@@ -64,6 +64,8 @@ export class TimeUtils {
     }
 
     static formatDuration(isoDuration: string, timestampRegex: RegExp) {
+        if (!isoDuration) return '--:--';
+
         const match = isoDuration.match(timestampRegex);
         if (!match) return '00:00:00';
 
