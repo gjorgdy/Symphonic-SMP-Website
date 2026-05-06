@@ -5,6 +5,7 @@
 	import {twMerge} from "tailwind-merge";
 	import {setDisc, setPanel} from "$lib/utils/navigationUtils";
 	import {registeredPlayers} from "$lib/data/registeredPlayers";
+	import {goto} from "$app/navigation";
 
 	let menu = $state(false);
 
@@ -52,7 +53,7 @@
 			</div>
 		</div>
 		<div class="absolute h-16 backdrop-blur-xs min-w-full mask-x-from-50% pointer-events-none"></div>
-		<button class="absolute h-16 justify-center items-center md:py-0 md:px-20 group cursor-pointer" onclick={async () => {menu = false; await setPanel(undefined)}}>
+		<button class="absolute h-16 justify-center items-center md:py-0 md:px-20 group cursor-pointer" onclick={() => {menu = false; goto("/");}}>
 			<img class="h-full z-50 not-md:drop-shadow-xl/30 scale-110 md:scale-130 group-hover:scale-115 md:group-hover:scale-140 transition-transform " src={data.logo} alt=""/>
 		</button>
 	</div>
