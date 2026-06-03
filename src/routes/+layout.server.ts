@@ -1,40 +1,39 @@
 import type { LayoutServerLoad } from './$types';
-import { getRegisteredDiscs } from "$lib/data/registeredPlayers";
-import type {PlayerDisplay} from "$lib/models/player";
-import type {Livestream, Video} from "$lib/models/content";
-import {PlayerService} from "$lib/services/playerService";
-import {LivestreamService} from "$lib/services/livestreamService";
-import {VideoService} from "$lib/services/videoService";
-import {type Cookies, redirect} from "@sveltejs/kit";
-import {env} from '$env/dynamic/private';
+import { getRegisteredDiscs } from '$lib/data/registeredPlayers';
+import type { PlayerDisplay } from '$lib/models/player';
+import type { Livestream, Video } from '$lib/models/content';
+import { PlayerService } from '$lib/services/playerService';
+import { LivestreamService } from '$lib/services/livestreamService';
+import { VideoService } from '$lib/services/videoService';
+import { type Cookies, redirect } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 export type IndexServerLoadProps = {
-	players: Promise<PlayerDisplay[]>,
-	content: Promise<ContentCollection>
-}
+	players: Promise<PlayerDisplay[]>;
+	content: Promise<ContentCollection>;
+};
 
 export type ContentCollection = {
-	livestreams: Livestream[],
-	videos: Video[]
-}
+	livestreams: Livestream[];
+	videos: Video[];
+};
 
 function handleCookies(cookies: Cookies, disc: string | null) {
-	const discHistoryCookie = cookies.get("discs");
-	const discHistory: string[] = discHistoryCookie?.split("-") ?? []
+	const discHistoryCookie = cookies.get('discs');
+	const discHistory: string[] = discHistoryCookie?.split('-') ?? [];
 	if (disc) discHistory.push(disc);
 	if (discHistory.length > 0) {
 		const l = discHistory.length;
-		const discHistoryCookie = discHistory.slice(-5, l).join("-");
-		cookies.set("discs", discHistoryCookie, {path: '/'});
+		const discHistoryCookie = discHistory.slice(-5, l).join('-');
+		cookies.set('discs', discHistoryCookie, { path: '/' });
 		if (discHistory.length == 5 && discHistoryCookie === env.DISC_CODE) {
-			cookies.delete("discs", {path: '/'});
+			cookies.delete('discs', { path: '/' });
 			redirect(302, `/c/` + discHistoryCookie);
 		}
 	}
 }
 
 export const load: LayoutServerLoad = ({ url, cookies }) => {
-
 	let discs: string[];
 	let favicon;
 	let disc = url.searchParams.get('disc');
@@ -51,20 +50,21 @@ export const load: LayoutServerLoad = ({ url, cookies }) => {
 
 	handleCookies(cookies, disc);
 
-	const logo = "/assets/logo_text.png";
+	const logo = '/assets/logo_text.png';
 
 	const livestreamsPromise = LivestreamService.getInstance().getLivestreams();
 	const videosPromise = VideoService.getInstance().getRecentVideos();
 
-    return {
+	return {
 		panel: panel,
 		disc: disc,
 		discs: discs,
 		logo: logo,
 		favicon: favicon,
 		players: PlayerService.getInstance().getClientPlayers(),
-		content: Promise.all([livestreamsPromise, videosPromise]).then(
-			([livestreams, videos]) => ({ livestreams, videos })
-		)
+		content: Promise.all([livestreamsPromise, videosPromise]).then(([livestreams, videos]) => ({
+			livestreams,
+			videos
+		}))
 	};
 };
