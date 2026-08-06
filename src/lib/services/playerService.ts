@@ -2,6 +2,8 @@ import type {PlayerDisplay} from "$lib/models/player";
 import {getRegisteredPlayers, registeredPlayers} from "$lib/data/registeredPlayers";
 import {MinecraftAPI} from "$lib/apis/minecraft";
 import {TwitchAPI} from "$lib/apis/twitch";
+import { YouTubeAPI } from "$lib/apis/youtube";
+import type {YoutubeChannel} from "$lib/apis/youtube";
 
 const PLAYER_CACHE_DURATION = 60 * 60 * 1000; // 60 minutes in ms
 
@@ -32,12 +34,19 @@ export class PlayerService {
         const twitchApi = await TwitchAPI.getInstance();
         const twitchNames = await twitchApi.fetchChannels(twitchIds);
 
+        const youtubeChannels: Record<string, YoutubeChannel> = await YouTubeAPI.fetchChannels(Object.values(registeredPlayers).map(p => p.youtube_user_id!))
+
         const promisedPlayers = Object.entries(registeredPlayers).map(async ([disc, player]) => {
             return {
                 minecraft_name: player.minecraft_uuid !== undefined ? await MinecraftAPI.fetchName(player.minecraft_uuid) : "",
                 disc: disc,
                 profile_picture_url: "/assets/discs/" + disc + ".png",
                 twitch_url: player.twitch_user_id ? "https://twitch.tv/" + twitchNames.get(player.twitch_user_id) : undefined,
+              youtube_channel: player.youtube_user_id ? {
+                title: youtubeChannels[player.youtube_user_id].snippet.title,
+                description: youtubeChannels[player.youtube_user_id].snippet.description,
+              }
+                : undefined,
                 ...player
             } as PlayerDisplay;
         });

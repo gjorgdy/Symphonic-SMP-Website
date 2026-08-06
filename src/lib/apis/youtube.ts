@@ -1,6 +1,7 @@
 import {env} from '$env/dynamic/private';
 import type {Short, Video, VOD} from "$lib/models/content";
-import {TimeUtils} from "$lib/utils/timeUtils";
+import { TimeUtils } from "$lib/utils/timeUtils";
+import type { Player } from "$lib/models/player";
 
 export type VideoListResponse = {
     kind: "youtube#videoListResponse",
@@ -45,6 +46,16 @@ export type YoutubePlaylistItem = {
     },
 }
 
+export type YoutubeChannelObject = {
+    kind: "youtube#channel",
+    etag: string,
+    id: string,
+    snippet: {
+        title: string,
+        description: string
+    }
+}
+
 export class YouTubeAPI {
 
     static formatDuration(isoDuration: string) {
@@ -74,8 +85,18 @@ export class YouTubeAPI {
         }
     }
 
+    static async fetchChannels(channelIds: string[]): Promise<Record<string, YoutubeChannelObject>> {
+        const url = `https://www.googleapis.com/youtube/v3/channels?key=${env.GOOGLE_KEY}&id=${channelIds.join(",")}&part=id,snippet&maxResults=25`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+        const data = await response.json() as { items: YoutubeChannelObject[] };
+        return data.items.reduce((acc, channel) => ({ ...acc, [channel.id]: channel }), {});
+    }
+
     private static async fetchVideoIds(playlistId: string): Promise<string[]> {
-        let url = `https://youtube.googleapis.com/youtube/v3/playlistItems?key=${env.GOOGLE_KEY}&part=contentDetails&maxResults=25&playlistId=${playlistId}`;
+        const url = `https://youtube.googleapis.com/youtube/v3/playlistItems?key=${env.GOOGLE_KEY}&part=contentDetails&maxResults=25&playlistId=${playlistId}`;
         const response = await fetch(url);
         if (response.status === 404) return [];
         if (!response.ok) {

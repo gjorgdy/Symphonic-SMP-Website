@@ -7,6 +7,7 @@
     import {registeredPlayers} from "$lib/data/registeredPlayers";
     import { readable } from 'svelte/store';
     import {twMerge} from "tailwind-merge";
+	import PlayerDescription from "$lib/components/playerDescription.svelte";
 
     const { data, params } = $props();
 
@@ -75,10 +76,15 @@
                 players={data.players}
             />
         {:else}
-            <PlayerProfile
-                class="md:row-start-2"
-                selectedPlayer={selectedPlayerDisplay}
-            />
+            <div class="flex flex-col gap-4">
+                <PlayerProfile
+                    class="md:row-start-2"
+                    selectedPlayer={selectedPlayerDisplay}
+                />
+                <PlayerDescription
+                    selectedPlayer={selectedPlayerDisplay}
+                />
+            </div>
         {/if}
     {/if}
 </div>

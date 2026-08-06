@@ -13,4 +13,10 @@ export type PlayerDisplay = Player & {
     disc: string,
     profile_picture_url?: string,
     twitch_url?: string,
+    youtube_channel?: YoutubeChannel
+}
+
+export type YoutubeChannel = {
+    title: string,
+    description: string,
 }
