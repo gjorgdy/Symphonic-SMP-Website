@@ -2,6 +2,7 @@
 	import { goto } from "$app/navigation";
     import { resolve } from "$app/paths";
     import type {PlayerDisplay} from "$lib/models/player";
+    import namemc from "$lib/assets/namemc.svg";
 
     type PlayerProps = {
         player?: PlayerDisplay;
@@ -46,9 +47,9 @@
         <a aria-label="NameMc link"
            href="https://namemc.com/profile/{player?.minecraft_name}"
            target="_blank"
-           class="flex items-center justify-center text-gray-100 hover:text-gray-400 transition-colors float-end"
+           class="flex items-center justify-center text-gray-100 hover:opacity-60 transition-opacity float-end"
         >
-            N
+            <img  class="h-4 aspect-square" src={namemc} alt="NameMC">
         </a>
         {#if player?.youtube_user_id != null}
             <a aria-label="YouTube link"
