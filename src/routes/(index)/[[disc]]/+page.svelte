@@ -47,8 +47,6 @@
 	<meta property="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great small creators" />
 	<meta property="og:description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great small creators" />
 	<meta property="og:image" content={params.disc ? discImage : data.logo} />
-	<meta property="og:image:width" content="1200" />
-	<meta property="og:image:height" content="630" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="Symphonic SMP" />
 	<meta property="og:locale" content="en_US" />
