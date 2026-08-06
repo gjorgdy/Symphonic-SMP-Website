@@ -4,30 +4,13 @@
 	import '@hackernoon/pixel-icon-library/fonts/iconfont.css';
 	import {twMerge} from "tailwind-merge";
 	import {setDisc, setPanel} from "$lib/utils/navigationUtils";
-	import {registeredPlayers} from "$lib/data/registeredPlayers";
 	import {goto} from "$app/navigation";
+	import { resolve } from '$app/paths';
 
 	let menu = $state(false);
 
 	let { data, children }: LayoutProps = $props();
-
-	const title = $derived.by(() =>
-		"Symphonic SMP" + (data.disc ? (" | " + registeredPlayers[data.disc].nickname) : "")
-	);
-	const discImage = $derived.by(() => "/assets/discs/" + data.favicon + ".webp");
 </script>
-
-<svelte:head>
-	<link rel="icon" href={discImage} />
-	<meta name="darkreader-lock" content="true" />
-	<meta property="og:title" content={title} />
-	<meta name="keywords" content="Minecraft, Survival, SMP, Community, Music" />
-	<meta name="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators">
-	<meta property="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators" />
-	<meta property="og:description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great smaller creators" />
-	<meta property="og:image" content={data.disc ? discImage : data.logo} />
-	<title>{title}</title>
-</svelte:head>
 
 <div
 	id="background"
@@ -55,7 +38,7 @@
 			</div>
 		</div>
 		<div class="absolute h-16 backdrop-blur-xs min-w-full mask-x-from-50% pointer-events-none"></div>
-		<button class="absolute h-16 justify-center items-center md:py-0 md:px-20 group cursor-pointer" onclick={() => {menu = false; goto("/");}}>
+		<button class="absolute h-16 justify-center items-center md:py-0 md:px-20 group cursor-pointer" onclick={() => {menu = false; goto(resolve("/"));}}>
 			<img class="h-full z-50 not-md:drop-shadow-xl/30 scale-110 md:scale-130 group-hover:scale-115 md:group-hover:scale-140 transition-transform " src={data.logo} alt=""/>
 		</button>
 	</div>

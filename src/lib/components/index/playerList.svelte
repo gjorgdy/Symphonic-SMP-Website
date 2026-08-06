@@ -17,11 +17,11 @@
     <div class="md:row-start-2 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden">
         <div class="flex flex-col gap-4 px-3 h-full min-h-0 md:overflow-y-auto">
             {#await players}
-                {#each {length: 20} as _}
+                {#each {length: 20} as _, i (i)}
                     <PlayerListItem/>
                 {/each}
             {:then players}
-                {#each players as player}
+                {#each players as player (player.disc)}
                     <PlayerListItem {player}/>
                 {/each}
             {/await}

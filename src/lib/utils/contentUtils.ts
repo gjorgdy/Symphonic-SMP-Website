@@ -50,7 +50,7 @@ export class ContentUtils {
         if (disc != null) {
             const player = getRegisteredPlayer(disc);
             streams = streams.filter(stream => {
-                return  stream.creator.twitch_user_id === player?.twitch_user_id
+                return stream.creator.twitch_user_id === player?.twitch_user_id
             })
         }
         return streams;

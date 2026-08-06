@@ -60,7 +60,7 @@
             class="px-3"
         >
             <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">
-                {#each filterKeys as key}
+                {#each filterKeys as key, i (i)}
                     <button class="flex flex-row gap-1.5 items-center cursor-pointer" aria-label="livestreams-filter" onclick={() => filters[key] = !filters[key]}>
                         <input class="appearance-none h-4 w-4 rounded-sm checked:bg-[#2e9200] bg-[#1e1e1e] transition-colors border border-white/25 cursor-pointer" name={key} type="checkbox" bind:checked={filters[key]}>
                         {#if icons[key]}
@@ -78,17 +78,17 @@
     {/await}
     <div class="w-full min-h-0 max-h-full flex flex-col px-3 gap-4 overflow-y-auto">
         {#await content}
-            {#each {length: 20} as _}
+            {#each {length: 20} as _, i (i)}
                 <ContentListItem/>
             {/each}
         {:then content}
             {#await player then player}
                 {@const filteredLivestreams = ContentUtils.filterLivestreams(content.livestreams, filters, player?.disc)}
                 {@const filteredVideos = ContentUtils.filterVideos(content.videos, filters, player?.disc)}
-                {#each filteredLivestreams as livestream}
+                {#each filteredLivestreams as livestream, i (i)}
                     <ContentListItem content={livestream}/>
                 {/each}
-                {#each filteredVideos as video}
+                {#each filteredVideos as video, i (i)}
                     <ContentListItem content={video}/>
                 {/each}
                 {#if filteredLivestreams.length === 0 && filteredVideos.length === 0}

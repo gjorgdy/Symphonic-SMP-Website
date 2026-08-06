@@ -6,7 +6,8 @@
     import {twMerge} from "tailwind-merge";
     import Skinview3d from "svelte-skinview3d";
     import {IdleAnimation} from "skinview3d";
-    import {setDisc} from "$lib/utils/navigationUtils";
+	import { goto } from "$app/navigation";
+	import { resolve } from "$app/paths";
 
     type PlayerListProps = {
         selectedPlayer?: Promise<PlayerDisplay | undefined>;
@@ -22,7 +23,7 @@
     <PanelHeader title="Symphonist" panelName="symphonists" class="flex-row">
         <button
             class="hover:text-gray-500 text-gray-400 transition-colors italic h-min mt-auto cursor-pointer"
-            onclick={() => setDisc(undefined)}
+            onclick={() => goto(resolve("/"))}
         >deselect</button>
     </PanelHeader>
     <div class="flex flex-col gap-4 md:pt-0 h-full min-h-0">

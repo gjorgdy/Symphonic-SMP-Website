@@ -33,22 +33,22 @@ function handleCookies(cookies: Cookies, disc: string | null) {
 	}
 }
 
-export const load: LayoutServerLoad = ({ url, cookies }) => {
+export const load: LayoutServerLoad = ({ url, cookies, params }) => {
 	let discs: string[];
-	let favicon;
-	let disc = url.searchParams.get('disc');
-	let panel = url.searchParams.get('p');
+  let favicon;
+	const disc = params.disc
+	const panel = url.searchParams.get('p');
 
-	if (disc) {
-		favicon = disc;
-		discs = Array.from({ length: 40 }, () => disc);
+	if (params.disc) {
+		favicon = params.disc;
+		discs = Array.from({ length: 40 }, () => params.disc!);
 	} else {
 		discs = getRegisteredDiscs();
 		favicon = discs[Math.floor(Math.random() * discs.length)];
 		discs = discs.concat(discs);
 	}
 
-	handleCookies(cookies, disc);
+	handleCookies(cookies, params.disc ?? "cat");
 
 	const logo = '/assets/logo_text.png';
 

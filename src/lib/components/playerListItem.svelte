@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+    import { resolve } from "$app/paths";
     import type {PlayerDisplay} from "$lib/models/player";
-    import {setDisc} from "$lib/utils/navigationUtils";
 
     type PlayerProps = {
         player?: PlayerDisplay;
@@ -14,7 +15,7 @@
 <div class="flex flex-row items-center justify-between gap-4 w-full">
     <button
             type="submit"
-            onclick={() => setDisc(player?.disc)}
+            onclick={() => goto(resolve(`/${player?.disc}`))}
             class={"flex flex-row grow items-center gap-2 " + (showSkin ? "cursor-pointer group" : "")}
     >
         <!--    Profile Picture    -->
@@ -36,7 +37,7 @@
             <span class="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">{player?.minecraft_name ?? "-"}</span>
         </span>
     </button>
-    <div class="flex gap-8 h-full text-xl flex-row-reverse">
+    <div class="flex gap-4 h-full text-xl flex-row-reverse">
         {#if player == null}
             <span class="flex items-center justify-center text-[#444444] transition-colors float-end">
                 <i class="hn hn-globe"></i>
