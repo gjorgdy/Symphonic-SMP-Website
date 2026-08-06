@@ -25,7 +25,7 @@
 			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
 			    {#each {length: 3} as _, j (j)}
     				{#each data.discs as disc, i (i)}
-    					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={async () => await setDisc(disc)}>
+    					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={async () => goto(resolve(`/${disc}`))}>
     						<img class="h-10 m-8 aspect-square grow text-white/0" src={"/assets/discs/" + disc + ".webp"} alt="Disc {disc}"/>
     					</button>
     				{/each}

@@ -15,7 +15,7 @@
 <div class="flex flex-row items-center justify-between gap-4 w-full">
     <button
             type="submit"
-            onclick={() => goto(resolve(`/${player?.disc}`))}
+            onclick={() => {if (showSkin) goto(resolve(`/${player?.disc}`))}}
             class={"flex flex-row grow items-center gap-2 " + (showSkin ? "cursor-pointer group" : "")}
     >
         <!--    Profile Picture    -->
@@ -46,7 +46,7 @@
         <a aria-label="NameMc link"
            href="https://namemc.com/profile/{player?.minecraft_name}"
            target="_blank"
-           class="flex items-center justify-center text-gray-100 hover:text-red-300 transition-colors float-end"
+           class="flex items-center justify-center text-gray-100 hover:text-gray-400 transition-colors float-end"
         >
             N
         </a>

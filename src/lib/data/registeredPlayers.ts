@@ -44,7 +44,7 @@ export const registeredPlayers: Record<string, Player> = {
 	},
 	// 7
 	stal: {
-		nickname: '𝐃xrk',
+		nickname: 'Dark',
 		minecraft_uuid: '44da6542-b7da-4767-ab32-7257b626f5f9',
 		youtube_user_id: 'UCU9DFNevHqYH1QeMKJ0Ageg',
 		twitch_user_id: '435265126'
@@ -146,9 +146,20 @@ export function getRegisteredPlayer(disc: string): Player | undefined {
 	return registeredPlayers[disc];
 }
 
+export function getRegisteredPlayerByNickname(nickname: string): Player | undefined {
+  for (const [disc, player] of Object.entries(registeredPlayers)) {
+    if (player.nickname.toLowerCase().replaceAll(' ', '_') === nickname.toLowerCase()) {
+      player.disc = disc;
+      return player;
+    }
+  }
+  return undefined;
+}
+
 export function getRegisteredPlayers(): Player[] {
 	return Object.values(registeredPlayers);
 }
+
 export function getRegisteredDiscs(): string[] {
 	return Object.keys(registeredPlayers).sort(function (_, __) {
 		return Math.random() - 0.5;

@@ -1,8 +1,9 @@
 import type { LayoutServerLoad } from './$types';
-import { getRegisteredDiscs } from '$lib/data/registeredPlayers';
+import { getRegisteredDiscs, getRegisteredPlayerByNickname } from '$lib/data/registeredPlayers';
 import type { PlayerDisplay } from '$lib/models/player';
 import type { Livestream, Video } from '$lib/models/content';
 import { PlayerService } from '$lib/services/playerService';
+import {registeredPlayers} from "$lib/data/registeredPlayers";
 import { LivestreamService } from '$lib/services/livestreamService';
 import { VideoService } from '$lib/services/videoService';
 import { type Cookies, redirect } from '@sveltejs/kit';
@@ -36,16 +37,31 @@ function handleCookies(cookies: Cookies, disc: string | null) {
 export const load: LayoutServerLoad = ({ url, cookies, params }) => {
 	let discs: string[];
   let favicon;
-	const disc = params.disc
+  let selectedPlayer = params.disc
+    ? registeredPlayers[params.disc]
+    : null;
+  let disc = params.disc
+  let playerUrl = false;
 	const panel = url.searchParams.get('p');
 
-	if (params.disc) {
-		favicon = params.disc;
-		discs = Array.from({ length: 40 }, () => params.disc!);
+  if (params.disc != null && selectedPlayer == null) {
+    const player = getRegisteredPlayerByNickname(params.disc)
+    if (player) {
+      disc = player.disc
+      selectedPlayer = player
+      playerUrl = true;
+      // redirect(302, `/${player.disc!}`);
+    } else {
+      redirect(302, `/`);
+    }
+	}
+
+	if (selectedPlayer) {
+		favicon = disc;
+		discs = Array.from({ length: 20 }, () => disc!);
 	} else {
 		discs = getRegisteredDiscs();
 		favicon = discs[Math.floor(Math.random() * discs.length)];
-		discs = discs.concat(discs);
 	}
 
 	handleCookies(cookies, params.disc ?? "cat");
@@ -57,9 +73,11 @@ export const load: LayoutServerLoad = ({ url, cookies, params }) => {
 
 	return {
 		panel: panel,
-		disc: disc,
+    disc: disc,
+		selectedPlayer: selectedPlayer,
 		discs: discs,
-		logo: logo,
+    logo: logo,
+		playerUrl: playerUrl,
 		favicon: favicon,
 		players: PlayerService.getInstance().getClientPlayers(),
 		content: Promise.all([livestreamsPromise, videosPromise]).then(([livestreams, videos]) => ({

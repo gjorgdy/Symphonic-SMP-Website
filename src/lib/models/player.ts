@@ -5,6 +5,7 @@ export type Player = {
     minecraft_uuid?: UUID,
     twitch_user_id?: string,
     youtube_user_id?: string,
+    disc?: string
 }
 
 export type PlayerDisplay = Player & {
