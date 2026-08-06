@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d1dd94f3-853f-4a0e-96db-5d3eb3b8f3f2" name="Changes" comment="ALT: logo return to root" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/Gjorg/Development/projects/SymphonicSMP" value="3B2g4qAZ26RrppF0i1HrpeWwfpV" />
+    </persistenceIdMap>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="panelTitle" />
+        <option value="filterCheckbox" />
+        <option value="content" />
+        <option value="playerList" />
+        <option value="playerProfile" />
+        <option value="link" />
+        <option value="+page" />
+        <option value="+layout" />
+        <option value="TypeScript File" />
+        <option value="+page.server" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gjorgdy&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/gjorgdy/Symphonic-SMP-Website.git&quot;,
+    &quot;accountId&quot;: &quot;db91b495-ac1a-4f42-85f4-3d3634d2608f&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/App.ripple" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3B2g4qAZ26RrppF0i1HrpeWwfpV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker..env-docker-compose.yml.svelte-app: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker..env.docker-compose.yml.svelte-app: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.svelte-app: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;bun&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Gjorg/Development/projects/SymphonicSMP/src/routes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Gjorg\\Development\\projects\\SymphonicSMP\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\routes" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\routes\content" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\lib\components" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\lib\apis" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\routes\c" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\routes\m" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\lib\components" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\lib\services" />
+      <recent name="C:\Users\Gjorg\Development\projects\SymphonicSMP\src\lib\assets" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Docker..env.docker-compose.yml.svelte-app: Compose Deployment">
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name=".env-docker-compose.yml.svelte-app: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="svelte-app" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value=".env-docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name=".env.docker-compose.yml.svelte-app: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="svelte-app" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value=".env.docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.svelte-app: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="svelte-app" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker..env.docker-compose.yml.svelte-app: Compose Deployment" />
+        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="Docker..env-docker-compose.yml.svelte-app: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml.svelte-app: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3bd3a6803838-JavaScript-WS-261.22158.274" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d1dd94f3-853f-4a0e-96db-5d3eb3b8f3f2" name="Changes" comment="" />
+      <created>1773692390910</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773692390910</updated>
+      <workItem from="1773692391964" duration="220000" />
+      <workItem from="1773692647558" duration="170000" />
+      <workItem from="1773692826694" duration="516000" />
+      <workItem from="1773693376276" duration="4895000" />
+      <workItem from="1773761266654" duration="27273000" />
+      <workItem from="1773863281753" duration="6101000" />
+      <workItem from="1773938834292" duration="11936000" />
+      <workItem from="1774016957226" duration="31321000" />
+      <workItem from="1774097088627" duration="931000" />
+      <workItem from="1774104461137" duration="4712000" />
+      <workItem from="1774468468766" duration="13241000" />
+      <workItem from="1774557416301" duration="17024000" />
+      <workItem from="1774641683245" duration="11405000" />
+      <workItem from="1774993665654" duration="9251000" />
+      <workItem from="1775055325284" duration="2847000" />
+      <workItem from="1775140857433" duration="17391000" />
+      <workItem from="1775564367503" duration="11400000" />
+      <workItem from="1775576634639" duration="8106000" />
+      <workItem from="1778097556453" duration="1084000" />
+      <workItem from="1778868495312" duration="70000" />
+    </task>
+    <task id="LOCAL-00044" summary="ALT: generalized content">
+      <option name="closed" value="true" />
+      <created>1774563883776</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1774563883776</updated>
+    </task>
+    <task id="LOCAL-00045" summary="ALT: page load optimizations">
+      <option name="closed" value="true" />
+      <created>1774567040178</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1774567040178</updated>
+    </task>
+    <task id="LOCAL-00046" summary="ADD: twitch vods">
+      <option name="closed" value="true" />
+      <created>1774569158310</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1774569158310</updated>
+    </task>
+    <task id="LOCAL-00047" summary="FIX: twitch vod duration">
+      <option name="closed" value="true" />
+      <created>1774569517844</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1774569517844</updated>
+    </task>
+    <task id="LOCAL-00048" summary="ADD: category icons">
+      <option name="closed" value="true" />
+      <created>1774570431071</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1774570431071</updated>
+    </task>
+    <task id="LOCAL-00049" summary="ALT: open links in blank pages">
+      <option name="closed" value="true" />
+      <created>1774571034623</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1774571034623</updated>
+    </task>
+    <task id="LOCAL-00050" summary="ADD: page and lazy loading">
+      <option name="closed" value="true" />
+      <created>1774574605216</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1774574605217</updated>
+    </task>
+    <task id="LOCAL-00051" summary="FIX: warning">
+      <option name="closed" value="true" />
+      <created>1774574675561</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1774574675561</updated>
+    </task>
+    <task id="LOCAL-00052" summary="FIX: livestreams">
+      <option name="closed" value="true" />
+      <created>1774642394736</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1774642394736</updated>
+    </task>
+    <task id="LOCAL-00053" summary="ALT: sort livestreams">
+      <option name="closed" value="true" />
+      <created>1774644095323</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1774644095323</updated>
+    </task>
+    <task id="LOCAL-00054" summary="FIX: short and vod type">
+      <option name="closed" value="true" />
+      <created>1774646235418</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1774646235418</updated>
+    </task>
+    <task id="LOCAL-00055" summary="ALT: disable shorts by default">
+      <option name="closed" value="true" />
+      <created>1774646317897</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1774646317897</updated>
+    </task>
+    <task id="LOCAL-00056" summary="ADD: relative time updates">
+      <option name="closed" value="true" />
+      <created>1774646645418</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1774646645418</updated>
+    </task>
+    <task id="LOCAL-00057" summary="ALT: allow half hours">
+      <option name="closed" value="true" />
+      <created>1774647327355</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1774647327355</updated>
+    </task>
+    <task id="LOCAL-00058" summary="ADD: clicking on discs in header">
+      <option name="closed" value="true" />
+      <created>1774648796041</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1774648796041</updated>
+    </task>
+    <task id="LOCAL-00059" summary="FIX: warnings">
+      <option name="closed" value="true" />
+      <created>1774648867792</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1774648867792</updated>
+    </task>
+    <task id="LOCAL-00060" summary="ALT: improved filters">
+      <option name="closed" value="true" />
+      <created>1774650339071</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1774650339071</updated>
+    </task>
+    <task id="LOCAL-00061" summary="ALT: scaling and mobile compat">
+      <option name="closed" value="true" />
+      <created>1774652102321</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1774652102321</updated>
+    </task>
+    <task id="LOCAL-00062" summary="DEL: unused libraries">
+      <option name="closed" value="true" />
+      <created>1774995103012</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1774995103013</updated>
+    </task>
+    <task id="LOCAL-00063" summary="ALT: cleaned up content filters">
+      <option name="closed" value="true" />
+      <created>1774996186425</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1774996186425</updated>
+    </task>
+    <task id="LOCAL-00064" summary="ADD: videos filter">
+      <option name="closed" value="true" />
+      <created>1774996903105</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1774996903105</updated>
+    </task>
+    <task id="LOCAL-00065" summary="FIX: VODs of ongoing streams showing">
+      <option name="closed" value="true" />
+      <created>1774997658859</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1774997658859</updated>
+    </task>
+    <task id="LOCAL-00066" summary="ADD: filter animations">
+      <option name="closed" value="true" />
+      <created>1774998083464</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1774998083464</updated>
+    </task>
+    <task id="LOCAL-00067" summary="ADD: store filters in local storage for persistence">
+      <option name="closed" value="true" />
+      <created>1774998854991</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1774998854991</updated>
+    </task>
+    <task id="LOCAL-00068" summary="FIX: layout loading warnings">
+      <option name="closed" value="true" />
+      <created>1774999522138</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1774999522138</updated>
+    </task>
+    <task id="LOCAL-00069" summary="ALT: optimized images using webp">
+      <option name="closed" value="true" />
+      <created>1775000086950</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1775000086950</updated>
+    </task>
+    <task id="LOCAL-00070" summary="ALT: improved loading of content thumbnails">
+      <option name="closed" value="true" />
+      <created>1775001066899</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1775001066899</updated>
+    </task>
+    <task id="LOCAL-00071" summary="ALT: split-off content tab">
+      <option name="closed" value="true" />
+      <created>1775145428567</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1775145428568</updated>
+    </task>
+    <task id="LOCAL-00072" summary="ALT: changed pigs name">
+      <option name="closed" value="true" />
+      <created>1775145462289</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1775145462289</updated>
+    </task>
+    <task id="LOCAL-00073" summary="ALT: changed panel title to be the whole header">
+      <option name="closed" value="true" />
+      <created>1775158712969</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1775158712969</updated>
+    </task>
+    <task id="LOCAL-00074" summary="ALT: split-off player panels">
+      <option name="closed" value="true" />
+      <created>1775159986526</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1775159986526</updated>
+    </task>
+    <task id="LOCAL-00075" summary="ALT: split-off links panel">
+      <option name="closed" value="true" />
+      <created>1775160556775</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1775160556775</updated>
+    </task>
+    <task id="LOCAL-00076" summary="FIX: content list">
+      <option name="closed" value="true" />
+      <created>1775162309286</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1775162309286</updated>
+    </task>
+    <task id="LOCAL-00077" summary="ALT: update deselect link to use dynamic URL parameters">
+      <option name="closed" value="true" />
+      <created>1775163951723</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1775163951723</updated>
+    </task>
+    <task id="LOCAL-00078" summary="ALT: update panels to use search params for mobile">
+      <option name="closed" value="true" />
+      <created>1775570717270</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1775570717270</updated>
+    </task>
+    <task id="LOCAL-00079" summary="ALT: made panel titles clickable">
+      <option name="closed" value="true" />
+      <created>1775570930325</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1775570930325</updated>
+    </task>
+    <task id="LOCAL-00080" summary="ALT: expanded width of internal overflow of symphonist and content lists">
+      <option name="closed" value="true" />
+      <created>1775571257659</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1775571257659</updated>
+    </task>
+    <task id="LOCAL-00081" summary="FIX: deselect using non-relative setdisc logic">
+      <option name="closed" value="true" />
+      <created>1775571465505</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1775571465505</updated>
+    </task>
+    <task id="LOCAL-00082" summary="ALT: allow index and single panels on desktop">
+      <option name="closed" value="true" />
+      <created>1775573152467</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1775573152467</updated>
+    </task>
+    <task id="LOCAL-00083" summary="ADD: deselect disc by clicking name in content subtitle">
+      <option name="closed" value="true" />
+      <created>1775573611778</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1775573611778</updated>
+    </task>
+    <task id="LOCAL-00084" summary="FIX: positioning of player profile on mobile">
+      <option name="closed" value="true" />
+      <created>1775573733555</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1775573733555</updated>
+    </task>
+    <task id="LOCAL-00085" summary="FIX: header logo not closing menu">
+      <option name="closed" value="true" />
+      <created>1775573954043</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1775573954043</updated>
+    </task>
+    <task id="LOCAL-00086" summary="ALT: show symphonist name in title and opengraph embed">
+      <option name="closed" value="true" />
+      <created>1775575073116</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1775575073116</updated>
+    </task>
+    <task id="LOCAL-00087" summary="ALT: shrunk the docker image by 4 times">
+      <option name="closed" value="true" />
+      <created>1775586584716</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1775586584717</updated>
+    </task>
+    <task id="LOCAL-00088" summary="ADD: code">
+      <option name="closed" value="true" />
+      <created>1775588855541</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1775588855541</updated>
+    </task>
+    <task id="LOCAL-00089" summary="ALT: implemented single-flight for fetching the twitch token">
+      <option name="closed" value="true" />
+      <created>1775589942255</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1775589942255</updated>
+    </task>
+    <task id="LOCAL-00090" summary="ALT: more readable service and api logging">
+      <option name="closed" value="true" />
+      <created>1775590602612</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1775590602612</updated>
+    </task>
+    <task id="LOCAL-00091" summary="FIX: time error">
+      <option name="closed" value="true" />
+      <created>1778097854000</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1778097854000</updated>
+    </task>
+    <task id="LOCAL-00092" summary="ALT: logo return to root">
+      <option name="closed" value="true" />
+      <created>1778098415408</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1778098415409</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="FIX: layout loading warnings" />
+    <MESSAGE value="ALT: optimized images using webp" />
+    <MESSAGE value="ALT: improved loading of content thumbnails" />
+    <MESSAGE value="ALT: split-off content tab" />
+    <MESSAGE value="ALT: changed pigs name" />
+    <MESSAGE value="ALT: changed panel title to be the whole header" />
+    <MESSAGE value="ALT: split-off player panels" />
+    <MESSAGE value="ALT: split-off links panel" />
+    <MESSAGE value="FIX: content list" />
+    <MESSAGE value="ALT: update deselect link to use dynamic URL parameters" />
+    <MESSAGE value="ALT: update panels to use search params for mobile" />
+    <MESSAGE value="ALT: made panel titles clickable" />
+    <MESSAGE value="ALT: expanded width of internal overflow of symphonist and content lists" />
+    <MESSAGE value="FIX: deselect using non-relative setdisc logic" />
+    <MESSAGE value="ALT: allow index and single panels on desktop" />
+    <MESSAGE value="ADD: deselect disc by clicking name in content subtitle" />
+    <MESSAGE value="FIX: positioning of player profile on mobile" />
+    <MESSAGE value="FIX: header logo not closing menu" />
+    <MESSAGE value="ALT: show symphonist name in title and opengraph embed" />
+    <MESSAGE value="ALT: shrunk the docker image by 4 times" />
+    <MESSAGE value="ADD: code" />
+    <MESSAGE value="ALT: implemented single-flight for fetching the twitch token" />
+    <MESSAGE value="ALT: more readable service and api logging" />
+    <MESSAGE value="FIX: time error" />
+    <MESSAGE value="ALT: logo return to root" />
+    <option name="LAST_COMMIT_MESSAGE" value="ALT: logo return to root" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
