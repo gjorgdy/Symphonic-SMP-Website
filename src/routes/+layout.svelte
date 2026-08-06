@@ -40,10 +40,12 @@
 	<div class="not-md:fixed z-40 h-16 md:my-2 w-300 not-md:max-w-[98dvw] max-w-[96dvw] flex items-center justify-center">
 		<div class="relative h-full max-h-full rounded-lg bg-[#1e1e1e] not-md:drop-shadow-xl/30 overflow-hidden">
 			<div class="flex flex-row items-center h-full min-w-600 md:min-w-1000 w-[200dvw] scroll">
-				{#each data.discs as disc}
-					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={async () => await setDisc(disc)}>
-						<img class="h-10 m-8 aspect-square grow text-white/0" src={"/assets/discs/" + disc + ".webp"} alt="Disc {disc}"/>
-					</button>
+			    {#each {length: 3} as _, j (j)}
+    				{#each data.discs as disc, i (i)}
+    					<button type="button" class="flex justify-center cursor-pointer hover:scale-115 transition-transform" onclick={async () => await setDisc(disc)}>
+    						<img class="h-10 m-8 aspect-square grow text-white/0" src={"/assets/discs/" + disc + ".webp"} alt="Disc {disc}"/>
+    					</button>
+    				{/each}
 				{/each}
 			</div>
 			<div class="md:hidden absolute flex flex-row justify-end items-center w-full h-full -translate-y-full">
