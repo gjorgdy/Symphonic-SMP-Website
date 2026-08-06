@@ -11,6 +11,15 @@ const config = {
 	vitePlugin: {
 		dynamicCompileOptions: ({ filename }) =>
 			filename.includes('node_modules') ? undefined : { runes: true }
+	},
+	onwarn: (warning, handler) => {
+		const { code } = warning;
+		// console.log(code); // <= uncomment to check other warnings
+		if (code === "css_unused_selector")
+			return;
+		if (code === "no-navigation-without-resolve")
+			return;
+		handler(warning);
 	}
 };
 

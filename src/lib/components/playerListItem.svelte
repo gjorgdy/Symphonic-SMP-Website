@@ -42,19 +42,26 @@
                 <i class="hn hn-globe"></i>
             </span>
         {/if}
+        <a aria-label="NameMc link"
+           href="https://namemc.com/profile/{player?.minecraft_name}"
+           target="_blank"
+           class="flex items-center justify-center text-gray-100 hover:text-red-300 transition-colors float-end"
+        >
+            N
+        </a>
         {#if player?.youtube_user_id != null}
             <a aria-label="YouTube link"
                href="https://www.youtube.com/channel/{player?.youtube_user_id}"
                target="_blank"
-               class={"flex items-center justify-center text-gray-100 hover:text-red-300 transition-colors float-end"}>
+               class="flex items-center justify-center text-gray-100 hover:text-red-300 transition-colors float-end">
                 <i class="hn hn-youtube"></i>
             </a>
         {/if}
         {#if player?.twitch_url != null}
             <a aria-label="Twitch link"
-               href="{player?.twitch_url}"
+               href={player?.twitch_url}
                target="_blank"
-               class={"flex items-center justify-center text-gray-100 hover:text-purple-300 transition-colors float-end"}>
+               class="flex items-center justify-center text-gray-100 hover:text-purple-300 transition-colors float-end">
                 <i class="hn hn-twitch"></i>
             </a>
         {/if}
