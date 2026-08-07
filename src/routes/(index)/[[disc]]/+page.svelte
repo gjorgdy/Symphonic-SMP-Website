@@ -8,6 +8,7 @@
     import { readable } from 'svelte/store';
     import {twMerge} from "tailwind-merge";
 	import PlayerDescription from "$lib/components/playerDescription.svelte";
+	import { titleCase } from "$lib/utils/textUtils.js";
 
     const { data, params } = $props();
 
@@ -32,18 +33,18 @@
     })
 
     const index = $derived.by(() => $isDesktop && !data.panel);
-	const title = $derived.by(() =>
-		"Symphonic SMP" + (data.selectedPlayer ? (" | " + data.selectedPlayer.nickname) : "")
-	);
 
 	const playerImage = $derived.by(() => data.selectedPlayer ? `https://mc-heads.net/avatar/${data.selectedPlayer.minecraft_uuid}` : data.favicon);
 	const discImage = $derived.by(() => "/assets/discs/" + (params.disc ?? data.favicon) + ".webp");
+
+	const openGraphPrefix = $derived.by(() => data.playerUrl ? "Symphonist | " : "Disc | ");
+	const pageTitle = $derived.by(() => data.playerUrl ? data.selectedPlayer?.nickname : titleCase(params.disc!));
 </script>
 
 <svelte:head>
 	<link rel="icon" href={data.playerUrl ? playerImage : discImage} />
 	<meta name="darkreader-lock" content="true" />
-	<meta property="og:title" content={data.selectedPlayer ? "Symphonist | " + data.selectedPlayer.nickname : "Symphonic SMP"} />
+	<meta property="og:title" content={data.selectedPlayer ? openGraphPrefix + pageTitle : "Symphonic SMP"}/>
 	<meta name="keywords" content="Minecraft, Survival, SMP, Community, Music" />
 	<meta name="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great small creators">
 	<meta property="description" content="The Symphonic SMP is a music inspired Minecraft server with a lot of great small creators" />
@@ -53,7 +54,7 @@
 	<meta property="og:url" content={data.disc ? `https://symphonicsmp.net/${data.disc}` : "https://symphonicsmp.net/"} />
 	<meta property="og:site_name" content="Symphonic SMP" />
 	<meta property="og:locale" content="en_US" />
-	<title>{title}</title>
+	<title>Symphonic SMP {data.selectedPlayer ? "| " + pageTitle : ""}</title>
 </svelte:head>
 
 <div class={twMerge("h-full not-md:pb-[2dvw] gap-4 md:overflow-hidden", index ? "md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr]" : "")}>

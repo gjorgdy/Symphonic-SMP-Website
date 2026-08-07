@@ -11,21 +11,21 @@
     }
     let { player, selected }: PlayerProps = $props();
 
-    const showSkin = $derived.by(() => selected === undefined && player?.profile_picture_url != null);
+    const isButton = $derived.by(() => selected === undefined && player?.profile_picture_url != null);
 </script>
 
 <div class="flex flex-row items-center justify-between gap-4 w-full">
     <button
         type="submit"
-        onclick={() => {if (showSkin) {goto(resolve(`/${player?.disc}`))} else {goto(resolve(`/${flatten(player?.nickname)}`))}}}
-        class="flex flex-row grow items-center gap-2 cursor-pointer group"
+        onclick={() => {if (isButton) {goto(resolve(`/${flatten(player?.nickname)}`))}}}
+        class="flex flex-row grow items-center gap-2 {isButton ? 'cursor-pointer' : ''} group"
     >
         <!--    Profile Picture    -->
         <div class="relative rounded-sm h-10 w-10 aspect-square bg-white/1 border-white/5 border overflow-hidden">
             {#if player == null}
                 <div class="absolute h-full w-full bg-[#444444] animate-pulse"></div>
             {:else}
-                {#if showSkin}
+                {#if isButton}
                     <img loading="lazy" class="absolute top-0 h-full w-full rotate-y-0 group-hover:-rotate-y-90 transition-transform" src="https://mc-heads.net/avatar/{player.minecraft_uuid}" alt="">
                     <img loading="lazy" class="absolute top-0 h-full w-full ml-px transition-transform rotate-y-90 group-hover:rotate-y-0" src={"/assets/discs/" + player.disc + ".webp"} alt="">
                 {:else}
@@ -35,8 +35,8 @@
         </div>
         <!--    Name    -->
         <span class="flex flex-col items-start justify-between">
-            <span class="group-hover:text-gray-400 transition-colors -mt-1">{player?.nickname ?? "-"}</span>
-            <span class="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">{player?.minecraft_name ?? "-"}</span>
+            <span class="{isButton ? 'group-hover:text-gray-400' : ''} transition-colors -mt-1">{player?.nickname ?? "-"}</span>
+            <span class="text-xs text-gray-600 {isButton ? 'group-hover:text-gray-700' : ''} transition-colors">{player?.minecraft_name ?? "-"}</span>
         </span>
     </button>
     <div class="flex gap-4 h-full text-xl flex-row-reverse">

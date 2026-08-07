@@ -5,3 +5,7 @@ export function flatten(str: string|undefined): string {
 export function isEqualFlattened(str1: string, str2: string): boolean {
     return flatten(str1) === flatten(str2);
 }
+
+export function titleCase(str: string): string {
+    return str.replaceAll(/-/g, " ").replaceAll(/\b\w/g, (match) => match.toUpperCase());
+}
