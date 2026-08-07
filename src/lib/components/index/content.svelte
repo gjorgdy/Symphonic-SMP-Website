@@ -51,12 +51,11 @@
     const formatLabel = (str: string) => str.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
 </script>
 
-<Panel class={twMerge("min-h-0 flex flex-col h-fit md:self-start md:max-h-full px-1", classes)}>
+<Panel class={twMerge("min-h-0 flex flex-col md:self-start md:max-h-full py-4", classes)}>
     {#await player then player}
         <PanelHeader
             title="Content"
             subtitle={player ? "by " + player?.nickname : undefined}
-            panelName="content"
             class="px-3"
         >
             <span class="shrink flex md:justify-end items-center float-end gap-4 not-md:w-full flex-wrap w-fit">

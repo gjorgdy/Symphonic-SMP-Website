@@ -8,6 +8,6 @@
     let { class: classes, children }: PanelProps = $props();
 </script>
 
-<div class={twMerge("rounded-xl bg-[#1e1e1e] p-4 min-h-0 md:overflow-hidden", classes)}>
+<div class={twMerge("break-inside-avoid rounded-xl bg-[#1e1e1e] p-1", classes)}>
     {@render children()}
 </div>

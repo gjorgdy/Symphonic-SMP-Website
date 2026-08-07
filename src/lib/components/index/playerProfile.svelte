@@ -20,13 +20,8 @@
 </script>
 
 <Panel class={twMerge("overflow-hidden flex flex-col h-fit", classes)}>
-    <PanelHeader title="Symphonist" panelName="symphonists" class="flex-row">
-        <button
-            class="hover:text-gray-500 text-gray-400 transition-colors italic h-min mt-auto cursor-pointer"
-            onclick={() => goto(resolve("/"))}
-        >deselect</button>
-    </PanelHeader>
-    <div class="flex flex-col gap-4 md:pt-0 h-full min-h-0">
+    <PanelHeader title="Symphonist" actionText="back to list" action={() => goto(resolve("/"))} class="flex-row p-3 pb-0"/>
+    <div class="flex flex-col gap-4 md:pt-0 h-full min-h-0 p-3">
         {#await selectedPlayer}
             <div class="w-full min-h-0 aspect-square">
                 <div class="h-full border-white/5 bg-white/1 border rounded-sm"></div>

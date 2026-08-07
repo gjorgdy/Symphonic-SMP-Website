@@ -10,21 +10,21 @@
         class?: string;
     }
     let { players, class: classes }: PlayerListProps = $props();
+
+    let collapsed = $state(true);
 </script>
 
-<Panel class={twMerge("overflow-hidden flex flex-col px-1", classes)}>
-    <PanelHeader title="Symphonists" panelName="symphonists" class="px-3"/>
-    <div class="md:row-start-2 flex flex-col gap-4 bg-[#1e1e1e] min-h-0 md:overflow-hidden">
-        <div class="flex flex-col gap-4 px-3 h-full min-h-0 md:overflow-y-auto">
-            {#await players}
-                {#each {length: 20} as _, i (i)}
-                    <PlayerListItem/>
-                {/each}
-            {:then players}
-                {#each players as player (player.disc)}
-                    <PlayerListItem {player}/>
-                {/each}
-            {/await}
-        </div>
+<Panel class={twMerge("flex flex-col py-4", classes)}>
+    <PanelHeader bind:collapsed title="Symphonists" class="px-3"/>
+    <div class="grid grid-cols-1 gap-4 px-3 md:overflow-scroll {collapsed ? 'not-md:h-0 not-md:overflow-hidden' : ''}">
+        {#await players}
+            {#each {length: 20} as _, i (i)}
+                <PlayerListItem/>
+            {/each}
+        {:then players}
+            {#each players as player (player.disc)}
+                <PlayerListItem {player}/>
+            {/each}
+        {/await}
     </div>
 </Panel>

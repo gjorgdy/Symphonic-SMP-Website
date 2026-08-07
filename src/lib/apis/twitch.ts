@@ -138,13 +138,19 @@ export class TwitchAPI {
     public async fetchLiveStreams(channelIds: string[]): Promise<Livestream[]> {
         console.log("[VER] Fetching Twitch livestreams");
 
-        const response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_id=`+id).join('&')}`, {
+        let response: Response|undefined = undefined;
+        try{
+            response = await fetch(`https://api.twitch.tv/helix/streams?${channelIds.map(id => `user_id=`+id).join('&')}`, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + (await this.getToken()).access_token,
                 "Client-Id": env.TWITCH_CLIENT_ID
             }
         });
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
         const streams: TwitchStream[] = (await response.json()).data;
         return streams.map((stream): Livestream => {
             return {

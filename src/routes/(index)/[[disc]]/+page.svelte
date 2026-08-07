@@ -5,34 +5,17 @@
     import Links from "$lib/components/index/links.svelte";
     import type {PlayerDisplay} from "$lib/models/player";
     import {registeredPlayers} from "$lib/data/registeredPlayers";
-    import { readable } from 'svelte/store';
     import {twMerge} from "tailwind-merge";
 	import PlayerDescription from "$lib/components/playerDescription.svelte";
 	import { titleCase } from "$lib/utils/textUtils.js";
 
     const { data, params } = $props();
 
-    const activePanel = $derived.by(() => data.panel ?? "content");
-
-    type ChangeEventHandler = (this:MediaQueryList, ev: MediaQueryListEvent) => void;
-
-    const isDesktop = readable(false, (set) => {
-        if (typeof window === 'undefined') return;
-        const query = window.matchMedia('(min-width: 768px)');
-        // Set the initial value
-        set(query.matches);
-        const handler: ChangeEventHandler = (e) => set(e.matches);
-        query.addEventListener('change', handler);
-        return () => query.removeEventListener('change', handler);
-    });
-
     const selectedPlayerDisplay = $derived.by(async () =>{
       const disc = data.disc;
       const players = await data.players;
       return players.find((p: PlayerDisplay) => p.disc === disc);
     })
-
-    const index = $derived.by(() => $isDesktop && !data.panel);
 
 	const playerImage = $derived.by(() => data.selectedPlayer ? `https://mc-heads.net/avatar/${data.selectedPlayer.minecraft_uuid}` : data.favicon);
 	const discImage = $derived.by(() => "/assets/discs/" + (params.disc ?? data.favicon) + ".webp");
@@ -57,35 +40,28 @@
 	<title>Symphonic SMP {data.selectedPlayer ? "| " + pageTitle : ""}</title>
 </svelte:head>
 
-<div class={twMerge("h-full not-md:pb-[2dvw] gap-4 md:overflow-hidden", index ? "md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_1fr]" : "")}>
-    {#if index || activePanel === "links"}
-        <Links/>
-    {/if}
-
-    {#if index || activePanel === "content"}
-        <Content
-            class="md:row-span-2"
-            player={selectedPlayerDisplay}
-            content={data.content}
+<div class={twMerge("h-full min-h-0 not-md:pb-[2dvw] gap-2 md:gap-4 flex flex-col md:grid md:grid-cols-[1fr_2fr] md:grid-rows-[auto_auto_1fr]")}>
+    <!-- Sidebar -->
+    <Links class="md:col-start-1"/>
+    {#if data.disc == null || registeredPlayers[data.disc] == null}
+        <PlayerList
+            class="md:col-start-1 md:row-start-2 md:row-span-2"
+            players={data.players}
+        />
+    {:else}
+        <PlayerProfile
+            class="md:col-start-1 md:row-start-2"
+            selectedPlayer={selectedPlayerDisplay}
+        />
+        <PlayerDescription
+            class="not-md:grow md:col-start-1 md:row-start-3"
+            selectedPlayer={selectedPlayerDisplay}
         />
     {/if}
-
-    {#if index || activePanel === "symphonists"}
-        {#if data.disc == null || registeredPlayers[data.disc] == null}
-            <PlayerList
-                class="md:row-start-2"
-                players={data.players}
-            />
-        {:else}
-            <div class="flex flex-col gap-4">
-                <PlayerProfile
-                    class="md:row-start-2"
-                    selectedPlayer={selectedPlayerDisplay}
-                />
-                <PlayerDescription
-                    selectedPlayer={selectedPlayerDisplay}
-                />
-            </div>
-        {/if}
-    {/if}
+    <!-- Content -->
+    <Content
+        class="h-min md:row-span-3 md:row-start-1"
+        player={selectedPlayerDisplay}
+        content={data.content}
+    />
 </div>

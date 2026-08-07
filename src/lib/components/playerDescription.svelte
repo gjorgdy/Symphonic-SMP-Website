@@ -16,20 +16,15 @@
             console.log(player?.youtube_channel);
         });
     });
+
+    let collapsed = $state(true);
 </script>
 
 {#await selectedPlayer then player}
     {#if player?.youtube_channel && player.youtube_channel.description !== ""}
-        <Panel class={twMerge("overflow-hidden flex flex-col h-fit", classes)}>
-            <PanelHeader title="About" panelName="symphonists" class="flex-row">
-                <a
-                    href="https://www.youtube.com/channel/{player?.youtube_user_id}"
-                    class="hover:text-gray-500 text-gray-400 transition-colors italic h-min mt-auto cursor-pointer"
-                >
-                    from YouTube
-                </a>
-            </PanelHeader>
-            <div class="flex flex-col gap-4 md:pt-0 h-full min-h-0">
+        <Panel class={twMerge("flex flex-col h-fit py-4", classes)}>
+            <PanelHeader bind:collapsed title="About" actionText="from YouTube" href="https://www.youtube.com/channel/{player?.youtube_user_id}" class="flex-row px-3"/>
+            <div class="overflow-scroll flex flex-col gap-4 md:pt-0 h-full min-h-0 px-3 {collapsed ? "not-md:h-0 not-md:overflow-hidden" : ""}">
                 {player.youtube_channel.description}
             </div>
         </Panel>
