@@ -1,4 +1,5 @@
 import type { Player } from '$lib/models/player';
+import { isEqualFlattened } from '$lib/utils/textUtils';
 
 export const registeredPlayers: Record<string, Player> = {
 	// 1
@@ -148,7 +149,7 @@ export function getRegisteredPlayer(disc: string): Player | undefined {
 
 export function getRegisteredPlayerByNickname(nickname: string): Player | undefined {
   for (const [disc, player] of Object.entries(registeredPlayers)) {
-    if (player.nickname.toLowerCase().replaceAll(' ', '_') === nickname.toLowerCase()) {
+    if (isEqualFlattened(player.nickname, nickname)) {
       player.disc = disc;
       return player;
     }

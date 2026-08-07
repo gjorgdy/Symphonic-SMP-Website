@@ -3,6 +3,7 @@
     import { resolve } from "$app/paths";
     import type {PlayerDisplay} from "$lib/models/player";
     import namemc from "$lib/assets/namemc.svg";
+	import { flatten } from "$lib/utils/textUtils";
 
     type PlayerProps = {
         player?: PlayerDisplay;
@@ -16,7 +17,7 @@
 <div class="flex flex-row items-center justify-between gap-4 w-full">
     <button
         type="submit"
-        onclick={() => {if (showSkin) {goto(resolve(`/${player?.disc}`))} else {goto(resolve(`/${player?.nickname.toLowerCase().replaceAll(" ", "_")}`))}}}
+        onclick={() => {if (showSkin) {goto(resolve(`/${player?.disc}`))} else {goto(resolve(`/${flatten(player?.nickname)}`))}}}
         class="flex flex-row grow items-center gap-2 cursor-pointer group"
     >
         <!--    Profile Picture    -->
