@@ -15,9 +15,9 @@
 
 <div class="flex flex-row items-center justify-between gap-4 w-full">
     <button
-            type="submit"
-            onclick={() => {if (showSkin) goto(resolve(`/${player?.disc}`))}}
-            class={"flex flex-row grow items-center gap-2 " + (showSkin ? "cursor-pointer group" : "")}
+        type="submit"
+        onclick={() => {if (showSkin) {goto(resolve(`/${player?.disc}`))} else {goto(resolve(`/${player?.nickname.toLowerCase().replaceAll(" ", "_")}`))}}}
+        class="flex flex-row grow items-center gap-2 cursor-pointer group"
     >
         <!--    Profile Picture    -->
         <div class="relative rounded-sm h-10 w-10 aspect-square bg-white/1 border-white/5 border overflow-hidden">
@@ -33,8 +33,8 @@
             {/if}
         </div>
         <!--    Name    -->
-        <span class="flex flex-col items-start gap-1">
-            <span class="group-hover:text-gray-400 transition-colors">{player?.nickname ?? "-"}</span>
+        <span class="flex flex-col items-start justify-between">
+            <span class="group-hover:text-gray-400 transition-colors -mt-1">{player?.nickname ?? "-"}</span>
             <span class="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">{player?.minecraft_name ?? "-"}</span>
         </span>
     </button>
