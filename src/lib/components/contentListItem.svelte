@@ -5,8 +5,9 @@
 
     type VideoProps = {
         content?: Content
+        youtubeId: string|undefined;
     }
-    let { content }: VideoProps = $props();
+    let { content, youtubeId = $bindable() }: VideoProps = $props();
 
     // Trigger a re-render every minute so relative time text stays fresh.
     let minuteTick = $state(Date.now());
@@ -25,12 +26,13 @@
         return TimeUtils.getRelativeTimeAgo(date);
     };
 
+    let isYoutube = $derived.by(() => content?.url.includes("youtube"));
     let loadedImage = $state(false);
 </script>
 
 <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4 w-full h-fit">
-    <a class="relative group aspect-video" href="{content?.url}" target="_blank">
-        <div class="absolute h-full w-full opacity-0 group-hover:opacity-30 transition-opacity bg-black rounded-sm"></div>
+    <button class="relative group aspect-video {isYoutube ? "cursor-pointer" : ""}" onclick={() => {if (isYoutube) youtubeId = content?.url.split("v=")[1]}}>
+        <div class="absolute h-full w-full opacity-0 transition-opacity bg-black rounded-sm z-10 {isYoutube ? "group-hover:opacity-30" : ""}"></div>
         {#if content === undefined}
             <div class="w-full md:min-w-64 aspect-video bg-[#444444] animate-pulse rounded-sm"></div>
         {:else}
@@ -41,6 +43,9 @@
                 alt="thumbnail for {content?.title}"
                 onload={() => loadedImage = true}
             >
+            <span class="absolute h-full w-full z-10 left-0 top-0 flex flex-row gap-1 items-center justify-center opacity-0 transition-opacity {isYoutube ? "hover:opacity-100": ""}">
+                <i class="hn hn-play-solid text-sm"></i> Play Video here
+            </span>
             <span class="absolute flex flex-row items-center gap-1 z-10 bottom-0.5 right-0.5 text-xs text-bold text-gray-100 bg-black/50 p-0.5 px-1 rounded-xs">
                 {#if !content.symphonic}
                     <i class="hn hn-sparkles-solid"></i>
@@ -60,7 +65,7 @@
                 {/if}
             </span>
         {/if}
-    </a>
+    </button>
     <div class="relative flex flex-col gap-2 justify-between h-full">
         <div class="flex flex-col gap-2">
             <a

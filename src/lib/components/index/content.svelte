@@ -43,9 +43,10 @@
     type ContentProps = {
         content: Promise<ContentCollection>;
         player: Promise<PlayerDisplay | undefined>;
+        youtubeId: string|undefined;
         class?: string;
     }
-    let { content, player, class: classes }: ContentProps = $props();
+    let { content, player, youtubeId = $bindable(), class: classes }: ContentProps = $props();
 
     const filterKeys = $derived.by(() => Object.keys(filters) as (keyof Filters)[]);
     const formatLabel = (str: string) => str.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
@@ -78,17 +79,17 @@
     <div class="w-full min-h-0 max-h-full flex flex-col px-3 gap-4 overflow-y-auto">
         {#await content}
             {#each {length: 20} as _, i (i)}
-                <ContentListItem/>
+                <ContentListItem bind:youtubeId/>
             {/each}
         {:then content}
             {#await player then player}
                 {@const filteredLivestreams = ContentUtils.filterLivestreams(content.livestreams, filters, player?.disc)}
                 {@const filteredVideos = ContentUtils.filterVideos(content.videos, filters, player?.disc)}
                 {#each filteredLivestreams as livestream, i (i)}
-                    <ContentListItem content={livestream}/>
+                    <ContentListItem bind:youtubeId content={livestream}/>
                 {/each}
                 {#each filteredVideos as video, i (i)}
-                    <ContentListItem content={video}/>
+                    <ContentListItem bind:youtubeId content={video}/>
                 {/each}
                 {#if filteredLivestreams.length === 0 && filteredVideos.length === 0}
                     <p class="italic">Could not find any content :(</p>
