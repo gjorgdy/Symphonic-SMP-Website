@@ -25,7 +25,7 @@
 	const openGraphPrefix = $derived.by(() => data.playerUrl ? "Symphonist | " : "Disc | ");
 	const pageTitle = $derived.by(() => data.playerUrl ? data.selectedPlayer?.nickname : titleCase(params.disc!));
 
-	let youtubeId: string|undefined = $state("8MDZhoScK3w");
+	let youtubeId: string|undefined = $state(undefined);
 </script>
 
 <svelte:head>
