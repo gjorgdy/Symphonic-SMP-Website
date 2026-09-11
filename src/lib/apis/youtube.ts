@@ -62,6 +62,10 @@ export class YouTubeAPI {
         return TimeUtils.formatDuration(isoDuration, /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     }
 
+    static isLongerThanAnHour(isoDuration: string): boolean {
+      return TimeUtils.isLongerThanAnHour(isoDuration, /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    }
+
     static async fetchLatestVideos(channelId: string): Promise<Video[]> {
         console.log("[VER] Fetching YouTube videos for " + channelId);
 
@@ -76,7 +80,7 @@ export class YouTubeAPI {
                     if (shortIds.includes(video.id)) {
                         return YouTubeAPI.toShortObject(video);
                     }
-                    return video.snippet.liveBroadcastContent != "none" || video.liveStreamingDetails !== undefined
+                    return (video.snippet.liveBroadcastContent != "none" || video.liveStreamingDetails !== undefined) && YouTubeAPI.isLongerThanAnHour(video.contentDetails.duration)
                         ? YouTubeAPI.toVodObject(video)
                         : YouTubeAPI.toLongFormVideoObject(video);
                 });

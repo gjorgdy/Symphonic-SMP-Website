@@ -82,6 +82,14 @@ export class TimeUtils {
         } else {
             return `${paddedMinutes}:${paddedSeconds}`;
         }
-    }
+  }
+
+  static isLongerThanAnHour(isoDuration: string, timestampRegex: RegExp): boolean {
+    if (!isoDuration) return false;
+    const match = isoDuration.match(timestampRegex);
+    if (!match) return false;
+
+    return parseInt(match[1] || '0', 10) > 0;
+  }
 
 }
