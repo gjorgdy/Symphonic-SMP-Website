@@ -136,8 +136,15 @@ export const registeredPlayers: Record<string, Player> = {
 		minecraft_uuid: '0ae2a0d9-2e5a-4139-bfa2-b12978e90fa2',
 		youtube_user_id: 'UC8D7amKVwviDtMPYjficUUA',
 		twitch_user_id: '646087429'
+	},
+	// 21
+	bounce: {
+		nickname: 'Gambito',
+		minecraft_uuid: '23b0611e-02c1-4d96-b7e7-2ebc4fb23ce7',
+		youtube_user_id: 'UCasNYMoMXegU3LpiTop1onQ',
+		twitch_user_id: '866775517'
 	}
-	// // 21
+	// // 22
 	// "lava chicken": {
 	//     nickname: "Chicken",
 	// }

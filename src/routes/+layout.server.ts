@@ -58,7 +58,7 @@ export const load: LayoutServerLoad = ({ url, cookies, params }) => {
 
 	if (selectedPlayer) {
 		favicon = disc;
-		discs = Array.from({ length: 20 }, () => disc!);
+		discs = Array.from({ length: 21 }, () => disc!);
 	} else {
 		discs = getRegisteredDiscs();
 		favicon = discs[Math.floor(Math.random() * discs.length)];
